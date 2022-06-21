@@ -1,0 +1,180 @@
+{
+  "RegisterList": [
+    {
+      "Index": 0,
+      "Address": 0,
+      "Alias": "Состояние канала реле K1 (0 - выключен, 1 - включен)",
+      "ReadFunction": 1,
+      "RegisterType": 255,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 1,
+      "Address": 1,
+      "Alias": "Состояние канала реле K2 (0 - выключен, 1 - включен)",
+      "ReadFunction": 1,
+      "RegisterType": 255,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 2,
+      "Address": 2,
+      "Alias": "Состояние канала реле K3 (0 - выключен, 1 - включен)",
+      "ReadFunction": 1,
+      "RegisterType": 255,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 3,
+      "Address": 3,
+      "Alias": "Состояние канала реле K4 (0 - выключен, 1 - включен)",
+      "ReadFunction": 1,
+      "RegisterType": 255,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 4,
+      "Address": 4,
+      "Alias": "Состояние канала реле K5 (0 - выключен, 1 - включен)",
+      "ReadFunction": 1,
+      "RegisterType": 255,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 5,
+      "Address": 5,
+      "Alias": "Состояние канала реле K6 (0 - выключен, 1 - включен)",
+      "ReadFunction": 1,
+      "RegisterType": 255,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 6,
+      "Address": 6,
+      "Alias": "Режим работы реле при отключении питания (0 - не восстанавливать состояние, 1 - восстанавливать состояние)",
+      "ReadFunction": 3,
+      "RegisterType": 3,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 7,
+      "Address": 8,
+      "Alias": "Таймаут для безопасного режима при пропадании связи по Modbus (с)",
+      "ReadFunction": 3,
+      "RegisterType": 3,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 8,
+      "Address": 104,
+      "Alias": "Время работы с момента загрузки (с)",
+      "ReadFunction": 4,
+      "RegisterType": 5,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": true
+    },
+    {
+      "Index": 9,
+      "Address": 110,
+      "Alias": "Скорость порта RS-485 (бит/с)",
+      "ReadFunction": 3,
+      "RegisterType": 3,
+      "Multiplier": 100.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 10,
+      "Address": 111,
+      "Alias": "Настройка бита чётности порта RS-485 (0 - нет, 1 - нечетный, 2 - четный)",
+      "ReadFunction": 3,
+      "RegisterType": 3,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 11,
+      "Address": 112,
+      "Alias": "Количество стоп-битов порта RS-485",
+      "ReadFunction": 3,
+      "RegisterType": 3,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 12,
+      "Address": 121,
+      "Alias": "Текущее напряжение питания (В)",
+      "ReadFunction": 3,
+      "RegisterType": 3,
+      "Multiplier": 0.001,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": true
+    },
+    {
+      "Index": 13,
+      "Address": 128,
+      "Alias": "Modbus-адрес устройства (1 - 247)",
+      "ReadFunction": 3,
+      "RegisterType": 3,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": false
+    },
+    {
+      "Index": 14,
+      "Address": 270,
+      "Alias": "Серийный номер",
+      "ReadFunction": 3,
+      "RegisterType": 5,
+      "Multiplier": 1.0,
+      "Offset": 0.0,
+      "DecimalPositions": 0,
+      "ReadOnly": true
+    }
+  ],
+  "ConnectionType": 1,
+  "IPAddress": "",
+  "TCPPort": 502,
+  "SerialPort": "COM4",
+  "BaudRate": 9600,
+  "DataBits": 8,
+  "Parity": 0,
+  "StopBits": 2,
+  "SlaveId": 78,
+  "Timeout": 500,
+  "PollingFrequency": 1000
+}

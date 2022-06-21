@@ -1,0 +1,1 @@
+Как пользоваться: https://wirenboard.com/wiki/Working_with_WB_devices_without_a_controller
