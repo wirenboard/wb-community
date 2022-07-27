@@ -1,25 +1,9 @@
-/*
-Script for assigning actions to press counters.
+// Module for assigning actions to press counters.
 
-btnControl — button topic. Usually use Input press counters.
-stateControl — button state topic, for inc/dec only. It is necessary to determine the moment when you released the button.
-actionControl — the topic that we will change
-actionType — action type: on | off | toggle | inc | dec
-*/
+var incInterval = 75; //ms
+var decInterval = 75; //ms
 
-incInterval = 75; //ms
-decInterval = 75; //ms
-commands = [
-  { btnControl: "wb-mcm8_20/Input 1 Single Press Counter", actionControl: "wb-mdm3_58/K1", actionType: "on" },
-  { btnControl: "wb-mcm8_20/Input 1 Double Press Counter", actionControl: "wb-mdm3_58/K1", actionType: "off" },
-  { btnControl: "wb-mcm8_20/Input 1 Long Press Counter", stateControl: "wb-mcm8_20/Input 1", actionControl: "wb-mdm3_58/Channel 1", actionType: "inc" },
-  { btnControl: "wb-mcm8_20/Input 1 Shortlong Press Counter", stateControl: "wb-mcm8_20/Input 1", actionControl: "wb-mdm3_58/Channel 1", actionType: "dec" },
-];
-
-//Do not change the lines below
-init()
-
-function init() {
+function init(commands) {
   commands.forEach(function (item, i, arr) {
     addAction(item.btnControl, item.stateControl, item.actionControl, item.actionType)
   });
@@ -132,3 +116,9 @@ function initActionDec(btnControl, stateControl, actionControl) {
     }
   });
 }
+
+exports.incInterval = incInterval;
+exports.decInterval = decInterval;
+exports.init = function (commands) {
+  init(commands);
+};
