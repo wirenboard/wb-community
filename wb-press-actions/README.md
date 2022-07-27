@@ -1,4 +1,4 @@
-The wb-rules module for assigning actions to click counters.
+The wb-rules module for assigning actions to press counters.
 
 Copy the file to install `module/wb-press-actions.js` on controller to folder `/etc/wb-rules-modules/` and restart wb-rules `systemctl restart wb-rules`.
 
