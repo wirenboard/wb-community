@@ -10,22 +10,22 @@ actionType — action type: on | off | toggle | inc | dec
 incInterval = 75; //ms
 decInterval = 75; //ms
 commands = [
-  {btnControl:"wb-mcm8_20/Input 1 Single Press Counter", actionControl:"wb-mdm3_58/K1", actionType:"on"},
-  {btnControl:"wb-mcm8_20/Input 1 Double Press Counter", actionControl:"wb-mdm3_58/K1", actionType:"off"},
-  {btnControl:"wb-mcm8_20/Input 1 Long Press Counter", stateControl:"wb-mcm8_20/Input 1", actionControl:"wb-mdm3_58/Channel 1", actionType:"inc"},
-  {btnControl:"wb-mcm8_20/Input 1 Shortlong Press Counter", stateControl:"wb-mcm8_20/Input 1", actionControl:"wb-mdm3_58/Channel 1", actionType:"dec"},
+  { btnControl: "wb-mcm8_20/Input 1 Single Press Counter", actionControl: "wb-mdm3_58/K1", actionType: "on" },
+  { btnControl: "wb-mcm8_20/Input 1 Double Press Counter", actionControl: "wb-mdm3_58/K1", actionType: "off" },
+  { btnControl: "wb-mcm8_20/Input 1 Long Press Counter", stateControl: "wb-mcm8_20/Input 1", actionControl: "wb-mdm3_58/Channel 1", actionType: "inc" },
+  { btnControl: "wb-mcm8_20/Input 1 Shortlong Press Counter", stateControl: "wb-mcm8_20/Input 1", actionControl: "wb-mdm3_58/Channel 1", actionType: "dec" },
 ];
 
 //Do not change the lines below
 init()
 
-function init(){
-  commands.forEach(function(item, i, arr) {
+function init() {
+  commands.forEach(function (item, i, arr) {
     addAction(item.btnControl, item.stateControl, item.actionControl, item.actionType)
   });
 }
 
-function addAction(btnControl, stateControl, actionControl, actionType){
+function addAction(btnControl, stateControl, actionControl, actionType) {
   switch (actionType) {
     case "on":
       addActionOn(btnControl, actionControl)
@@ -43,12 +43,12 @@ function addAction(btnControl, stateControl, actionControl, actionType){
       addActionDec(btnControl, stateControl, actionControl)
       break
     default:
-      log( "Unknown actionType: {}", actionType)
+      log("Unknown actionType: {}", actionType)
       break
   }
 }
 
-function addActionOn(btnControl, actionControl){
+function addActionOn(btnControl, actionControl) {
   defineRule({
     whenChanged: btnControl,
     then: function (newValue, devName, cellName) {
@@ -57,7 +57,7 @@ function addActionOn(btnControl, actionControl){
   });
 }
 
-function addActionOff(btnControl, actionControl){
+function addActionOff(btnControl, actionControl) {
   defineRule({
     whenChanged: btnControl,
     then: function (newValue, devName, cellName) {
@@ -66,7 +66,7 @@ function addActionOff(btnControl, actionControl){
   });
 }
 
-function addActionToggle(btnControl, actionControl){
+function addActionToggle(btnControl, actionControl) {
   defineRule({
     whenChanged: btnControl,
     then: function (newValue, devName, cellName) {
@@ -75,7 +75,7 @@ function addActionToggle(btnControl, actionControl){
   });
 }
 
-function addActionInc(btnControl, stateControl, actionControl){
+function addActionInc(btnControl, stateControl, actionControl) {
   defineRule({
     whenChanged: btnControl,
     then: function (newValue, devName, cellName) {
@@ -83,10 +83,10 @@ function addActionInc(btnControl, stateControl, actionControl){
     }
   });
 
- initActionInc(btnControl, stateControl, actionControl)
+  initActionInc(btnControl, stateControl, actionControl)
 }
 
-function addActionDec(btnControl, stateControl, actionControl){
+function addActionDec(btnControl, stateControl, actionControl) {
   defineRule({
     whenChanged: btnControl,
     then: function (newValue, devName, cellName) {
@@ -97,33 +97,37 @@ function addActionDec(btnControl, stateControl, actionControl){
   initActionDec(btnControl, stateControl, actionControl)
 }
 
-function initActionInc(btnControl, stateControl, actionControl){
-  defineRule({
-    when: function () { return timers["{}_{}_inc".format(btnControl, actionControl)].firing; },
-    then: function () {
-      i = dev[actionControl]
+function initActionInc(btnControl, stateControl, actionControl) {
+  var timerName = "{}_{}_inc".format(btnControl, actionControl);
 
-      if (i<100 && dev[stateControl]) {
-          i++
-          dev[actionControl] = i
+  defineRule({
+    when: function () { return timers[timerName].firing; },
+    then: function () {
+      var i = dev[actionControl]
+
+      if (i < 100 && dev[stateControl]) {
+        i++
+        dev[actionControl] = i
       } else {
-          timers["{}_{}_inc".format(btnControl, actionControl)].stop()
+        timers[timerName].stop()
       }
     }
   });
 }
 
-function initActionDec(btnControl, stateControl, actionControl){
-  defineRule({
-    when: function () { return timers["{}_{}_dec".format(btnControl, actionControl)].firing; },
-    then: function () {
-      i = dev[actionControl]
+function initActionDec(btnControl, stateControl, actionControl) {
+  var timerName = "{}_{}_dec".format(btnControl, actionControl);
 
-      if (i>0 && dev[stateControl]) {
-          i--
-          dev[actionControl] = i
+  defineRule({
+    when: function () { return timers[timerName].firing; },
+    then: function () {
+      var i = dev[actionControl]
+
+      if (i > 0 && dev[stateControl]) {
+        i--
+        dev[actionControl] = i
       } else {
-          timers["{}_{}_dec".format(btnControl, actionControl)].stop()
+        timers[timerName].stop()
       }
     }
   });
