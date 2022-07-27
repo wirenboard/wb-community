@@ -117,8 +117,12 @@ function initActionDec(btnControl, stateControl, actionControl) {
   });
 }
 
-exports.incInterval = incInterval;
-exports.decInterval = decInterval;
+exports.setIncInterval = function (value) {
+  incInterval = value
+};
+exports.setDecInterval = function (value) {
+  decInterval = value
+};
 exports.init = function (commands) {
   init(commands);
 };

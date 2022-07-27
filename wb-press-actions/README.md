@@ -15,9 +15,13 @@ var commands = [
 pa.init(commands);
 ```
 Commands array parameters:
-- btnControl — button topic. Usually use Input press counters.
-- stateControl — button state topic, for inc/dec only. It is necessary to determine the moment when you released the button.
-- actionControl — the topic that we will change
-- actionType — action type: on | off | toggle | inc | dec
+- `btnControl` — button topic. Usually use Input press counters.
+- `stateControl` — button state topic, for inc/dec only. It is necessary to determine the moment when you released the button.
+- `actionControl` — the topic that we will change
+- `actionType` — action type: on | off | toggle | inc | dec
+
+Other Options:
+- `setIncInterval(value_in_ms)` — interval of increasing the value by one unit. Default 75 ms.
+- `setDecInterval(value_in_ms)` — interval of decreasing the value by one unit. Default 75 ms.
 
 See example in file `demo/wb-mcm8-press-actions.js`.
