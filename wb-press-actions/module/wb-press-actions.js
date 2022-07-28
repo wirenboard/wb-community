@@ -5,29 +5,29 @@ var decInterval = 75; //ms
 
 function init(commands) {
   commands.forEach(function (item, i, arr) {
-    addAction(item.btnControl, item.stateControl, item.actionControl, item.actionType)
+    addAction(item)
   });
 }
 
-function addAction(btnControl, stateControl, actionControl, actionType) {
-  switch (actionType) {
+function addAction(item) {
+  switch (item.actionType) {
     case "on":
-      addActionOn(btnControl, actionControl)
+      addActionOn(item.btnControl, item.actionControl)
       break
     case "off":
-      addActionOff(btnControl, actionControl)
+      addActionOff(item.btnControl, item.actionControl)
       break
     case "toggle":
-      addActionToggle(btnControl, actionControl)
+      addActionToggle(item.btnControl, item.actionControl)
       break
     case "inc":
-      addActionInc(btnControl, stateControl, actionControl)
+      addActionInc(item.btnControl, item.stateControl, item.actionControl, item.maxValue)
       break
     case "dec":
-      addActionDec(btnControl, stateControl, actionControl)
+      addActionDec(item.btnControl, item.stateControl, item.actionControl, item.minValue)
       break
     default:
-      log("Unknown actionType: {}", actionType)
+      log("Unknown actionType: {}", item.actionType)
       break
   }
 }
@@ -59,7 +59,7 @@ function addActionToggle(btnControl, actionControl) {
   });
 }
 
-function addActionInc(btnControl, stateControl, actionControl) {
+function addActionInc(btnControl, stateControl, actionControl, maxValue) {
   defineRule({
     whenChanged: btnControl,
     then: function (newValue, devName, cellName) {
@@ -67,10 +67,10 @@ function addActionInc(btnControl, stateControl, actionControl) {
     }
   });
 
-  initActionInc(btnControl, stateControl, actionControl)
+  initActionInc(btnControl, stateControl, actionControl, maxValue)
 }
 
-function addActionDec(btnControl, stateControl, actionControl) {
+function addActionDec(btnControl, stateControl, actionControl, minValue) {
   defineRule({
     whenChanged: btnControl,
     then: function (newValue, devName, cellName) {
@@ -78,18 +78,19 @@ function addActionDec(btnControl, stateControl, actionControl) {
     }
   });
 
-  initActionDec(btnControl, stateControl, actionControl)
+  initActionDec(btnControl, stateControl, actionControl, minValue)
 }
 
-function initActionInc(btnControl, stateControl, actionControl) {
+function initActionInc(btnControl, stateControl, actionControl, maxValue) {
   var timerName = "{}_{}_inc".format(btnControl, actionControl);
 
   defineRule({
     when: function () { return timers[timerName].firing; },
     then: function () {
       var i = dev[actionControl]
+      if (maxValue == undefined) maxValue = 100;
 
-      if (i < 100 && dev[stateControl]) {
+      if (i < maxValue && dev[stateControl]) {
         i++
         dev[actionControl] = i
       } else {
@@ -99,15 +100,16 @@ function initActionInc(btnControl, stateControl, actionControl) {
   });
 }
 
-function initActionDec(btnControl, stateControl, actionControl) {
+function initActionDec(btnControl, stateControl, actionControl, minValue) {
   var timerName = "{}_{}_dec".format(btnControl, actionControl);
 
   defineRule({
     when: function () { return timers[timerName].firing; },
     then: function () {
       var i = dev[actionControl]
+      if (minValue == undefined) minValue = 0;
 
-      if (i > 0 && dev[stateControl]) {
+      if (i > minValue && dev[stateControl]) {
         i--
         dev[actionControl] = i
       } else {
