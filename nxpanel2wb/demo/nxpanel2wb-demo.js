@@ -102,6 +102,7 @@ function updateWeather() {
             //sendCommand({ "weather": { "temp": 30, "icon": "02d", "feels": 35, "summary": "40 %,RH" } })
             try {
                 var weather = JSON.parse(capturedOutput)
+                dev["ns-panel/Send Raw"] = "{}"
                 dev["ns-panel/Send Raw"] = JSON.stringify(
                     {
                         "weather": {
