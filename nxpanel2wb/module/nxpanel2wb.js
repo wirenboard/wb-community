@@ -33,8 +33,6 @@ function initPanel() {
     sendCommand({ "start": { "pid": p.Main, "format": pf.buttons6 } })
     sendCommand({ "favorite": { "pid": p.Led, "format": pf.dimmer_color } })
     sendCommand({ "dim": { "low": 5, "normal": 100 } })
-
-    sendCommand({ "weather": { "temp": 30, "icon": "02d", "feels": 35, "summary": "40 %,RH" } })
     sendCommand({ "notifications": { "reset": 1 } })
     sendCommand({ "notifications": { "text": "Wiren Board" } })
 
