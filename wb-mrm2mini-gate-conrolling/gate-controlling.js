@@ -73,11 +73,8 @@ defineRule("Position", {
   then: function () {   
  dev["GateControlling/isOpen"] = dev["wb-mrm2-mini_12/Input 1"];
  dev["GateControlling/isClosed"] = dev["wb-mrm2-mini_12/Input 2"];    
- if(dev["wb-mrm2-mini_12/Input 1"] == true) { 
-    	dev["wb-mrm2-mini_12/K1"] = false;
-    }
-  if(dev["wb-mrm2-mini_12/Input 2"] == true) { 
-    	dev["wb-mrm2-mini_12/K2"] = false;
-    }   
+ if(dev["wb-mrm2-mini_12/Input 1"] == true) dev["wb-mrm2-mini_12/K1"] = false; 
+ if(dev["wb-mrm2-mini_12/Input 2"] == true) dev["wb-mrm2-mini_12/K2"] = false;
+    } 
   }
 });
