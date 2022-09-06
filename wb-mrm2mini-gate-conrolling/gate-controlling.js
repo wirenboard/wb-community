@@ -40,9 +40,9 @@ var deviceCells = {
 defineRule("GateStartOpen", {                
   whenChanged: "GateControlling/GateOpen",
   then: function () {
-  if(dev ["wb-mr6c_135/Input 0"] == false) { 
-    	dev["wb-mr6c_135/K1"] = true;
-        dev["wb-mr6c_135/K2"] = false;
+  if(dev ["wb-mrm2-mini_12/Input 1"] == false) { 
+    	dev["wb-mrm2-mini_12/K1"] = true;
+        dev["wb-mrm2-mini_125/K2"] = false;
     }   
   }
 });
@@ -51,9 +51,9 @@ defineRule("GateStartOpen", {
 defineRule("GateStartClose", {               
   whenChanged: "GateControlling/GateClose",
   then: function () {   
-     if(dev["wb-mr6c_135/Input 1"] == false) { 
-    	dev["wb-mr6c_135/K2"] = true;
-        dev["wb-mr6c_135/K1"] = false;
+     if(dev["wb-mrm2-mini_12/Input 2"] == false) { 
+    	dev["wb-mrm2-mini_12/K2"] = true;
+        dev["wb-mrm2-mini_12/K1"] = false;
     }     
   }
 });
@@ -62,22 +62,22 @@ defineRule("GateStartClose", {
 defineRule("GateStartStop", {   
   whenChanged: "GateControlling/GateStop",
   then: function () {   
-  dev["wb-mr6c_135/K1"] = false;
-  dev["wb-mr6c_135/K2"] = false;   
+  dev["wb-mrm2-mini_12/K1"] = false;
+  dev["wb-mrm2-mini_12/K2"] = false;   
   }
 });
 
 //Отслеживание положения ворот 
 defineRule("Position", {   
-  whenChanged: ["wb-mr6c_135/Input 0", "wb-mr6c_135/Input 1"],
+  whenChanged: ["wb-mrm2-mini_12/Input 1", "wb-mrm2-mini_12/Input 2"],
   then: function () {   
- dev["GateControlling/isOpen"] = dev["wb-mr6c_135/Input 0"];
- dev["GateControlling/isClosed"] = dev["wb-mr6c_135/Input 1"];    
- if(dev["wb-mr6c_135/Input 0"] == true) { 
-    	dev["wb-mr6c_135/K1"] = false;
+ dev["GateControlling/isOpen"] = dev["wb-mrm2-mini_12/Input 1"];
+ dev["GateControlling/isClosed"] = dev["wb-mrm2-mini_12/Input 2"];    
+ if(dev["wb-mrm2-mini_12/Input 1"] == true) { 
+    	dev["wb-mrm2-mini_12/K1"] = false;
     }
-  if(dev["wb-mr6c_135/Input 1"] == true) { 
-    	dev["wb-mr6c_135/K2"] = false;
+  if(dev["wb-mrm2-mini_12/Input 2"] == true) { 
+    	dev["wb-mrm2-mini_12/K2"] = false;
     }   
   }
 });
