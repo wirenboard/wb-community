@@ -1,40 +1,39 @@
 
 //Виртуальное устройство для управления воротами
 var deviceCells = { 
- GateOpen: {             //Виртуальная кнопка Открыть
+GateOpen: {             //Виртуальная кнопка Открыть
     type : "pushbutton",
     value : false,
     order: 1
-  },
-  GateClose: {           //Виртуальная кнопка Закрыть
+ },
+ GateClose: {           //Виртуальная кнопка Закрыть
     type : "pushbutton",
     value : false,
     order: 2
   },
-  GateStop: {            //Виртуальная кнопка Стоп
+ GateStop: {            //Виртуальная кнопка Стоп
     type : "pushbutton",
     value : false,
     order: 3
-  }, 
-  isOpen: {              //Датчик положения ворот "Открыто"
+ }, 
+ isOpen: {              //Датчик положения ворот "Открыто"
     type : "switch",
     value : false,
     readonly: true,
     order: 4
-  },
-  isClosed: {            //Датчик положения ворот "Закрыто"
+ },
+ isClosed: {            //Датчик положения ворот "Закрыто"
     type : "switch",
     value : false,
     readonly: true,
     order: 5
-  },
- 
+ },
 };
 
-  defineVirtualDevice("GateControlling", {
+defineVirtualDevice("GateControlling", {
     title:"Gate",
     cells: deviceCells
-  });
+});
 
 //Открытие ворот
 defineRule("GateStartOpen", {                
