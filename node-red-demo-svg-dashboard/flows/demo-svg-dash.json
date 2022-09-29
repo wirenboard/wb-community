@@ -1,0 +1,642 @@
+[
+    {
+        "id": "cf931ebd65c774a2",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c1eebb3b56a4da19",
+        "type": "group",
+        "z": "cf931ebd65c774a2",
+        "name": "Dashboard with SVG image",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "b18df246c3cdfc9b",
+            "801c92a60de494ef",
+            "d1f8a129510221fc",
+            "3a456fcdafcec4e2",
+            "207e9c7641aeab88",
+            "b23f5cfdcf598bc2",
+            "2481f8cc282f22c5",
+            "b8200a2b8da7d449",
+            "730473e07fbab2e6"
+        ],
+        "x": 34,
+        "y": 339,
+        "w": 832,
+        "h": 162
+    },
+    {
+        "id": "82711dcd1ff323d1",
+        "type": "group",
+        "z": "cf931ebd65c774a2",
+        "name": "Dashboard with widgets",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "d16c5a073ab3289e",
+            "5ef9cd331ae8c7a0",
+            "943d91cbe8af9c86",
+            "b9e51985d827853a",
+            "4586ead081cf2207",
+            "2511d74443abe2ff",
+            "c78ae7bca62edf64",
+            "2c4ed201c1cc71c4",
+            "377479d4aaa609de",
+            "53c5120d64bb535c"
+        ],
+        "x": 34,
+        "y": 39,
+        "w": 812,
+        "h": 262
+    },
+    {
+        "id": "94080f657b832193",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "true",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "352944efc9ff1718",
+        "type": "ui_tab",
+        "name": "Tab 1",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "99324d43aee7fe56",
+        "type": "ui_group",
+        "name": "Buzzer",
+        "tab": "352944efc9ff1718",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c5e297c1fcd5485f",
+        "type": "wirenboard-server",
+        "name": "",
+        "host": "localhost",
+        "mqtt_port": "1883",
+        "mqtt_username": "",
+        "mqtt_password": ""
+    },
+    {
+        "id": "f3f232a38c33410a",
+        "type": "ui_tab",
+        "name": "Tab 2",
+        "icon": "dashboard",
+        "order": 2
+    },
+    {
+        "id": "5204f6bb2552cfe7",
+        "type": "ui_group",
+        "name": "SVG",
+        "tab": "f3f232a38c33410a",
+        "order": 1,
+        "disp": false,
+        "width": "9",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d16c5a073ab3289e",
+        "type": "ui_slider",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "",
+        "label": "Volume",
+        "tooltip": "",
+        "group": "99324d43aee7fe56",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 340,
+        "y": 200,
+        "wires": [
+            [
+                "2511d74443abe2ff"
+            ]
+        ]
+    },
+    {
+        "id": "5ef9cd331ae8c7a0",
+        "type": "ui_switch",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "",
+        "label": "State",
+        "tooltip": "",
+        "group": "99324d43aee7fe56",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 330,
+        "y": 140,
+        "wires": [
+            [
+                "4586ead081cf2207"
+            ]
+        ]
+    },
+    {
+        "id": "943d91cbe8af9c86",
+        "type": "wirenboard-in",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "in-buzzer-state",
+        "server": "c5e297c1fcd5485f",
+        "channel": [
+            "/devices/buzzer/controls/enabled"
+        ],
+        "outputAtStartup": true,
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "5ef9cd331ae8c7a0",
+                "c78ae7bca62edf64"
+            ]
+        ]
+    },
+    {
+        "id": "b9e51985d827853a",
+        "type": "wirenboard-in",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "in-buzzer-volume",
+        "server": "c5e297c1fcd5485f",
+        "channel": [
+            "/devices/buzzer/controls/volume"
+        ],
+        "outputAtStartup": true,
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "d16c5a073ab3289e"
+            ]
+        ]
+    },
+    {
+        "id": "4586ead081cf2207",
+        "type": "wirenboard-out",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "out-buzzer-state",
+        "server": "c5e297c1fcd5485f",
+        "channel": [
+            "/devices/buzzer/controls/enabled"
+        ],
+        "command": "/on",
+        "commandType": "wb_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "rbe": false,
+        "x": 740,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "2511d74443abe2ff",
+        "type": "wirenboard-out",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "out-buzzer-volume",
+        "server": "c5e297c1fcd5485f",
+        "channel": [
+            "/devices/buzzer/controls/volume"
+        ],
+        "command": "/on",
+        "commandType": "wb_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "rbe": false,
+        "x": 530,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b18df246c3cdfc9b",
+        "type": "ui_svg_graphics",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "group": "5204f6bb2552cfe7",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "svgString": "<svg\n   width=\"480\"\n   height=\"480\"\n   viewBox=\"0 0 127 127\"\n   version=\"1.1\"\n   id=\"svg5\"\n   inkscape:version=\"1.2.1 (9c6d41e410, 2022-07-14)\"\n   sodipodi:docname=\"node-red-demo-svg-dash.svg\"\n   xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\"\n   xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\"\n   xmlns=\"http://www.w3.org/2000/svg\"\n   xmlns:svg=\"http://www.w3.org/2000/svg\">\n  <sodipodi:namedview\n     id=\"namedview7\"\n     pagecolor=\"#ffffff\"\n     bordercolor=\"#666666\"\n     borderopacity=\"1.0\"\n     inkscape:showpageshadow=\"2\"\n     inkscape:pageopacity=\"0.0\"\n     inkscape:pagecheckerboard=\"0\"\n     inkscape:deskcolor=\"#d1d1d1\"\n     inkscape:document-units=\"px\"\n     showgrid=\"false\"\n     inkscape:zoom=\"0.84096521\"\n     inkscape:cx=\"338.8963\"\n     inkscape:cy=\"366.84038\"\n     inkscape:window-width=\"1063\"\n     inkscape:window-height=\"859\"\n     inkscape:window-x=\"2056\"\n     inkscape:window-y=\"281\"\n     inkscape:window-maximized=\"0\"\n     inkscape:current-layer=\"layer1\" />\n  <defs\n     id=\"defs2\" />\n  <g\n     inkscape:label=\"Layer 1\"\n     inkscape:groupmode=\"layer\"\n     id=\"layer1\">\n    <circle\n       style=\"fill:#808080;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke;stop-color:#000000;fill-opacity:1\"\n       id=\"buzzer-state\"\n       cx=\"38.584999\"\n       cy=\"38.617043\"\n       r=\"31.029289\" />\n    <rect\n       style=\"fill:#5fbcd3;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke;stop-color:#000000\"\n       id=\"buzzer-control\"\n       width=\"35.717838\"\n       height=\"35.717838\"\n       x=\"83.05072\"\n       y=\"83.184174\" />\n    <text\n       xml:space=\"preserve\"\n       style=\"font-size:15.6557px;line-height:1.25;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;stroke-width:0.264583\"\n       x=\"82.936943\"\n       y=\"23.733364\"\n       id=\"temperature\"><tspan\n         sodipodi:role=\"line\"\n         id=\"tspan287\"\n         style=\"font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;stroke-width:0.264583\"\n         x=\"82.936943\"\n         y=\"23.733364\">20.5</tspan></text>\n  </g>\n</svg>",
+        "clickableShapes": [
+            {
+                "targetId": "#buzzer-state",
+                "action": "click",
+                "payload": "click",
+                "payloadType": "str",
+                "topic": "buzzer-state"
+            },
+            {
+                "targetId": "#buzzer-control",
+                "action": "click",
+                "payload": "Tab 1",
+                "payloadType": "str",
+                "topic": "buzzer-control"
+            }
+        ],
+        "javascriptHandlers": [],
+        "smilAnimations": [],
+        "bindings": [
+            {
+                "selector": "#buzzer-state",
+                "bindSource": "payload.buzzer.color",
+                "bindType": "style",
+                "attribute": "fill"
+            },
+            {
+                "selector": "#temperature > tspan",
+                "bindSource": "payload.temperature.value",
+                "bindType": "text",
+                "attribute": ""
+            }
+        ],
+        "showCoordinates": false,
+        "autoFormatAfterEdit": false,
+        "showBrowserErrors": false,
+        "showBrowserEvents": false,
+        "enableJsDebugging": false,
+        "sendMsgWhenLoaded": false,
+        "noClickWhenDblClick": false,
+        "outputField": "payload",
+        "editorUrl": "//drawsvg.org/drawsvg.html",
+        "directory": "",
+        "panning": "disabled",
+        "zooming": "disabled",
+        "panOnlyWhenZoomed": false,
+        "doubleClickZoomEnabled": false,
+        "mouseWheelZoomEnabled": false,
+        "dblClickZoomPercentage": 150,
+        "cssString": "div.ui-svg svg{\n    color: var(--nr-dashboard-widgetColor);\n    fill: currentColor !important;\n}\ndiv.ui-svg path {\n    fill: inherit;\n}",
+        "name": "",
+        "x": 200,
+        "y": 380,
+        "wires": [
+            [
+                "207e9c7641aeab88"
+            ]
+        ]
+    },
+    {
+        "id": "801c92a60de494ef",
+        "type": "wirenboard-get",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "get-buzzer-state",
+        "server": "c5e297c1fcd5485f",
+        "channel": [
+            "/devices/buzzer/controls/enabled"
+        ],
+        "x": 600,
+        "y": 380,
+        "wires": [
+            [
+                "d1f8a129510221fc"
+            ]
+        ]
+    },
+    {
+        "id": "d1f8a129510221fc",
+        "type": "function",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "invert-state",
+        "func": "return {\n    \"payload\": (msg.payload == '1')? '0':'1'\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 380,
+        "wires": [
+            [
+                "4586ead081cf2207"
+            ]
+        ]
+    },
+    {
+        "id": "c78ae7bca62edf64",
+        "type": "function",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "set-color",
+        "func": "return {\n    \"payload\": {\n        \"buzzer\": {\n            \"color\": (msg.payload == '1')? 'yellow': 'gray'\n        }\n    },\n    \"topic\": \"databind\"\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 80,
+        "wires": [
+            [
+                "2c4ed201c1cc71c4"
+            ]
+        ]
+    },
+    {
+        "id": "3a456fcdafcec4e2",
+        "type": "link in",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "svg-in",
+        "links": [
+            "2c4ed201c1cc71c4",
+            "b8200a2b8da7d449"
+        ],
+        "x": 75,
+        "y": 380,
+        "wires": [
+            [
+                "b18df246c3cdfc9b"
+            ]
+        ]
+    },
+    {
+        "id": "2c4ed201c1cc71c4",
+        "type": "link out",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "buzzer-status-out",
+        "mode": "link",
+        "links": [
+            "3a456fcdafcec4e2"
+        ],
+        "x": 485,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "207e9c7641aeab88",
+        "type": "switch",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "switch-events",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "buzzer-state",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "buzzer-control",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "801c92a60de494ef"
+            ],
+            [
+                "b23f5cfdcf598bc2"
+            ]
+        ]
+    },
+    {
+        "id": "b23f5cfdcf598bc2",
+        "type": "ui_ui_control",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "",
+        "events": "all",
+        "x": 760,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "377479d4aaa609de",
+        "type": "ui_button",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "",
+        "group": "99324d43aee7fe56",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "SVG Dash",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Tab 2",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 350,
+        "y": 260,
+        "wires": [
+            [
+                "53c5120d64bb535c"
+            ]
+        ]
+    },
+    {
+        "id": "53c5120d64bb535c",
+        "type": "ui_ui_control",
+        "z": "cf931ebd65c774a2",
+        "g": "82711dcd1ff323d1",
+        "name": "",
+        "events": "all",
+        "x": 500,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2481f8cc282f22c5",
+        "type": "wirenboard-in",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "cpu-temperature",
+        "server": "c5e297c1fcd5485f",
+        "channel": [
+            "/devices/hwmon/controls/CPU Temperature"
+        ],
+        "outputAtStartup": true,
+        "x": 200,
+        "y": 460,
+        "wires": [
+            [
+                "730473e07fbab2e6"
+            ]
+        ]
+    },
+    {
+        "id": "b8200a2b8da7d449",
+        "type": "link out",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "temperature-out",
+        "mode": "link",
+        "links": [
+            "3a456fcdafcec4e2"
+        ],
+        "x": 535,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "730473e07fbab2e6",
+        "type": "function",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "set-temperature",
+        "func": "return {\n    \"payload\": {\n        \"temperature\": {\n            \"value\": Number(msg.payload).toFixed(1)\n        }\n    },\n    \"topic\": \"databind\"\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "b8200a2b8da7d449"
+            ]
+        ]
+    }
+]
