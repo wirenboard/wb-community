@@ -10,4 +10,4 @@ Usage:
 1. Install Node-RED and modules: node-red-contrib-wirenboard, node-red-dashboard and node-red-contrib-ui-svg.
 2. Import the flow.
 
-Article: Статья: https://wirenboard.com/wiki/Node-RED_Dashboards
+Article: https://wirenboard.com/wiki/Node-RED_Dashboards
