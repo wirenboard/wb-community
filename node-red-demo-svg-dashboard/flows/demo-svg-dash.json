@@ -24,12 +24,14 @@
             "b23f5cfdcf598bc2",
             "2481f8cc282f22c5",
             "b8200a2b8da7d449",
-            "730473e07fbab2e6"
+            "730473e07fbab2e6",
+            "f5696540e27d5c99",
+            "0fbf11ace7cec072"
         ],
         "x": 34,
         "y": 339,
         "w": 832,
-        "h": 162
+        "h": 202
     },
     {
         "id": "82711dcd1ff323d1",
@@ -539,7 +541,7 @@
         "name": "",
         "events": "all",
         "x": 760,
-        "y": 460,
+        "y": 500,
         "wires": [
             []
         ]
@@ -598,7 +600,7 @@
         ],
         "outputAtStartup": true,
         "x": 200,
-        "y": 460,
+        "y": 500,
         "wires": [
             [
                 "730473e07fbab2e6"
@@ -616,7 +618,7 @@
             "3a456fcdafcec4e2"
         ],
         "x": 535,
-        "y": 460,
+        "y": 500,
         "wires": []
     },
     {
@@ -632,10 +634,43 @@
         "finalize": "",
         "libs": [],
         "x": 400,
-        "y": 460,
+        "y": 500,
         "wires": [
             [
                 "b8200a2b8da7d449"
+            ]
+        ]
+    },
+    {
+        "id": "f5696540e27d5c99",
+        "type": "wirenboard-get",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "get-cpu-temperature",
+        "server": "c5e297c1fcd5485f",
+        "channel": [
+            "/devices/hwmon/controls/CPU Temperature"
+        ],
+        "x": 320,
+        "y": 440,
+        "wires": [
+            [
+                "730473e07fbab2e6"
+            ]
+        ]
+    },
+    {
+        "id": "0fbf11ace7cec072",
+        "type": "ui_ui_control",
+        "z": "cf931ebd65c774a2",
+        "g": "c1eebb3b56a4da19",
+        "name": "change-tab",
+        "events": "change",
+        "x": 130,
+        "y": 440,
+        "wires": [
+            [
+                "f5696540e27d5c99"
             ]
         ]
     }
