@@ -1,73 +1,73 @@
 // place your rules here or add more .js files in this directory
 log("add your rules to /etc/wb-rules/");
 
-//Виртуальное устройство для управления теплым полом
+//Virtual device for floor heating control
 var Floor = { 
-OnOff1: {             //Кнопка включения первого контура
+OnOff1: {             //Button for switching on the primary circuit
     type : "switch",
     value : false,
     readonly: false,
     order: 1
   },
-OnOff2: {             //Кнопка включения второго контура
+OnOff2: {             //Button for turning on the second circuit
     type : "switch",
     value : false,
     readonly: false,
     order: 2
   },  
-IsOn2: {              //Первый контур в режиме нагрева
+IsOn2: {              //Primary circuit in heating mode
     type : "switch",
     value : false,
     readonly: true,
     order: 3
   },
-IsOn2: {              //Второй контур в режиме нагрева
+IsOn2: {              //Second circuit in heating mode
     type : "switch",
     value : false,
     readonly: true,
     order: 4
   },
-Temp1: {              //Температура нагревательного элемента первого контура
+Temp1: {              //Primary heating element temperature
     type : "value",
     value : 0,
     order: 5
   },
-Temp2: {              //Температура нагревательного элемента второго контура
+Temp2: {              //Second heating element temperature
     type : "value",
     value : 0,
     order: 6
   },
-Alarm1: {              //Неисправность в первом контуре 
+Alarm1: {              //Malfunction in the primary circuit
     type : "switch",
     value : false,
     readonly: false,
     order: 7
   },
-Alarm2: {              //Неисправность во втором контуре 
+Alarm2: {              //Malfunction in the second circuit
     type : "switch",
     value : false,
     readonly: false,
     order: 8
   },
-Tmax: {              //Верхняя уставка температуры нагревательного элемента
+Tmax: {              //Upper heating element temperature set point
     type : "value",
     value : 0,
     order: 9,
     readonly: false    
   },
-Tmin: {              //Нижняя уставка температуры нагревательного элемента
+Tmin: {              //Lower heating element temperature set point
     type : "value",
     value : 0,
     order: 10,
     readonly: false
   },
-Pmax1: {              //Предельно допустимая мощность первого контура 
+Pmax1: {              //Maximum permissible power of the primary circuit 
     type : "value",
     value : 0,
     order: 11,
     readonly: false  
   },
-Pmax2: {              //Предельно допустимая мощность второго контура
+Pmax2: {              //Maximum permissible power of the second circuit
     type : "value",
     value : 0,
     order: 12,
@@ -81,12 +81,12 @@ Pmax2: {              //Предельно допустимая мощность
   });
 
 //Уставки температуры
-var Tmax = 45;   //Верхняя граница температуры нагревательного элемента
-var Tmin = 35;     //Нижняя граница температуры нагревательного элемента
-var Pmax1 = 1000;   //Предельно допустимая мощность первого контура
-var Pmax2 = 1000;     //Предельно допустимая мощность второго контура
+var Tmax = 45;   //Upper temperature limit of the heating element
+var Tmin = 35;     //Lower limit of heating element temperature
+var Pmax1 = 1000;   //Maximum permissible power of the primary circuit
+var Pmax2 = 1000;     //Maximum permissible power of the second circuit
  
-//Управление первым контуром, "xxxxxxxx" - заменить на адрес датчика температуры, указать корректный id модуля реле
+//Primary circuit control, "xxxxxxxx" - replace with the address of the temperature sensor, specify the correct id of the relay module
 defineRule("Heating1",  {                
   whenChanged: ["wb-w1/xxxxxxxx", "Floor/OnOff1"],
   then: function () {
@@ -101,7 +101,7 @@ defineRule("Heating1",  {
  
 });
 
-//Управление вторым контуром, "xxxxxxxx" - заменить на адрес датчика температуры, указать корректный id модуля реле
+//Second circuit control, "xxxxxxxx" - replace with the address of the temperature sensor, specify the correct id of the relay module
 defineRule("Heating2",  {                
   whenChanged: ["wb-w2/xxxxxxxx", "Floor/OnOff2"],
   then: function () {
@@ -115,7 +115,7 @@ defineRule("Heating2",  {
   }
 });
 
-//Сигнализация о неисправности. Указать корректный id модуля реле
+//Fault signaling. Specify the correct id of the relay module
 defineRule("Alarm",  {                
   whenChanged: ["wb-mrwm2_21/P L1", "wb-mrwm2_21/P L2", "Floor/OnOff1", "Floor/OnOff2"],
   then: function () {
