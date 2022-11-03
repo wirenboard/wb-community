@@ -3,71 +3,82 @@
 var Floor = { 
     OnOff1: {             //Button for switching on the primary circuit
         type : "switch",
+        title: "Turn on first circuit",
         value: false,
         readonly: false,
         order: 1,
-        title: "Первый контур"
        },
     OnOff2: {             //Button for turning on the second circuit
         type : "switch",
+        title: "Turn on second circuit",
         value : false,
         readonly: false,
         order: 2
       },  
-    IsOn2: {              //Primary circuit in heating mode
+    IsOn1: {              //Primary circuit in heating mode
         type : "switch",
+        title: "First circuit status",
         value : false,
         readonly: true,
         order: 3
       },
     IsOn2: {              //Second circuit in heating mode
         type : "switch",
+        title: "Second circuit status",
         value : false,
         readonly: true,
         order: 4
       },
     Temp1: {              //Primary heating element temperature
         type : "value",
+        title: "First circuit temperature",
         value : 0,
         order: 5
       },
     Temp2: {              //Second heating element temperature
         type : "value",
+        title: "Second circuit temperature",
         value : 0,
         order: 6
       },
     Alarm1: {              //Malfunction in the primary circuit
         type : "switch",
+        title: "First circuit alarm",
         value : false,
         readonly: true,
         order: 7
       },
     Alarm2: {              //Malfunction in the second circuit
         type : "switch",
+        title: "Second circuit alarm",
         value : false,
         readonly: true,
         order: 8
       },
     Tmax: {              //Upper heating element temperature set point
         type : "value",
+        title: "Seting maximum temperature",
         value : 0,
         order: 9,
         readonly: false    
       },
     Tmin: {              //Lower heating element temperature set point
         type : "value",
+        title: "Seting minimum temperature",
         value : 0,
         order: 10,
         readonly: false
       },
     Pmax1: {              //Maximum permissible power of the primary circuit 
         type : "value",
+        title: "Max power of first circuit",
         value : 0,
         order: 11,
         readonly: false  
       },
     Pmax2: {              //Maximum permissible power of the second circuit
         type : "value",
+        title: "Max power of second circuit",
         value : 0,
         order: 12,
         readonly: false  
