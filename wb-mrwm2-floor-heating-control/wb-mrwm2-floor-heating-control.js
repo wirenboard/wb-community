@@ -93,14 +93,14 @@ var Floor = {
         title: "Max power of first circuit",
         value: Pmax1,
         order: 11,
-        readonly: false  
+        readonly: true  
       },
     Pmax2: {              //Maximum permissible power of the second circuit
         type : "power",
         title: "Max power of second circuit",
         value: Pmax2,
         order: 12,
-        readonly: false  
+        readonly: true  
       },   
     };
     
