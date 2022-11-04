@@ -155,18 +155,6 @@ var Floor = {
           dev[SecondCircuitControl] = false;
           dev["Heating/IsOn2"] = false
         };
-
-
-        if(dev["Heating/OnOff1"] == true && dev[FirstPowerMeter] < 1) {   //If after switching on, the power consumption has not increased, then a break in the line
-        dev["Heating/Alarm1"] = true;
-        dev[FirstCircuitControl] = false;
-        dev["Heating/IsOn1"] = false
-        };
-        if(dev["Heating/OnOff2"] == true && dev[SecondPowerMeter] < 1) { 
-        dev["Heating/Alarm2"] = true;
-        dev[SecondCircuitControl] = false;
-        dev["Heating/IsOn2"] = false
-        };
       }
     });
     
