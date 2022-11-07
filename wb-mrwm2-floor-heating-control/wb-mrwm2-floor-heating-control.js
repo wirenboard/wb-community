@@ -117,7 +117,7 @@ var Floor = {
         dev[FirstCircuitControl] = true;
         dev["Heating/IsOn1"] = true
         };
-        if(dev[TempSensor1] > dev["Heating/Tmax"]) { 
+        if(dev[TempSensor1] > dev["Heating/Tmax"] || dev["Heating/OnOff1"] == false) { 
         dev[FirstCircuitControl] = false;
         dev["Heating/IsOn1"] = false
         };
@@ -133,7 +133,7 @@ var Floor = {
         dev[SecondCircuitControl] = true;
         dev["Heating/IsOn2"] = true
         };
-        if(dev[TempSensor2] > dev["Heating/Tmax"]) { 
+        if(dev[TempSensor2] > dev["Heating/Tmax"] || dev["Heating/OnOff2"] == false) { 
         dev[SecondCircuitControl] = false;
         dev["Heating/IsOn2"] = false
         };
@@ -147,14 +147,11 @@ var Floor = {
       then: function () {
         if(dev[FirstPowerMeter] > Pmax1) {       //If the power consumption exceeds the limit, the heating element current is faulty
           dev["Heating/Alarm1"] = true;
-          dev[FirstCircuitControl] = false;
-          dev["Heating/IsOn1"] = false
+          dev["Heating/OnOff1"] = false
         };
         if(dev[SecondPowerMeter] > Pmax2) { 
           dev["Heating/Alarm2"] = true;
-          dev[SecondCircuitControl] = false;
-          dev["Heating/IsOn2"] = false
+          dev["Heating/OnOff2"] = false
         };
       }
     });
-    
