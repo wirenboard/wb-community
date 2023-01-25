@@ -1,0 +1,1400 @@
+[
+    {
+        "id": "3397f9823d60f727",
+        "type": "tab",
+        "label": "Поток 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "98fa11c18e19d5b0",
+        "type": "On_Off",
+        "z": "3397f9823d60f727",
+        "device": "4346dc1254d85a69",
+        "name": "Комната:Розетка",
+        "retrievable": true,
+        "response": true,
+        "x": 590,
+        "y": 1420,
+        "wires": [
+            [
+                "c77d940340d9ed27"
+            ]
+        ]
+    },
+    {
+        "id": "53b8dbfbec0dd6b3",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Socket (SP-EUC01)",
+        "device_id": "0x54ef44100031d413",
+        "command": "state",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "",
+        "optionsType": "nothing",
+        "x": 920,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "bb8534bb3ec58767",
+        "type": "zigbee2mqtt-in",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Socket (SP-EUC01)",
+        "device_id": "0x54ef44100031d413",
+        "state": "state",
+        "outputAtStartup": true,
+        "filterChanges": false,
+        "enableMultiple": false,
+        "x": 230,
+        "y": 1300,
+        "wires": [
+            [
+                "bed778e64617a96b"
+            ]
+        ]
+    },
+    {
+        "id": "bed778e64617a96b",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "ON",
+                "fromt": "str",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "OFF",
+                "fromt": "str",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 1360,
+        "wires": [
+            [
+                "98fa11c18e19d5b0"
+            ]
+        ]
+    },
+    {
+        "id": "c77d940340d9ed27",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "ON",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 1360,
+        "wires": [
+            [
+                "53b8dbfbec0dd6b3"
+            ]
+        ]
+    },
+    {
+        "id": "4d274299133107de",
+        "type": "Sensor",
+        "z": "3397f9823d60f727",
+        "device": "3be835df84a29ebe",
+        "name": "Комната:Датчик температуры:Temperature",
+        "stype": "devices.properties.float",
+        "instance": "temperature",
+        "unit": "unit.temperature.celsius",
+        "x": 610,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "c93cadeb71144e66",
+        "type": "Event",
+        "z": "3397f9823d60f727",
+        "device": "cdf780ae8d32ddd3",
+        "name": "Комната:Датчик движения:motion",
+        "stype": "devices.properties.event",
+        "instance": "motion",
+        "events": [
+            "detected",
+            "not_detected"
+        ],
+        "x": 1140,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "3c656a509f72f1a8",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "detected",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "not_detected",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 1620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f2ed5783b3820d0",
+        "type": "Sensor",
+        "z": "3397f9823d60f727",
+        "device": "8c742eade09a7c9b",
+        "name": "Комната:Датчик освещения:Illumination",
+        "stype": "devices.properties.float",
+        "instance": "illumination",
+        "unit": "unit.illumination.lux",
+        "x": 1000,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "0be0dee03520bfa0",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.illuminance",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 1700,
+        "wires": [
+            [
+                "5f2ed5783b3820d0"
+            ]
+        ]
+    },
+    {
+        "id": "e3f095248b7fa507",
+        "type": "zigbee2mqtt-in",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Temperature Sensor (WSDCGQ11LM)",
+        "device_id": "0x00158d0008c11ce6",
+        "state": "temperature",
+        "outputAtStartup": true,
+        "filterChanges": false,
+        "enableMultiple": false,
+        "x": 250,
+        "y": 1540,
+        "wires": [
+            [
+                "4d274299133107de"
+            ]
+        ]
+    },
+    {
+        "id": "3499d882609d2832",
+        "type": "zigbee2mqtt-in",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Motion Sensor (RTCGQ11LM)",
+        "device_id": "0x00158d00070045a9",
+        "state": "0",
+        "outputAtStartup": true,
+        "filterChanges": false,
+        "enableMultiple": false,
+        "x": 240,
+        "y": 1620,
+        "wires": [
+            [
+                "7058c8cd5246d654",
+                "0be0dee03520bfa0"
+            ]
+        ]
+    },
+    {
+        "id": "7058c8cd5246d654",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.occupancy",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 1620,
+        "wires": [
+            [
+                "3c656a509f72f1a8"
+            ]
+        ]
+    },
+    {
+        "id": "e199f14b3b6f96b0",
+        "type": "debug",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d2eec3a7d2eaf26d",
+        "type": "zigbee2mqtt-bridge",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "topic": null,
+        "x": 470,
+        "y": 800,
+        "wires": [
+            [
+                "e199f14b3b6f96b0"
+            ]
+        ]
+    },
+    {
+        "id": "668d020b4db12331",
+        "type": "switch",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "property": "payload.occupancy",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 520,
+        "wires": [
+            [
+                "1868aed5fc6d9cbd",
+                "c870dd71212f0cf8"
+            ],
+            [
+                "65ca290ff720feb5"
+            ]
+        ]
+    },
+    {
+        "id": "1868aed5fc6d9cbd",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 460,
+        "wires": [
+            [
+                "c9f1e85a634db384"
+            ]
+        ]
+    },
+    {
+        "id": "8201be340254d844",
+        "type": "switch",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "property": "payload.illuminance",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "30",
+                "vt": "num"
+            },
+            {
+                "t": "gte",
+                "v": "30",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 580,
+        "wires": [
+            [
+                "668d020b4db12331"
+            ],
+            [
+                "86e2ba1c105abcb4"
+            ]
+        ]
+    },
+    {
+        "id": "36144d4cf1a4e3c3",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 660,
+        "wires": [
+            [
+                "c9f1e85a634db384"
+            ]
+        ]
+    },
+    {
+        "id": "936dc927a2cc80b9",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 930,
+        "y": 540,
+        "wires": [
+            [
+                "c9f1e85a634db384"
+            ]
+        ]
+    },
+    {
+        "id": "65ca290ff720feb5",
+        "type": "delay",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 720,
+        "y": 540,
+        "wires": [
+            [
+                "936dc927a2cc80b9"
+            ]
+        ]
+    },
+    {
+        "id": "c870dd71212f0cf8",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 600,
+        "wires": [
+            [
+                "65ca290ff720feb5",
+                "86e2ba1c105abcb4"
+            ]
+        ]
+    },
+    {
+        "id": "86e2ba1c105abcb4",
+        "type": "delay",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 440,
+        "y": 660,
+        "wires": [
+            [
+                "36144d4cf1a4e3c3"
+            ]
+        ]
+    },
+    {
+        "id": "08052b219fcc6c49",
+        "type": "zigbee2mqtt-in",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Motion Sensor (RTCGQ11LM)",
+        "device_id": "0x00158d00070045a9",
+        "state": "0",
+        "outputAtStartup": true,
+        "filterChanges": false,
+        "enableMultiple": false,
+        "x": 140,
+        "y": 520,
+        "wires": [
+            [
+                "8201be340254d844"
+            ]
+        ]
+    },
+    {
+        "id": "c9f1e85a634db384",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "command": "state",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "",
+        "optionsType": "nothing",
+        "x": 1200,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "bc7d73bb5c96c878",
+        "type": "switch",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "19",
+                "vt": "num"
+            },
+            {
+                "t": "gte",
+                "v": "23",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 340,
+        "wires": [
+            [
+                "1ab074d2a6b439c8"
+            ],
+            [
+                "eedb9abaa18b26fa"
+            ]
+        ]
+    },
+    {
+        "id": "1ab074d2a6b439c8",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 300,
+        "wires": [
+            [
+                "b4841f87c646efe8"
+            ]
+        ]
+    },
+    {
+        "id": "eedb9abaa18b26fa",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 360,
+        "wires": [
+            [
+                "b4841f87c646efe8"
+            ]
+        ]
+    },
+    {
+        "id": "b4841f87c646efe8",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Socket (SP-EUC01)",
+        "device_id": "0x54ef44100031d413",
+        "command": "state",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "",
+        "optionsType": "nothing",
+        "x": 780,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "193bef30859eb909",
+        "type": "zigbee2mqtt-in",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "state": "state",
+        "outputAtStartup": true,
+        "filterChanges": false,
+        "enableMultiple": false,
+        "x": 270,
+        "y": 1080,
+        "wires": [
+            [
+                "c08e152561483943"
+            ]
+        ]
+    },
+    {
+        "id": "c08e152561483943",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "ON",
+                "fromt": "str",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "OFF",
+                "fromt": "str",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 1000,
+        "wires": [
+            [
+                "63c3f785f0823d9c"
+            ]
+        ]
+    },
+    {
+        "id": "63c3f785f0823d9c",
+        "type": "On_Off",
+        "z": "3397f9823d60f727",
+        "device": "6d3da1cd402519b3",
+        "name": "Комната:Лампа",
+        "retrievable": true,
+        "response": true,
+        "x": 590,
+        "y": 920,
+        "wires": [
+            [
+                "33c0d90da6ac8be0"
+            ]
+        ]
+    },
+    {
+        "id": "33c0d90da6ac8be0",
+        "type": "change",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "ON",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 1000,
+        "wires": [
+            [
+                "a5c8cd9f883ec0c3"
+            ]
+        ]
+    },
+    {
+        "id": "a5c8cd9f883ec0c3",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "command": "state",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "",
+        "optionsType": "nothing",
+        "x": 900,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "b8a708f1ce6a9524",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Включить лампу",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 840,
+        "y": 1860,
+        "wires": [
+            [
+                "0930d1f5a1a64f29"
+            ]
+        ]
+    },
+    {
+        "id": "9dcb336440b2bbfe",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Выключить лампу",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 850,
+        "y": 1900,
+        "wires": [
+            [
+                "0930d1f5a1a64f29"
+            ]
+        ]
+    },
+    {
+        "id": "c8624085dbebbcd8",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Включить розетку",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 950,
+        "y": 2240,
+        "wires": [
+            [
+                "80970a46c9e4743d"
+            ]
+        ]
+    },
+    {
+        "id": "a720daccb7c79fe0",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Выключить розетку",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 950,
+        "y": 2300,
+        "wires": [
+            [
+                "80970a46c9e4743d"
+            ]
+        ]
+    },
+    {
+        "id": "80970a46c9e4743d",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Socket (SP-EUC01)",
+        "device_id": "0x54ef44100031d413",
+        "command": "state",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "",
+        "optionsType": "nothing",
+        "x": 1220,
+        "y": 2260,
+        "wires": []
+    },
+    {
+        "id": "0930d1f5a1a64f29",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "command": "state",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "0",
+        "optionsType": "transition",
+        "x": 1140,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "f669f42edce199a8",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Изменить состояние",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "TOGGLE",
+        "payloadType": "str",
+        "x": 860,
+        "y": 1940,
+        "wires": [
+            [
+                "0930d1f5a1a64f29"
+            ]
+        ]
+    },
+    {
+        "id": "58f38d7a342deab0",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Плавный переход на теплый свет ",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "100",
+        "payloadType": "str",
+        "x": 860,
+        "y": 2060,
+        "wires": [
+            [
+                "bde3d57f471e1001"
+            ]
+        ]
+    },
+    {
+        "id": "a84fcb1b38eac539",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Плавный переход на холодный свет",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-100",
+        "payloadType": "str",
+        "x": 870,
+        "y": 2100,
+        "wires": [
+            [
+                "bde3d57f471e1001"
+            ]
+        ]
+    },
+    {
+        "id": "bde3d57f471e1001",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "command": "brightness_step",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "0",
+        "optionsType": "transition",
+        "x": 1160,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "3133cab888a32e4c",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Диммирование до мин. яркости",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-10",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1920,
+        "wires": [
+            [
+                "3755cc569be6784c"
+            ]
+        ]
+    },
+    {
+        "id": "757215e2908246d2",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Максимальная яркость",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "254",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1960,
+        "wires": [
+            [
+                "a340f55c829b9b31"
+            ]
+        ]
+    },
+    {
+        "id": "7cd948a8433b8430",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Теплый свет",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "370",
+        "payloadType": "str",
+        "x": 270,
+        "y": 2040,
+        "wires": [
+            [
+                "e567b8f11afb3ee5"
+            ]
+        ]
+    },
+    {
+        "id": "729267af0e86f4a2",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Холодный свет",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "153",
+        "payloadType": "str",
+        "x": 280,
+        "y": 2080,
+        "wires": [
+            [
+                "e567b8f11afb3ee5"
+            ]
+        ]
+    },
+    {
+        "id": "3755cc569be6784c",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "command": "brightness_move",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "",
+        "optionsType": "nothing",
+        "x": 540,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "a340f55c829b9b31",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "command": "brightness",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "",
+        "optionsType": "nothing",
+        "x": 540,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "e567b8f11afb3ee5",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "command": "color_temp",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "5",
+        "optionsType": "transition",
+        "x": 520,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "833d7f87b78b1eeb",
+        "type": "zigbee2mqtt-out",
+        "z": "3397f9823d60f727",
+        "name": "",
+        "server": "0e419ba2ddee0358",
+        "friendly_name": "Lamp (ZNLDP12LM)",
+        "device_id": "0x00158d0006d3b352",
+        "command": "color_temp_move",
+        "commandType": "z2m_cmd",
+        "payload": "payload",
+        "payloadType": "msg",
+        "optionsValue": "",
+        "optionsType": "nothing",
+        "x": 500,
+        "y": 2140,
+        "wires": []
+    },
+    {
+        "id": "8195f23f666b8f08",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Плавный переход на теплый свет ",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "str",
+        "x": 220,
+        "y": 2120,
+        "wires": [
+            [
+                "833d7f87b78b1eeb"
+            ]
+        ]
+    },
+    {
+        "id": "e6c214ba104d0f15",
+        "type": "inject",
+        "z": "3397f9823d60f727",
+        "name": "Плавный переход на холодный свет",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-10",
+        "payloadType": "str",
+        "x": 210,
+        "y": 2160,
+        "wires": [
+            [
+                "833d7f87b78b1eeb"
+            ]
+        ]
+    },
+    {
+        "id": "4346dc1254d85a69",
+        "type": "alice-device",
+        "service": "",
+        "name": "Розетка",
+        "description": "Розетка",
+        "room": "Комната",
+        "dtype": "devices.types.socket"
+    },
+    {
+        "id": "0e419ba2ddee0358",
+        "type": "zigbee2mqtt-server",
+        "name": "",
+        "host": "localhost",
+        "mqtt_port": "1883",
+        "mqtt_username": "",
+        "mqtt_password": "",
+        "mqtt_qos": "0",
+        "tls": "",
+        "usetls": false,
+        "base_topic": "zigbee2mqtt"
+    },
+    {
+        "id": "3be835df84a29ebe",
+        "type": "alice-device",
+        "service": "",
+        "name": "Датчик температуры",
+        "description": "",
+        "room": "Комната",
+        "dtype": "devices.types.sensor"
+    },
+    {
+        "id": "cdf780ae8d32ddd3",
+        "type": "alice-device",
+        "service": "",
+        "name": "Датчик движения",
+        "description": "Датчик движения",
+        "room": "Комната",
+        "dtype": "devices.types.other"
+    },
+    {
+        "id": "8c742eade09a7c9b",
+        "type": "alice-device",
+        "service": "",
+        "name": "Датчик освещения",
+        "description": "Датчик освещения",
+        "room": "Комната",
+        "dtype": "devices.types.light"
+    },
+    {
+        "id": "6d3da1cd402519b3",
+        "type": "alice-device",
+        "service": "",
+        "name": "Лампа",
+        "description": "Лампа",
+        "room": "Комната",
+        "dtype": "devices.types.light"
+    }
+]
