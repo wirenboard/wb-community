@@ -11,4 +11,5 @@ Usage:
 1. Install Node-RED and modules: node-red-contrib-zigbee2mqtt, node-red-contrib-alice.
 2. Import the flow.
 3. Replace the zigbee device IDs and Alice's account with your own.
+
 Article: https://habr.com/ru/company/wirenboard/blog/713274/
