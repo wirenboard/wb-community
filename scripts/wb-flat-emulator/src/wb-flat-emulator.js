@@ -1,56 +1,32 @@
-var devTitle = "Моя квартира";
-var devName = "my-floor";
+var devTitle = 'Моя квартира';
+var devName = 'my-floor';
 var emulator = true;
 
 // Описание комнат, задаётся пользователем
 var rooms = {
   hall: {
-    title: "Холл",
-    devices: ["temperature", "humidity", "co2", "motion", "light"],
+    title: 'Холл',
+    devices: ['temperature', 'humidity', 'co2', 'motion', 'light'],
   },
   kitchen: {
-    title: "Кухня",
-    devices: [
-      "temperature",
-      "humidity",
-      "co2",
-      "motion",
-      "window",
-      "ac",
-      "light",
-    ],
+    title: 'Кухня',
+    devices: ['temperature', 'humidity', 'co2', 'motion', 'window', 'ac', 'light'],
   },
   bathroom: {
-    title: "Санузел",
-    devices: ["temperature", "humidity", "co2", "motion", "fan", "light"],
+    title: 'Санузел',
+    devices: ['temperature', 'humidity', 'co2', 'motion', 'fan', 'light'],
   },
   breadroom: {
-    title: "Спальня",
-    devices: [
-      "temperature",
-      "humidity",
-      "co2",
-      "motion",
-      "window",
-      "ac",
-      "light",
-    ],
+    title: 'Спальня',
+    devices: ['temperature', 'humidity', 'co2', 'motion', 'window', 'ac', 'light'],
   },
   questroom: {
-    title: "Зал",
-    devices: [
-      "temperature",
-      "humidity",
-      "co2",
-      "motion",
-      "window",
-      "ac",
-      "light",
-    ],
+    title: 'Зал',
+    devices: ['temperature', 'humidity', 'co2', 'motion', 'window', 'ac', 'light'],
   },
   service: {
-    title: "Счетчик",
-    devices: ["counter_water", "counter_electro", "counter_gas"],
+    title: 'Счетчик',
+    devices: ['counter_water', 'counter_electro', 'counter_gas'],
   },
 };
 
@@ -61,72 +37,72 @@ var rooms = {
 // Прототипы контролов
 var proto = {
   temperature: {
-    title: "{}: температура",
-    type: "value",
+    title: '{}: температура',
+    type: 'value',
     value: 20.5,
-    units: "°C",
+    units: '°C',
   },
   humidity: {
-    title: "{}: влажность",
-    type: "value",
+    title: '{}: влажность',
+    type: 'value',
     value: 40,
-    units: "%, RH",
+    units: '%, RH',
   },
   co2: {
-    title: "{}: CO2",
-    type: "value",
+    title: '{}: CO2',
+    type: 'value',
     value: 850,
-    units: "ppm",
+    units: 'ppm',
   },
   voc: {
-    title: "{}: VOC",
-    type: "value",
+    title: '{}: VOC',
+    type: 'value',
     value: 850,
-    units: "ppb",
+    units: 'ppb',
   },
   counter_water: {
-    title: "{}: воды",
-    type: "value",
+    title: '{}: воды',
+    type: 'value',
     value: 125,
-    units: "м3",
+    units: 'м3',
   },
   counter_electro: {
-    title: "{}: эл.",
-    type: "value",
+    title: '{}: эл.',
+    type: 'value',
     value: 390,
-    units: "кВт/ч",
+    units: 'кВт/ч',
   },
   counter_gas: {
-    title: "{}: газа",
-    type: "value",
+    title: '{}: газа',
+    type: 'value',
     value: 680,
-    units: "м3",
+    units: 'м3',
   },
   motion: {
-    title: "{}: движение",
-    type: "switch",
+    title: '{}: движение',
+    type: 'switch',
     value: false,
   },
   window: {
-    title: "{}: окно",
-    type: "switch",
+    title: '{}: окно',
+    type: 'switch',
     value: false,
   },
   ac: {
-    title: "{}: кондиционер",
-    type: "switch",
+    title: '{}: кондиционер',
+    type: 'switch',
     value: false,
     readonly: false,
   },
   fan: {
-    title: "{}: вытяжка",
-    type: "switch",
+    title: '{}: вытяжка',
+    type: 'switch',
     value: false,
     readonly: false,
   },
   light: {
-    title: "{}: свет",
-    type: "switch",
+    title: '{}: свет',
+    type: 'switch',
     value: false,
     readonly: false,
   },
@@ -148,10 +124,9 @@ function init() {
 
     devices.forEach(function (item) {
       var controlProto = proto[item];
-      var readonly =
-        controlProto.readonly != undefined ? controlProto.readonly : true;
+      var readonly = controlProto.readonly != undefined ? controlProto.readonly : true;
 
-      virtualDevice.addControl("{}_{}".format(key, item), {
+      virtualDevice.addControl('{}_{}'.format(key, item), {
         title: controlProto.title.format(title),
         type: controlProto.type,
         value: controlProto.value,
@@ -170,10 +145,10 @@ function init() {
 
 // Эмулятор значений
 function emulatorInit() {
-  startTicker("sys_timer", 4000);
+  startTicker('sys_timer', 4000);
 }
 
-defineRule("sys-timer-tick", {
+defineRule('sys-timer-tick', {
   when: function () {
     return timers.sys_timer.firing;
   },
@@ -189,11 +164,11 @@ function emulatorSetValues() {
       var ctrlType = ctrl.getType();
 
       switch (ctrlType) {
-        case "value":
+        case 'value':
           setValue(ctrl);
           break;
 
-        case "switch":
+        case 'switch':
           setSwitch(ctrl);
           break;
 
@@ -207,13 +182,13 @@ function setValue(ctrl) {
   var ctrlId = ctrl.getId();
   var lastValue = ctrl.getValue();
 
-  if (ctrlId.indexOf("co2") >= 0 || ctrlId.indexOf("voc") >= 0) {
+  if (ctrlId.indexOf('co2') >= 0 || ctrlId.indexOf('voc') >= 0) {
     ctrl.setValue(genNextNumberValue(lastValue, 450, 2000, 1));
   } else {
     if (
-      ctrlId.indexOf("counter_water") >= 0 ||
-      ctrlId.indexOf("counter_electro") >= 0 ||
-      ctrlId.indexOf("counter_gas") >= 0
+      ctrlId.indexOf('counter_water') >= 0 ||
+      ctrlId.indexOf('counter_electro') >= 0 ||
+      ctrlId.indexOf('counter_gas') >= 0
     ) {
       ctrl.setValue(genNextNumberValue(lastValue, lastValue, 99999999999, 1));
     } else {
