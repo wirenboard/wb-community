@@ -6,26 +6,26 @@ function init(topics) {
       title: 'Sensor Controller ' + title,
       cells: {
         value: {
-          title: "Temperature",
+          title: 'Temperature',
           type: 'value',
           units: 'deg C',
           value: null,
           readonly: true,
         },
         valid: {
-          title: "Valid Value",
+          title: 'Valid Value',
           type: 'switch',
           value: false,
           readonly: true,
         },
-      }
+      },
     });
 
     defineRule({
-      whenChanged: [target, target + '#error',],
+      whenChanged: [target, target + '#error'],
       then: function (newValue, devName, cellName) {
         var valid = true;
-        if (typeof (dev[target + '#error']) !== 'undefined') {
+        if (typeof dev[target + '#error'] !== 'undefined') {
           valid = false;
         }
         if (dev[target] == undefined || dev[target] == null) {
@@ -41,7 +41,7 @@ function init(topics) {
         if (valid) {
           dev[name]['value'] = Number(dev[target].toFixed(1));
         }
-      }
+      },
     });
   }
 
@@ -57,12 +57,12 @@ function init(topics) {
     title: 'Safety Controller',
     cells: {
       safe: {
-        title: "Safe Mode",
+        title: 'Safe Mode',
         type: 'switch',
         value: false,
-        readonly: true
+        readonly: true,
       },
-    }
+    },
   });
 
   function setSafetyControllerState() {
@@ -91,39 +91,41 @@ function init(topics) {
   }
 
   defineRule('safetyControllerTriggers', {
-    whenChanged: ['ai_t_air/valid',
+    whenChanged: [
+      'ai_t_air/valid',
       'ai_t_water/valid',
       'ai_t_air/value',
       'ai_t_water/value',
       'flapController/state',
       'fanController/state',
-      topics.DI_NOT_FIRE],
+      topics.DI_NOT_FIRE,
+    ],
     then: function (newValue, devName, cellName) {
       dev['safetyController/safe'] = setSafetyControllerState();
-    }
+    },
   });
 
   //-------------------------------------------------------------------------------------------------------------------------
   //flapController
   var idFlapTimer = null;
-  var FLAP_TIMEOUT_S = 30;  //допустимое время открытия заслонки, с
+  var FLAP_TIMEOUT_S = 30; //допустимое время открытия заслонки, с
 
   defineVirtualDevice('flapController', {
     title: 'Flap Controller',
     cells: {
       enable: {
-        title: "Enable",
+        title: 'Enable',
         type: 'switch',
         value: false,
-        readonly: true
+        readonly: true,
       },
       state: {
-        title: "State",
+        title: 'State',
         type: 'text', //open, close, moving, fault
         value: 'close',
-        readonly: true
-      }
-    }
+        readonly: true,
+      },
+    },
   });
 
   function startFlapTimer() {
@@ -152,7 +154,7 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   defineRule('flapControllerSwClosedTrigger', {
@@ -176,7 +178,7 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   defineRule('flapControllerSwOpenTrigger', {
@@ -196,7 +198,7 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   defineRule('flapControllerHsTrigger', {
@@ -209,7 +211,7 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   //-------------------------------------------------------------------------------------------------------------------------
@@ -228,18 +230,19 @@ function init(topics) {
     title: 'Fan Controller',
     cells: {
       enable: {
-        title: "Enable",
+        title: 'Enable',
         type: 'switch',
         value: false,
-        readonly: true
+        readonly: true,
       },
-      state: { //stop, run, work, fault
-        title: "State",
+      state: {
+        //stop, run, work, fault
+        title: 'State',
         type: 'text',
         value: 'stop',
-        readonly: true
-      }
-    }
+        readonly: true,
+      },
+    },
   });
 
   defineRule('fanControllerEnableTrigger', {
@@ -266,7 +269,7 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   defineRule('fanControllerTsTrigger', {
@@ -296,7 +299,7 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   defineRule('fanControllerPsTrigger', {
@@ -326,7 +329,7 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   defineRule('fanControllerHsTrigger', {
@@ -339,7 +342,7 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   //-------------------------------------------------------------------------------------------------------------------------
@@ -349,12 +352,13 @@ function init(topics) {
   var idLessTimer = null; //идентификатор таймера для импульса "меньше"
   var idPidTimer = null; //идентификатор таймера ПИД регулятора
   var SETPOINT_T_AIR = 22; //уставка температуры воздуха
-  var pid = { //коэффициенты для ПИД регулятора
+  var pid = {
+    //коэффициенты для ПИД регулятора
     K: 50, //общий коэффициент усиления
     TAU: 5, //коэффициент при дифференциальной составляющей, определяет чувствительность к резким изменениям температур
     BORDER_MS: 300, //минимальная длительность импульса управления, мс
-    PERIOD_S: 10 //период регулирования, с
-  }
+    PERIOD_S: 10, //период регулирования, с
+  };
   var prevDiff = null; //предыдущее рассогласование
   var leftover = null; //если при вычислениях длина импульса меньше минимальной - пишем сюда
 
@@ -388,7 +392,7 @@ function init(topics) {
     var diff = SETPOINT_T_AIR - dev[topics.AI_T_AIR]; //текущее рассогласование
     var delta = diff - prevDiff; //изменение рассогласования между соседними измерениями
     var result = Math.round(2.5 * pid.K * (diff + pid.TAU * delta));
-    if (((result > 0) && (leftover < 0)) || ((result < 0) && (leftover > 0))) {
+    if ((result > 0 && leftover < 0) || (result < 0 && leftover > 0)) {
       leftover = 0;
     }
     result = result + leftover;
@@ -438,19 +442,19 @@ function init(topics) {
     title: 'Heater Controller',
     cells: {
       enable: {
-        title: "Enable",
+        title: 'Enable',
         type: 'switch',
         value: false,
       },
-      state: { //work, safe
-        title: "State",
+      state: {
+        //work, safe
+        title: 'State',
         type: 'text',
         value: 'safe',
         readonly: true,
-      }
-    }
+      },
+    },
   });
-
 
   defineRule('heaterControllerEnableTrigger', {
     whenChanged: 'heaterController/enable',
@@ -472,23 +476,24 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   //-------------------------------------------------------------------------------------------------------------------------
   //mainController
-  var T_WATER_START = 30; //минимальная температура воды в "обратке", при которой возможен старт вентустановки 
+  var T_WATER_START = 30; //минимальная температура воды в "обратке", при которой возможен старт вентустановки
 
   defineVirtualDevice('mainController', {
     title: 'Main Controller',
     cells: {
-      state: { //safe, warming, opening, running, work
-        title: "State",
+      state: {
+        //safe, warming, opening, running, work
+        title: 'State',
         type: 'text',
         value: 'safe',
-        readonly: true
-      }
-    }
+        readonly: true,
+      },
+    },
   });
 
   defineRule('mainControllerHsTrigger', {
@@ -527,42 +532,39 @@ function init(topics) {
           }
           break;
       }
-    }
+    },
   });
 
   defineRule('mainControllerAiTrigger', {
     whenChanged: 'ai_t_water/value',
     then: function (newValue, devName, cellName) {
-      if (newValue < T_WATER_START)
-        return;
+      if (newValue < T_WATER_START) return;
       switch (dev['mainController/state']) {
         case 'warming':
           dev['flapController/enable'] = true;
           dev['mainController/state'] = 'opening';
           break;
       }
-    }
+    },
   });
 
   defineRule('mainControllerFlapTrigger', {
     whenChanged: 'flapController/state',
     then: function (newValue, devName, cellName) {
-      if (newValue != 'open')
-        return;
+      if (newValue != 'open') return;
       switch (dev['mainController/state']) {
         case 'opening':
           dev['fanController/enable'] = true;
           dev['mainController/state'] = 'running';
           break;
       }
-    }
+    },
   });
 
   defineRule('mainControllerSafeTrigger', {
     whenChanged: 'safetyController/safe',
     then: function (newValue, devName, cellName) {
-      if (newValue)
-        return;
+      if (newValue) return;
       switch (dev['mainController/state']) {
         case 'safe':
           if (dev[topics.DI_HS] && newValue) {
@@ -589,21 +591,20 @@ function init(topics) {
           dev['mainController/state'] = 'safe';
           break;
       }
-    }
+    },
   });
 
   defineRule('mainControllerFanTrigger', {
     whenChanged: 'fanController/state',
     then: function (newValue, devName, cellName) {
-      if (newValue != 'work')
-        return;
+      if (newValue != 'work') return;
       switch (dev['mainController/state']) {
         case 'running':
           dev['heaterController/enable'] = true;
           dev['mainController/state'] = 'work';
           break;
       }
-    }
+    },
   });
 
   //-------------------------------------------------------------------------------------------------------------------------
@@ -614,17 +615,23 @@ function init(topics) {
       enable: {
         type: 'switch',
         value: false,
-      }
-    }
+      },
+    },
   });
 
   defineRule('changeControllersState', {
-    whenChanged: ['safetyController/state', 'flapController/state', 'fanController/state', 'heaterController/state', 'mainController/state'],
+    whenChanged: [
+      'safetyController/state',
+      'flapController/state',
+      'fanController/state',
+      'heaterController/state',
+      'mainController/state',
+    ],
     then: function (newValue, devName, cellName) {
       if (dev['logger/enable']) {
         log.info('[' + devName + '] state:' + newValue);
       }
-    }
+    },
   });
 }
 
