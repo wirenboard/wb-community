@@ -1,5 +1,5 @@
 var devTitle = 'Моя квартира';
-var devName = 'my-floor';
+var devName = 'my-flat';
 var emulator = true;
 
 // Описание комнат, задаётся пользователем
