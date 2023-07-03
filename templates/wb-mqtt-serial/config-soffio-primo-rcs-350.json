@@ -1,0 +1,258 @@
+{
+  "title": "RCS-350-P-title",
+  "device_type": "RCS-350-P Soffio Primo",
+  "group": "g-climate-control",
+  "device": {
+    "id": "RCS350",
+    "name": "RCS350",
+    "guard_interval_us": 60000,
+    "parameters": [
+      {
+        "id": "fan_speed_control",
+        "title": "Fan speed control",
+        "address": 23,
+        "reg_type": "holding",
+        "enum": [0, 1, 2],
+        "enum_titles": [
+          "2 speeds control",
+          "3 speeds control",
+          "10 speeds control (DC units)"
+        ],
+        "order": 1,
+        "group": "main"
+      }
+    ],
+    "channels": [
+      {
+        "name": "Bypass opening temperature X",
+        "address": "2",
+        "reg_type": "holding",
+        "type": "range",
+        "format": "u16",
+        "min": 5,
+        "max": 30,
+        "group": "baypass_mgmt"
+      },
+      {
+        "name": "Bypass opening temperature range Y",
+        "address": "3",
+        "reg_type": "holding",
+        "type": "range",
+        "format": "u16",
+        "min": 2,
+        "max": 15,
+        "group": "baypass_mgmt"
+      },
+      {
+        "name": "Defrosting interval",
+        "address": "4",
+        "reg_type": "holding",
+        "type": "range",
+        "format": "u16",
+        "min": 2,
+        "max": 15,
+        "group": "temp_mgmt"
+      },
+      {
+        "name": "Defrosting enter temperature",
+        "address": "5",
+        "reg_type": "holding",
+        "type": "range",
+        "format": "s8",
+        "min": -9,
+        "max": 5,
+        "group": "temp_mgmt"
+      },
+      {
+        "name": "Defrost duration time",
+        "address": "6",
+        "reg_type": "holding",
+        "type": "range",
+        "format": "u16",
+        "min": 2,
+        "max": 20,
+        "group": "temp_mgmt"
+      },
+      {
+        "id": "ModBus address",
+        "name": "ModBus address",
+        "address": "8",
+        "reg_type": "holding",
+        "type": "value",
+        "group": "main"
+      },
+      {
+        "name": "ERV ON-OFF",
+        "address": "9",
+        "reg_type": "holding",
+        "type": "switch",
+        "on_value": 1,
+        "off_value": 0,
+        "group": "main"
+      },
+      {
+        "id": "Supply fan speed",
+        "name": "Supply fan speed",
+        "address": "10",
+        "reg_type": "holding",
+        "type": "value",
+        "enum": [0, 2, 3, 5, 8, 9, 10, 11, 12, 13, 14],
+        "enum_titles": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        "group": "fan_mgmt"
+      },
+      {
+        "id": "Exhaust fan speed",
+        "name": "Exhaust fan speed",
+        "address": "11",
+        "reg_type": "holding",
+        "type": "value",
+        "group": "fan_mgmt"
+      },
+      {
+        "name": "Room temperature",
+        "address": "12",
+        "reg_type": "holding",
+        "type": "temperature",
+        "format": "u16",
+        "offset": -40,
+        "readonly": true,
+        "group": "temp_mgmt"
+      },
+      {
+        "name": "Outdoor temperature",
+        "address": "13",
+        "reg_type": "holding",
+        "type": "temperature",
+        "format": "u16",
+        "offset": -40,
+        "readonly": true,
+        "group": "temp_mgmt"
+      },
+      {
+        "name": "Exhaust air temperature",
+        "address": "14",
+        "reg_type": "holding",
+        "type": "value",
+        "format": "u16",
+        "offset": -40,
+        "readonly": true,
+        "group": "temp_mgmt"
+      },
+      {
+        "name": "Fire alarm ON",
+        "address": "18:0:1",
+        "reg_type": "holding",
+        "type": "switch",
+        "readonly": true,
+        "group": "main"
+      },
+      {
+        "name": "Bypass on",
+        "address": "18:1:1",
+        "reg_type": "holding",
+        "type": "switch",
+        "readonly": true,
+        "group": "baypass_mgmt"
+      },
+      {
+        "name": "Bypass off",
+        "address": "18:2:1",
+        "reg_type": "holding",
+        "type": "switch",
+        "readonly": true,
+        "group": "baypass_mgmt"
+      },
+      {
+        "name": "Defrosting",
+        "address": "18:3:1",
+        "reg_type": "holding",
+        "type": "switch",
+        "readonly": true,
+        "group": "temp_mgmt"
+      },
+      {
+        "name": "Fan speed control",
+        "address": "23",
+        "reg_type": "holding",
+        "type": "value",
+        "format": "u16",
+        "readonly": true,
+        "group": "fan_mgmt"
+      },
+      {
+        "name": "Multifunction Setting",
+        "address": "24",
+        "reg_type": "holding",
+        "type": "value",
+        "format": "u16",
+        "group": "main"
+      },
+      {
+        "name": "Filter alarm timmer",
+        "address": "25",
+        "reg_type": "holding",
+        "type": "value",
+        "group": "main"
+      }
+    ],
+    "groups": [
+      {
+        "title": "Main",
+        "id": "main",
+        "order": 1,
+        "description": "Main controls"
+      },
+      {
+        "title": "Temperature",
+        "id": "temp_mgmt",
+        "order": 2,
+        "description": "Temperature managment controls"
+      },
+      {
+        "title": "Fan",
+        "id": "fan_mgmt",
+        "order": 3,
+        "description": "Fan management controls"
+      },
+      {
+        "title": "Baypass",
+        "id": "baypass_mgmt",
+        "order": 3,
+        "description": "Baypass management controls"
+      }
+    ],
+    "translations": {
+      "en": {
+        "RCS-350-P-title": "RCS-350-P Soffio Primo"
+      },
+      "ru": {
+        "RCS-350-P-title": "ПВУ RCS-350-P Soffio Primo",
+        "ERV ON-OFF": "ПВУ вкл./выкл.",
+        "Bypass opening temperature X": "Температура открытия байпаса",
+        "Bypass opening temperature range Y": "Интервал температуры байпаса",
+        "Defrosting interval": "Интервал разморозки",
+        "Defrosting enter temperature": "Температура включения режима разморозки",
+        "Defrost duration time": "Продолжительность разморозки",
+        "ModBus address": "Настройка адреса Modbus",
+        "Supply fan speed": "Скорость приточного вентилятора",
+        "Exhaust fan speed": "Скорость вытяжного вентилятора",
+        "Room temperature": "Комнатная температура",
+        "Outdoor temperature": "Уличная температура",
+        "Exhaust air temperature": "Температура вытяжного воздуха",
+        "Fire alarm ON": "Пожарная сигнализация включена",
+        "Bypass on": "Байпас включен",
+        "Bypass off": "Байпас выключен",
+        "Defrosting": "Идет разморозка",
+        "Filter alarm timmer": "Таймер уведомления смены фильтра",
+        "Main": "Основное",
+        "Main controls": "Основные элементы управления",
+        "Temperature": "Температура",
+        "Temperature managment controls": "Элементы управления температурой",
+        "Fan": "Вентиляторы",
+        "Fan management controls": "Элементы управления вентиляторами",
+        "Baypass": "Байпас",
+        "Baypass management controls": "Элементы управления байпасом"
+      }
+    }
+  }
+}
