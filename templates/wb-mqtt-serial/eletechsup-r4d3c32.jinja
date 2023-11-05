@@ -1,0 +1,35 @@
+{% set relays = 32 -%}
+{
+	"device_type": "r4d3c32_template_title",
+	"group": "g-relay",
+
+	"device": {
+		"name": "R4D3C32",
+		"id": "r4d3c32",
+
+		"frame_timeout_ms": 8,
+		"poll_interval": 100,
+
+		"channels": [
+			{% for id in range(relays) -%}
+			{
+				"name": "{{ 'R' ~ (id + 1) }}",
+				"reg_type": "holding",
+				"on_value": "0x0100",
+				"off_value": "0x0200",
+				"type": "switch",
+				"address": {{ id }}
+			},
+			{% endfor -%}
+		],
+		
+		"translations": {
+			"en": {
+				"r4d3c32_template_title": "Eletechsup R4D3C32 (32-channel relay)"
+			},
+			"ru": {
+				"r4d3c32_template_title": "Eletechsup R4D3C32 (32-канальное реле)"
+			}
+		}
+	}
+}
