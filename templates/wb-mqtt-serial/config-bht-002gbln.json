@@ -1,0 +1,110 @@
+{
+	"device_type": "BHT-002GBLN",
+	"group": "g-thermostat",
+
+	"device": {
+		"name": "BHT-002GBLN",
+		"id": "bht-002gbln",
+
+		"groups": [
+			{
+				"title": "Sensors",
+				"id": "sensors"
+			},
+			{
+				"title": "Parameters",
+				"id": "parameters"
+			}
+		],
+
+		"channels": [
+			{
+				"name": "Status Power",
+				"type": "switch",
+				"reg_type": "holding",
+				"address": 0,
+				"group": "parameters"
+			},
+			{
+				"name": "Lock Buttons",
+				"type": "switch",
+				"reg_type": "holding",
+				"address": 4,
+				"group": "parameters"
+			},
+			{
+				"name": "Heating status",
+				"type": "switch",
+				"reg_type": "holding",
+				"address": 3,
+				"format": "u16",
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "Room Temperature",
+				"type": "value",
+				"reg_type": "holding",
+				"units": "deg C",
+				"address": 8,
+				"format": "u16",
+				"readonly": true,
+				"scale": 0.1,
+				"round_to": 0.5,
+				"group": "sensors"
+			},
+			{
+				"name": "Setpoint Temperature",
+				"type": "value",
+				"reg_type": "holding",
+				"units": "deg C",
+				"address": 3,
+				"format": "u16",
+				"scale": 0.1,
+				"round_to": 0.5,
+				"min": 5,
+				"max": 35,
+				"group": "parameters"
+			},
+			{
+				"name": "Mode",
+				"type": "range",
+				"reg_type": "holding",
+				"address": 2,
+				"format": "u16",
+				"min": 0,
+				"max": 1,
+				"group": "parameters"
+			},
+			{
+				"name": "Week Setpoint Temperature",
+				"type": "value",
+				"reg_type": "holding",
+				"units": "deg C",
+				"address": 5,
+				"format": "u16",
+				"scale": 0.1,
+				"round_to": 0.5,
+				"min": 5,
+				"max": 35,
+				"group": "parameters"
+			}
+		],
+
+		"translations": {
+			"ru": {
+				"Sensors": "Датчики",
+				"Parameters": "Параметры",
+				"General": "Общее",
+				"Status Power": "Статус термостата",
+				"Fan Speed": "Скорость вентилятора",
+				"Mode": "Режим",
+				"Setpoint Temperature": "Уставка температуры",
+				"Lock Buttons": "Блокировка кнопок",
+				"Room Temperature": "Температура в помещении",
+				"Heating status": "Статус нагрева",
+				"Week Setpoint Temperature": "Установка температуты по расписанию"
+			}
+		}
+	}
+}

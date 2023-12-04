@@ -1,0 +1,152 @@
+{
+	"title": "owen_pvt100_template_title",
+	"device_type": "OWEN-PVT100",
+	"group": "g-climate-sensor",
+
+	"device": {
+		"name": "OWEN-PVT100",
+		"id": "owen-pvt100",
+
+		"max_read_registers": 0,
+		"response_timeout_ms": 255,
+		"guard_interval_us": 5000,
+		
+		"groups": [
+			{
+				"title": "General",
+				"id": "general"
+			},
+			{
+				"title": "Settings",
+				"id": "settings",
+				"description": "warning"
+			}
+		],
+
+		"parameters": {
+			"device_address": {
+				"title": "Modbus Address",
+				"reg_type": "holding",
+				"address": "0x0004",
+				"default": 16,
+				"min": 1,
+				"max": 247,
+				"group": "settings",
+				"order": 1
+			},
+			"baud_rate": {
+				"title": "Baud Rate",
+				"reg_type": "holding",
+				"address": "0x0005",
+				"default": 9600,
+				"enum": [1200, 2400, 4800, 9600, 19200, 38400, 57600],
+				"group": "settings",
+				"order": 2
+			},
+			"stop_bits": {
+				"title": "Stop Bits and Parity",
+				"reg_type": "holding",
+				"address": "0x0007",
+				"default": 1,
+				"enum": [1, 2, 3, 4],
+				"enum_titles": ["no parity - 1 bit", "no parity - 2 bits", "even parity - 1 bit", "odd parity - 1 bit"],
+				"group": "settings",
+				"order": 3
+			},
+			"response_delay": {
+				"title": "Response Delay",
+				"reg_type": "holding",
+				"address": "0x0006",
+				"default": 10,
+				"min": 10,
+				"max": 255,
+				"group": "settings",
+				"order": 4
+			}
+		},
+
+		"channels": [
+			{
+				"name": "Temperature",
+				"reg_type": "holding",
+				"address": "0x0102",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.01,
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "Humidity",
+				"reg_type": "holding",
+				"address": "0x0103",
+				"type": "rel_humidity",
+				"format": "u16",
+				"scale": 0.01,
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "Dew Point",
+				"reg_type": "holding",
+				"address": "0x0104",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.01,
+				"enabled": false,
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "Absolute Humidity",
+				"reg_type": "holding",
+				"address": "0x0119",
+				"type": "value",
+				"format": "s16",
+				"scale": 0.01,
+				"enabled": false,
+				"readonly": true,
+				"group": "general"
+			},
+			{
+                "name": "Reboot device",
+                "type": "pushbutton",
+                "reg_type": "holding",
+                "address": "0x0011",
+				"on_value": "42330",
+				"enabled": false,
+				"group": "settings"
+            }
+		],
+
+		"translations": {
+			"en": {
+				"owen_pvt100_template_title": "OWEN PVT100 (industrial humidity and temperature sensor)",
+				"warning": "Before changing the parameters, make sure that the connection to the device is established. You will need to restart your device to apply the new settings."
+			},
+			"ru": {
+				"owen_pvt100_template_title": "ОВЕН ПВТ100 (промышленный датчик влажности и температуры)",
+				"warning": "Перед изменением параметров убедитесь, что связь с устройством установлена. Для применения новых настроек потребуется выполнить перезагрузку устройства.",
+
+				"General": "Основное",
+				"Settings": "Настройки",
+
+				"Temperature": "Температура",
+				"Humidity": "Влажность",
+				"Dew Point": "Точка росы",
+				"Absolute Humidity": "Абсолютная влажность",
+				"Reboot device": "Перезагрузка прибора",
+
+				"Modbus Address": "Modbus-адрес",
+				"Baud Rate": "Скорость обмена",
+				"Response Delay": "Задержка ответа прибора (мс)",
+				"Stop Bits and Parity": "Контроль четности, кол-во стоп-битов",
+
+				"no parity - 1 bit": "нет - 1 бит",
+				"no parity - 2 bits": "нет - 2 бита",
+				"even parity - 1 bit": "четный - 1 бит",
+				"odd parity - 1 bit": "нечетный - 1 бит",
+			}
+		}
+	}
+}
