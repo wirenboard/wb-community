@@ -34,39 +34,6 @@
       "ReadOnly": false
     },
     {
-      "Index": 3,
-      "Address": 3,
-      "Alias": "Состояние канала реле K4 (0 - выключен, 1 - включен)",
-      "ReadFunction": 1,
-      "RegisterType": 255,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
-      "Index": 4,
-      "Address": 4,
-      "Alias": "Состояние канала реле K5 (0 - выключен, 1 - включен)",
-      "ReadFunction": 1,
-      "RegisterType": 255,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
-      "Index": 5,
-      "Address": 5,
-      "Alias": "Состояние канала реле K6 (0 - выключен, 1 - включе",
-      "ReadFunction": 1,
-      "RegisterType": 255,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
       "Index": 6,
       "Address": 0,
       "Alias": "Состояние входа 1 (0 - разомкнут, 1 - замкнут)",
@@ -92,39 +59,6 @@
       "Index": 8,
       "Address": 2,
       "Alias": "Состояние входа 3 (0 - разомкнут, 1 - замкнут)",
-      "ReadFunction": 2,
-      "RegisterType": 255,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": true
-    },
-    {
-      "Index": 9,
-      "Address": 3,
-      "Alias": "Состояние входа 4 (0 - разомкнут, 1 - замкнут)",
-      "ReadFunction": 2,
-      "RegisterType": 255,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": true
-    },
-    {
-      "Index": 10,
-      "Address": 4,
-      "Alias": "Состояние входа 5 (0 - разомкнут, 1 - замкнут)",
-      "ReadFunction": 2,
-      "RegisterType": 255,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": true
-    },
-    {
-      "Index": 11,
-      "Address": 5,
-      "Alias": "Состояние входа 6 (0 - разомкнут, 1 - замкнут)",
       "ReadFunction": 2,
       "RegisterType": 255,
       "Multiplier": 1.0,
@@ -199,39 +133,6 @@
       "ReadOnly": false
     },
     {
-      "Index": 18,
-      "Address": 12,
-      "Alias": "Режим взаимодействия входа 4 с выходами (0 - кнопка без фиксации, 1 - выключатель с фиксацией, 3 - взаимодействие отключено, 4 - mapping-матрица, 6 - mapping-матрица для кнопок)",
-      "ReadFunction": 3,
-      "RegisterType": 3,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
-      "Index": 19,
-      "Address": 13,
-      "Alias": "Режим взаимодействия входа 5 с выходами (0 - кнопка без фиксации, 1 - выключатель с фиксацией, 3 - взаимодействие отключено, 4 - mapping-матрица, 6 - mapping-матрица для кнопок)",
-      "ReadFunction": 3,
-      "RegisterType": 3,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
-      "Index": 20,
-      "Address": 14,
-      "Alias": "Режим взаимодействия входа 6 с выходами (0 - кнопка без фиксации, 1 - выключатель с фиксацией, 3 - взаимодействие отключено, 4 - mapping-матрица, 6 - mapping-матрица для кнопок)",
-      "ReadFunction": 3,
-      "RegisterType": 3,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
       "Index": 21,
       "Address": 16,
       "Alias": "Режим взаимодействия входа 0 с выходами (0 - кнопка без фиксации, 1 - выключатель с фиксацией, 3 - взаимодействие отключено, 4 - mapping-матрица, 6 - mapping-матрица для кнопок)",
@@ -268,39 +169,6 @@
       "Index": 24,
       "Address": 22,
       "Alias": "Время защиты входа 3 от дребезга",
-      "ReadFunction": 3,
-      "RegisterType": 3,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
-      "Index": 25,
-      "Address": 23,
-      "Alias": "Время защиты входа 4 от дребезга",
-      "ReadFunction": 3,
-      "RegisterType": 3,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
-      "Index": 26,
-      "Address": 24,
-      "Alias": "Время защиты входа 5 от дребезга",
-      "ReadFunction": 3,
-      "RegisterType": 3,
-      "Multiplier": 1.0,
-      "Offset": 0.0,
-      "DecimalPositions": 0,
-      "ReadOnly": false
-    },
-    {
-      "Index": 27,
-      "Address": 25,
-      "Alias": "Время защиты входа 6 от дребезга",
       "ReadFunction": 3,
       "RegisterType": 3,
       "Multiplier": 1.0,
