@@ -12,19 +12,19 @@ defineVirtualDevice("ws2812b", {
         min: 0,
         max: 255,
         value: 50,
-      },
+      },      
 	  hueLoop: {
         title: "смена оттенков",
         type: "switch",
-        value: true,
+        value: true,	  
 	  },
-      updatesPerSecond: {
-        title: "скорость обновления светодиодов",
+      delayMs: {
+        title: "задержка обновления, мс",
         type: "range",
-        min: 10,
+        min: 0,
         max: 1000,
-        value: 100,
-      },
+        value: 10,
+      }
 	}
 })
 
