@@ -270,12 +270,8 @@
 		}
 	],
 	"translations": {
-            "en": {
-                "template_title": "DTS238-7 ver. TY"
-            },
-            "ru": {
-				"template_title": "DTS238-7 ver. TY"
-			}
+            "en": {},
+            "ru": {}
 	}
   }
 }
