@@ -1,11 +1,14 @@
 {
-    "title": "royalclima_rcv_template_title",
+    "title": "rcv_template_title",
     "device_type": "royalclima_rcv",
     "group": "g-climate-control",
+
     "device": {
-        "name": "Royal Clima RCV",
+        "name": "Royal Clima Vento",
         "id": "royalclima_rcv",
+
         "guard_interval_us": 60000,
+
         "groups": [
             {
                 "title": "Main",
@@ -20,6 +23,7 @@
                 "id": "maintenance"
             }
         ],
+
         "parameters": {
             "device_adress": {
                 "title": "ModBus address",
@@ -33,9 +37,10 @@
                 "group": "main"
             }
         },
+
         "channels": [
             {
-                "name": "onoff",
+                "name": "ON-OFF",
                 "reg_type": "holding",
                 "address": "0",
                 "type": "switch",
@@ -44,8 +49,7 @@
                 "group": "main"
             },
             {
-                "id": "fanspeed",
-                "name": "fanspeed",
+                "name": "Fan Speed",
                 "reg_type": "holding",
                 "write_address": "3",
                 "address": "2",
@@ -104,21 +108,25 @@
                 "group": "maintenance"
             }
         ],
+
         "translations": {
             "en": {
-                "royalclima_rcv_template_title": "Royal Clima RCV",
-                "device_address_desc": "Modbus-address"
+                "rcv_template_title": "Royal Clima Vento (air handling unit)",
+				"device_address_desc": "Make sure that communication with device is established before changing this parameter. Select required modbus-address, save configuration and then change device address to the same value."
             },
             "ru": {
-                "royalclima_rcv_template_title": "Royal Clima RCV",
+                "rcv_template_title": "Royal Clima Vento (приточно-вентиляционная установка)",
+
                 "Main": "Основное",
                 "Temperature": "Температура",
                 "Maintenance": "Обслуживание",
+
                 "ModBus address": "Адрес ModBus",
-                "device_address_desc": "Modbus-адрес",
-                "onoff": "Статус установки",
-                "fanspeed": "Cкорость вентилятора",
-                "Outdoor Temperature": "Температура воздуха",
+                "device_address_desc": "Перед изменением параметра убедитесь, что связь с устройством установлена. Выберите новый modbus-адрес, сохраните конфигурацию, а затем укажите в настройках устройства этот же адрес.",
+
+                "ON-OFF": "Установка включена",
+                "Fan Speed": "Cкорость вентилятора",
+                "Outdoor Temperature": "Уличная температура",
                 "Temperature Setpoint": "Уставка температуры",
                 "Maintenance complete": "Обслуживание совершено",
                 "Need filter replacement": "Требуется замена фильтра",
