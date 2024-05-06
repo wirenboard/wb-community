@@ -1,0 +1,325 @@
+{
+	"title": "Hiking TOMZN DTS238-7",
+	"device_type": "TOMZN DTS238-7",
+	"group": "g-power-meter",
+
+	"device" : {
+		"name": "DTS238-7",
+		"id": "dts238-7",
+
+		"groups": [
+			{
+				"title": "Total",
+				"id": "total"
+			},
+			{
+				"title": "Phase A",
+				"id": "phase-a"
+			},
+			{
+				"title": "Phase B",
+				"id": "phase-b"
+			},
+			{
+				"title": "Phase C",
+				"id": "phase-c"
+			}
+		],
+
+		"channels": [
+			{
+				"name": "Total Active Energy",
+				"reg_type": "holding",
+				"address": "0x0",
+				"type": "value",
+				"format": "u32",
+				"scale": 0.01,
+				"units": "kWh",
+				"readonly": true,
+				"group": "total"
+			},
+			{
+				"name": "Total Active Power",
+				"reg_type": "holding",
+				"address": "0x86",
+				"type": "value",
+				"format": "s32",
+				"units": "W",
+				"readonly": true,
+				"group": "total"
+			},
+			{
+				"name": "Total Power Factor",
+				"reg_type": "holding",
+				"address": "0x96",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.001,
+				"readonly" : true,
+				"group": "total"
+			},
+			{
+				"name": "Frequency",
+				"reg_type": "holding",
+				"address": "0x11",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.01,
+				"units": "Hz",
+				"readonly" : true,
+				"group": "total"
+			},
+			{
+				"name": "A phase Voltage",
+				"reg_type": "holding",
+				"address": "0x80",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.1,
+				"units": "V",
+				"readonly" : true,
+				"group": "phase-a"
+			},
+			{
+				"name": "B phase Voltage",
+				"reg_type": "holding",
+				"address": "0x81",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.1,
+				"units": "V",
+				"readonly" : true,
+				"group": "phase-b"
+			},
+			{
+				"name": "C phase Voltage",
+				"reg_type": "holding",
+				"address": "0x82",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.1,
+				"units": "V",
+				"readonly" : true,
+				"group": "phase-c"
+			},
+			{
+				"name": "A phase Current",
+				"reg_type": "holding",
+				"address": "0x83",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.01,
+				"units": "A",
+				"readonly" : true,
+				"group": "phase-a"
+			},
+			{
+				"name": "B phase Current",
+				"reg_type": "holding",
+				"address": "0x84",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.01,
+				"units": "A",
+				"readonly" : true,
+				"group": "phase-b"
+			},
+			{
+				"name": "C phase Current",
+				"reg_type": "holding",
+				"address": "0x85",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.01,
+				"units": "A",
+				"readonly" : true,
+				"group": "phase-c"
+			},
+			{
+				"name": "A phase Active Power",
+				"reg_type": "holding",
+				"address": "0x88",
+				"type": "value",
+				"format": "s16",
+				"units": "W",
+				"readonly" : true,
+				"group": "phase-a"
+			},
+			{
+				"name": "B phase Active Power",
+				"reg_type": "holding",
+				"address": "0x89",
+				"type": "value",
+				"format": "s16",
+				"units": "W",
+				"readonly" : true,
+				"group": "phase-b"
+			},
+			{
+				"name": "C phase Active Power",
+				"reg_type": "holding",
+				"address": "0x8A",
+				"type": "value",
+				"format": "s16",
+				"units": "W",
+				"readonly" : true,
+				"group": "phase-c"
+			},
+			{
+				"name": "Total Reactive Power",
+				"reg_type": "holding",
+				"address": "0x8B",
+				"type": "value",
+				"format": "s32",
+				"scale" : 0.001,
+				"units": "kVAr",
+				"readonly" : true,
+				"group": "total"
+			},
+			{
+				"name": "A phase Reactive Power",
+				"reg_type": "holding",
+				"address": "0x8D",
+				"type": "value",
+				"format": "s16",
+				"scale" : 0.001,
+				"units": "kVAr",
+				"readonly" : true,
+				"group": "phase-a"
+			},
+			{
+				"name": "B phase Reactive Power",
+				"reg_type": "holding",
+				"address": "0x8E",
+				"type": "value",
+				"format": "s16",
+				"scale" : 0.001,
+				"units": "kVAr",
+				"readonly" : true,
+				"group": "phase-b"
+			},
+			{
+				"name": "C phase Reactive Power",
+				"reg_type": "holding",
+				"address": "0x8F",
+				"type": "value",
+				"format": "s16",
+				"scale" : 0.001,
+				"units": "kVAr",
+				"readonly" : true,
+				"group": "phase-c"
+			},
+			{
+				"name": "Total Apparent Power",
+				"reg_type": "holding",
+				"address": "0x90",
+				"type": "value",
+				"format": "u32",
+				"scale" : 0.001,
+				"units": "kVA",
+				"readonly" : true,
+				"group": "total"
+			},
+			{
+				"name": "A phase Apparent Power",
+				"reg_type": "holding",
+				"address": "0x92",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.001,
+				"units": "kVA",
+				"readonly" : true,
+				"group": "phase-a"
+			},
+			{
+				"name": "B phase Apparent Power",
+				"reg_type": "holding",
+				"address": "0x93",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.001,
+				"units": "kVA",
+				"readonly" : true,
+				"group": "phase-b"
+			},
+			{
+				"name": "C phase Apparent Power",
+				"reg_type": "holding",
+				"address": "0x94",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.001,
+				"units": "kVA",
+				"readonly" : true,
+				"group": "phase-c"
+			},
+			{
+				"name": "A phase Power Factor",
+				"reg_type": "holding",
+				"address": "0x96",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.001,
+				"readonly" : true,
+				"group": "phase-a"
+			},
+			{
+				"name": "B phase Power Factor",
+				"reg_type": "holding",
+				"address": "0x97",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.001,
+				"readonly" : true,
+				"group": "phase-b"
+			},
+			{
+				"name": "C phase Power Factor",
+				"reg_type": "holding",
+				"address": "0x98",
+				"type": "value",
+				"format": "u16",
+				"scale" : 0.001,
+				"readonly" : true,
+				"group": "phase-c"
+			}
+		],
+
+		"translations": {
+			"ru": {
+				"Total": "Общее",
+				"Phase A": "Фаза A",
+				"Phase B": "Фаза B",
+				"Phase C": "Фаза C",
+
+				"Total Active Energy": "Общая активная энергия",
+				"Total Active Power": "Общая активная мощность",
+				"Total Power Factor": "Общий коэффициент мощности",
+				"Frequency": "Частота",
+				"Total Reactive Power": "Общая реактивная мощность",
+				"Total Apparent Power": "Общая полная мощность",
+
+				"A phase Voltage": "Фаза A - Напряжение",
+				"A phase Current": "Фаза A - Ток",
+				"A phase Active Power": "Фаза A - Активная мощность",
+				"A phase Reactive Power": "Фаза A - Реактивная мощность",
+				"A phase Apparent Power": "Фаза A - Полная мощность",
+				"A phase Power Factor": "Фаза A - Коэффициент мощности",
+
+				"B phase Voltage": "Фаза B - Напряжение",
+				"B phase Current": "Фаза B - Ток",
+				"B phase Active Power": "Фаза B - Активная мощность",
+				"B phase Reactive Power": "Фаза B - Реактивная мощность",
+				"B phase Apparent Power": "Фаза B - Полная мощность",
+				"B phase Power Factor": "Фаза B - Коэффициент мощности",
+
+				"C phase Voltage": "Фаза C - Напряжение",
+				"C phase Current": "Фаза C - Ток",
+				"C phase Active Power": "Фаза C - Активная мощность",
+				"C phase Reactive Power": "Фаза C - Реактивная мощность",
+				"C phase Apparent Power": "Фаза C - Полная мощность",
+				"C phase Power Factor": "Фаза C - Коэффициент мощности"
+			}
+		}
+	}
+}
