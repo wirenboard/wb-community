@@ -1,0 +1,277 @@
+{
+  "title": "DTS238-7 ver. TY",
+  "device_type" : "TOMZN DTS238-7",
+  "group": "g-power-meter",
+  "device" : {   
+	"name": "TOMZN DTS238-7 Power meter",
+	"id": "DTS238-7",
+	"channels" :
+	[
+		{
+		  "address" : "0x0",
+		  "format" : "u32",
+		  "name" : "Total Active Energy",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.01,
+		  "type" : "value",
+		  "units" : "kWh"
+		},
+		{
+		  "address" : "0x86",
+		  "format" : "s32",
+		  "name" : "Total Active Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 1,
+		  "type" : "value",
+		  "units" : "W"
+		},
+		{
+		  "address" : "0x96",
+		  "format" : "u16",
+		  "name" : "Total Power Factor",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value"
+		},
+		{
+		  "address" : "0x11",
+		  "enabled" : true,
+		  "format" : "u16",
+		  "name" : "Frequency",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.01,
+		  "type" : "value",
+		  "units" : "Hz"
+		},
+		{
+		  "address" : "0x80",
+		  "format" : "u16",
+		  "name" : "A phase Voltage",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.1,
+		  "type" : "value",
+		  "units" : "V"
+		},
+		{
+		  "address" : "0x81",
+		  "format" : "u16",
+		  "name" : "B phase Voltage",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.1,
+		  "type" : "value",
+		  "units" : "V"
+		},
+		{
+		  "address" : "0x82",
+		  "format" : "u16",
+		  "name" : "C phase Voltage",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.1,
+		  "type" : "value",
+		  "units" : "V"
+		},
+		{
+		  "address" : "0x83",
+		  "format" : "u16",
+		  "name" : "A phase Current",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.01,
+		  "type" : "value",
+		  "units" : "A"
+		},
+		{
+		  "address" : "0x84",
+		  "format" : "u16",
+		  "name" : "B phase Current",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.01,
+		  "type" : "value",
+		  "units" : "A"
+		},
+		{
+		  "address" : "0x85",
+		  "format" : "u16",
+		  "name" : "C phase Current",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.01,
+		  "type" : "value",
+		  "units" : "A"
+		},
+		{
+		  "address" : "0x88",
+		  "format" : "s16",
+		  "name" : "A phase Active Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 1,
+		  "type" : "value",
+		  "units" : "W"
+		},
+		{
+		  "address" : "0x89",
+		  "format" : "s16",
+		  "name" : "B phase Active Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 1,
+		  "type" : "value",
+		  "units" : "W"
+		},
+		{
+		  "address" : "0x8A",
+		  "format" : "s16",
+		  "name" : "C phase Active Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 1,
+		  "type" : "value",
+		  "units" : "W"
+		},
+		{
+		  "address" : "0x8B",
+		  "format" : "s32",
+		  "name" : "Total Reactive Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value",
+		  "units" : "kVAr"
+		},
+		{
+		  "address" : "0x8D",
+		  "format" : "s16",
+		  "name" : "A phase Reactive Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value",
+		  "units" : "kVAr"
+		},
+		{
+		  "address" : "0x8E",
+		  "format" : "s16",
+		  "name" : "B phase Reactive Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value",
+		  "units" : "kVAr"
+		},
+		{
+		  "address" : "0x8F",
+		  "format" : "s16",
+		  "name" : "C phase Reactive Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value",
+		  "units" : "kVAr"
+		},
+		{
+		  "address" : "0x90",
+		  "format" : "u32",
+		  "name" : "Total Apparent Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value",
+		  "units" : "kVA"
+		},
+		{
+		  "address" : "0x92",
+		  "format" : "u16",
+		  "name" : "A phase Apparent Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value",
+		  "units" : "kVA"
+		},
+		{
+		  "address" : "0x93",
+		  "format" : "u16",
+		  "name" : "B phase Apparent Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value",
+		  "units" : "kVA"
+		},
+		{
+		  "address" : "0x94",
+		  "format" : "u16",
+		  "name" : "C phase Apparent Power",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value",
+		  "units" : "kVA"
+		},
+		{
+		  "address" : "0x96",
+		  "format" : "u16",
+		  "name" : "A phase Power Factor",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value"
+		},
+		{
+		  "address" : "0x97",
+		  "format" : "u16",
+		  "name" : "B phase Power Factor",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value"
+		},
+		{
+		  "address" : "0x98",
+		  "format" : "u16",
+		  "name" : "C phase Power Factor",
+		  "offset" : 0,
+		  "readonly" : true,
+		  "reg_type" : "holding",
+		  "scale" : 0.001,
+		  "type" : "value"
+		}
+	],
+	"translations": {
+            "en": {},
+            "ru": {}
+	}
+  }
+}

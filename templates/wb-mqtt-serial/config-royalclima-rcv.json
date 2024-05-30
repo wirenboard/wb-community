@@ -1,0 +1,129 @@
+{
+    "title": "royalclima_rcv_template_title",
+    "device_type": "royalclima_rcv",
+    "group": "g-climate-control",
+    "device": {
+        "name": "Royal Clima RCV",
+        "id": "royalclima_rcv",
+        "guard_interval_us": 60000,
+        "groups": [
+            {
+                "title": "Main",
+                "id": "main"
+            },
+            {
+                "title": "Temperature",
+                "id": "temperature"
+            },
+            {
+                "title": "Maintenance",
+                "id": "maintenance"
+            }
+        ],
+        "parameters": {
+            "device_adress": {
+                "title": "ModBus address",
+                "description": "device_address_desc",
+                "reg_type": "holding",
+                "address": "1",
+                "default": 1,
+                "min": 1,
+                "max": 16,
+                "order": 2,
+                "group": "main"
+            }
+        },
+        "channels": [
+            {
+                "name": "onoff",
+                "reg_type": "holding",
+                "address": "0",
+                "type": "switch",
+                "on_value": 1,
+                "off_value": 0,
+                "group": "main"
+            },
+            {
+                "id": "fanspeed",
+                "name": "fanspeed",
+                "reg_type": "holding",
+                "write_address": "3",
+                "address": "2",
+                "type": "range",
+                "min": 1,
+                "max": 3,
+                "group": "main"
+            },
+            {
+                "name": "Outdoor Temperature",
+                "reg_type": "holding",
+                "address": "4",
+                "type": "value",
+                "units": "deg C",
+                "offset": -15,
+                "max": 99,
+                "round_to": 1,
+                "readonly": true,
+                "group": "temperature"
+            },
+            {
+                "name": "Temperature Setpoint",
+                "reg_type": "holding",
+                "address": "7",
+                "type": "range",
+                "min": 0,
+                "max": 35,
+                "group": "temperature"
+            },
+            {
+                "name": "Need filter replacement",
+                "reg_type": "holding",
+                "address": "6",
+                "type": "switch",
+                "group": "maintenance",
+                "readonly": true
+            },
+            {
+                "name": "Filter uptime",
+                "reg_type": "holding",
+                "address": "8",
+                "type": "value",
+                "units": "h",
+                "max": 9999,
+                "round_to": 1,
+                "group": "maintenance",
+                "readonly": true
+            },
+            {
+                "name": "Maintenance complete",
+                "reg_type": "holding",
+                "format": "u16",
+                "address": "6",
+                "type": "pushbutton",
+                "on_value": 0,
+                "group": "maintenance"
+            }
+        ],
+        "translations": {
+            "en": {
+                "royalclima_rcv_template_title": "Royal Clima RCV",
+                "device_address_desc": "Modbus-address"
+            },
+            "ru": {
+                "royalclima_rcv_template_title": "Royal Clima RCV",
+                "Main": "Основное",
+                "Temperature": "Температура",
+                "Maintenance": "Обслуживание",
+                "ModBus address": "Адрес ModBus",
+                "device_address_desc": "Modbus-адрес",
+                "onoff": "Статус установки",
+                "fanspeed": "Cкорость вентилятора",
+                "Outdoor Temperature": "Температура воздуха",
+                "Temperature Setpoint": "Уставка температуры",
+                "Maintenance complete": "Обслуживание совершено",
+                "Need filter replacement": "Требуется замена фильтра",
+                "Filter uptime": "Время работы фильтра"
+            }
+        }
+    }
+}
