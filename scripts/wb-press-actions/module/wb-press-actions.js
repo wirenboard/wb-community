@@ -90,6 +90,16 @@ function initActionInc(btnControl, stateControl, actionControl, maxValue) {
     },
     then: function () {
       var i = dev[actionControl];
+      if(i === null || i === undefined) {
+          log.error("Cannot make initActionInc: actionControl ({}) of btnControl ({}) is empty".format(actionControl, btnControl))
+          timers[timerName].stop()
+          return
+      }
+      if(stateControl === null || stateControl === undefined) {
+          log.error("Cannot make initActionInc: stateControl ({}) of btnControl {} is empty".format(stateControl, btnControl))
+          timers[timerName].stop()
+          return
+      }
       if (maxValue == undefined) maxValue = 100;
 
       if (i < maxValue && dev[stateControl]) {
@@ -111,6 +121,16 @@ function initActionDec(btnControl, stateControl, actionControl, minValue) {
     },
     then: function () {
       var i = dev[actionControl];
+      if(i === null || i === undefined) {
+          log.error("Cannot make initActionDec: actionControl ({}) of btnControl ({}) is empty".format(actionControl, btnControl))
+          timers[timerName].stop()
+          return
+      }
+      if(stateControl === null || stateControl === undefined) {
+          log.error("Cannot make initActionDec: stateControl ({}) of btnControl {} is empty".format(stateControl, btnControl))
+          timers[timerName].stop()
+          return
+      }
       if (minValue == undefined) minValue = 0;
 
       if (i > minValue && dev[stateControl]) {
