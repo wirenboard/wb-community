@@ -1,11 +1,11 @@
 {
 	"title": "rcs_template_title",
-	"device_type": "rcs",
+	"device_type": "royalclima_rcs",
 	"group": "g-climate-control",
 
 	"device": {
-		"name": "Royal Clima SOFFIO Primo",
-		"id": "rcs",
+		"name": "Royal Clima Soffio",
+		"id": "royalclima_rcs",
 
 		"guard_interval_us": 60000,
 
@@ -59,7 +59,7 @@
 
 		"channels": [
 			{
-				"name": "ERV ON-OFF",
+				"name": "ON-OFF",
 				"reg_type": "holding",
 				"address": "9",
 				"type": "switch",
@@ -68,7 +68,6 @@
 				"group": "main"
 			},
 			{
-				"id": "Supply fan speed",
 				"name": "Supply fan speed",
 				"reg_type": "holding",
 				"address": "10",
@@ -80,7 +79,6 @@
 				"group": "fan"
 			},
 			{
-				"id": "Exhaust fan speed",
 				"name": "Exhaust fan speed",
 				"reg_type": "holding",
 				"address": "11",
@@ -229,12 +227,12 @@
 
 		"translations": {
 			"en": {
-				"rcs_template_title": "Royal Clima Soffio Primo (air handling unit)",
+				"rcs_template_title": "Royal Clima Soffio (air handling unit)",
 				"speed_control_desc": "The parameter allows you to select the number of speeds available for the user to select.",
 				"device_address_desc": "Make sure that communication with device is established before changing this parameter. Select required modbus-address, save configuration and then change device address to the same value."
 			},
 			"ru": {
-				"rcs_template_title": "Royal Clima Soffio Primo (приточно-вытяжная установка)",
+				"rcs_template_title": "Royal Clima Soffio (приточно-вытяжная установка)",
 
 				"Main": "Основное",
 				"Temperature": "Температура",
@@ -249,7 +247,7 @@
 				"ModBus address": "Адрес ModBus",
 				"device_address_desc": "Перед изменением параметра убедитесь, что связь с устройством установлена. Выберите новый modbus-адрес, сохраните конфигурацию, а затем укажите в настройках устройства этот же адрес.",
 
-				"ERV ON-OFF": "Установка включена",
+				"ON-OFF": "Установка включена",
 				"Fire alarm ON": "Пожарная сигнализация включена",
 				"Multifunction Setting": "Многофункциональный параметр",
 				"Filter alarm timmer": "Таймер уведомления смены фильтра",
