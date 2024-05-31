@@ -90,9 +90,25 @@ function initActionInc(btnControl, stateControl, actionControl, maxValue) {
     },
     then: function () {
       var i = dev[actionControl];
+      if(i === null || i === undefined) {
+          log.error("Cannot make initActionInc: current actionControl ({}) value of btnControl ({}) is empty".format(actionControl, btnControl))
+          timers[timerName].stop()
+          return
+      }
+      if(stateControl === null || stateControl === undefined) {
+          log.error("Cannot make initActionInc: stateControl name ({}) of btnControl {} is empty".format(stateControl, btnControl))
+          timers[timerName].stop()
+          return
+      }
+      var currentStateControlVal = dev[stateControl]
+      if(currentStateControlVal === null || currentStateControlVal === undefined) {
+	  log.error("Cannot make initActionInc: current stateControl ({}) value of btnControl {} is empty".format(stateControl, btnControl))
+          timers[timerName].stop()
+	  return
+      }
       if (maxValue == undefined) maxValue = 100;
 
-      if (i < maxValue && dev[stateControl]) {
+      if (i < maxValue && currentStateControlVal) {
         i++;
         dev[actionControl] = i;
       } else {
@@ -111,9 +127,25 @@ function initActionDec(btnControl, stateControl, actionControl, minValue) {
     },
     then: function () {
       var i = dev[actionControl];
+      if(i === null || i === undefined) {
+          log.error("Cannot make initActionDec: current actionControl ({}) value of btnControl ({}) is empty".format(actionControl, btnControl))
+          timers[timerName].stop()
+          return
+      }
+      if(stateControl === null || stateControl === undefined) {
+          log.error("Cannot make initActionDec: stateControl name ({}) of btnControl {} is empty".format(stateControl, btnControl))
+          timers[timerName].stop()
+          return
+      }
+      var currentStateControlVal = dev[stateControl]
+      if(currentStateControlVal === null || currentStateControlVal === undefined) {
+	  log.error("Cannot make initActionDec: current stateControl ({}) value of btnControl {} is empty".format(stateControl, btnControl))
+          timers[timerName].stop()
+	  return
+      }
       if (minValue == undefined) minValue = 0;
 
-      if (i > minValue && dev[stateControl]) {
+      if (i > minValue && currentStateControlVal) {
         i--;
         dev[actionControl] = i;
       } else {
