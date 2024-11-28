@@ -6,4 +6,4 @@
 
 Если модель добавляемого аксессуара в самом топике Sprut.hub'а не 'WB-MSW', то виртуальное устройство не будет создано. Пример топика, куда публикуется модель аксессуара: `Sprut.hub-MQTT_Bridge/accessories/85/1/6`
 
-![alt text](/wb-sh2wb-msw-zigbee.png)
+![alt text](wb-sh2wb-msw-zigbee.png)
