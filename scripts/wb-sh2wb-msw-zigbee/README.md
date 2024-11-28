@@ -6,7 +6,7 @@
 
 ![alt text](SH_add_Bridge.png)
 
-В настройках моста перейти в раздел "Экспертные" и указать перфикс моста, например,  "Sprut.hub_MQTT_Bridge".
+В настройках моста перейти в раздел "Экспертные" и указать перфикс, например,  "Sprut.hub_MQTT_Bridge".
 
 ![alt text](Settings_Bridge.png)
 
