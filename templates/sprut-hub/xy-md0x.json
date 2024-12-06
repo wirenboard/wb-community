@@ -1,0 +1,36 @@
+{
+	"name": "Датчик температуры и влажности",
+	"manufacturer": "MODBUS",
+	"model": "XY-MD0X",
+	"services": [
+		{
+        "type": "TemperatureSensor",
+        "characteristics": [
+          {
+            "type": "CurrentTemperature",
+            "link": {
+              "type": "Double",
+              "topicSearch": "/devices/(xy-md0x_[0-9]{1,3})/controls/temperature/meta/type",
+              "topicGet": "/devices/(1)/controls/Temperature",
+              "minStep": 0.1,
+              "checkValue": true
+            }
+          }
+        ]
+      },
+      {
+        "type": "HumiditySensor",
+        "characteristics": [
+          {
+            "type": "CurrentRelativeHumidity",
+            "link": {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/humidity",
+              "minStep": 1,
+              "checkValue": true
+            }
+          }
+        ]
+      }
+  ]
+}
