@@ -1,0 +1,99 @@
+{
+  "name": "Датчик присутствия Saifuli MTDX62-MB",
+  "manufacturer": "Saifuli",
+  "model": "MTDX62-MB",
+  "modelId": "/devices/(mtdx62-mb_[0-9]{1,3})/controls/Presence Status/meta/type",
+  "status": "Test",
+  "services": [
+    {
+      "name": "Датчик присутствия",
+      "type": "OccupancySensor",
+      "characteristics": [
+        {
+          "type": "OccupancyDetected",
+          "link": {
+            "type": "Boolean",
+            "topicGet": "/devices/(1)/controls/Presence Status"            
+          }
+        },
+        {
+          "type": "C_Distance",
+          "link": {
+            "type": "Double",
+            "topicGet": "/devices/(1)/controls/Target distance"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Датчик освещенности",
+      "type": "LightSensor",
+      "characteristics": [
+        {
+          "type": "CurrentAmbientLightLevel",
+          "link": {
+            "type": "Double",
+            "topicGet": "/devices/(1)/controls/Illuminance status"
+          }
+        }
+      ]
+    }
+  ],
+  "options": [
+    {
+      "link": {
+      "topicGet": "/devices/(1)/controls/Trigger sensitivity",
+      "topicSet": "/devices/(1)/controls/Trigger sensitivity/on"      
+      },
+      "name": "Чувствительность",
+      "type": "Double",
+      "minValue": 1.0,
+      "maxValue": 9.0,
+      "minStep": 1
+    },
+    {
+      "link": {
+      "topicGet": "/devices/(1)/controls/Detection distance",
+      "topicSet": "/devices/(1)/controls/Detection distance/on"      
+      },
+      "name": "Максимальное расстояние",
+      "type": "Double",
+      "minValue": 2.0,
+      "maxValue": 10.0,
+      "minStep": 1
+    },
+    {
+      "link": {
+      "topicGet": "/devices/(1)/controls/Detecting shielding distance",
+      "topicSet": "/devices/(1)/controls/Detecting shielding distance/on"      
+      },
+      "name": "Минимальное расстояние",
+      "type": "Double",
+      "minValue": 0.6,
+      "maxValue": 10.0,
+      "minStep": 0.1
+    },
+    {
+      "link": {
+      "topicGet": "/devices/(1)/controls/Admission confirmation delayed",
+      "topicSet": "/devices/(1)/controls/Admission confirmation delayed/on"      
+      },
+      "name": "Задержка обнаружения присутствия",
+      "type": "Double",
+      "minValue": 0.1,
+      "maxValue": 5.0,
+      "minStep": 0.1
+    },
+    {
+      "link": {
+      "topicGet": "/devices/(1)/controls/Departure disappearance delay",
+      "topicSet": "/devices/(1)/controls/Departure disappearance delay/on"      
+      },
+      "name": "Задержка определения отсутствия",
+      "type": "Double",
+      "minValue": 1.0,
+      "maxValue": 1500.0,
+      "minStep": 5
+    }
+  ]
+}
