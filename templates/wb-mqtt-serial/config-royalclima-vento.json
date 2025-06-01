@@ -64,7 +64,7 @@
                 "address": "4",
                 "type": "value",
                 "units": "deg C",
-                "offset": -15,
+                "offset": -40,
                 "max": 99,
                 "round_to": 1,
                 "readonly": true,
@@ -104,7 +104,7 @@
                 "format": "u16",
                 "address": "6",
                 "type": "pushbutton",
-                "on_value": 0,
+                "on_value": 1,
                 "group": "maintenance"
             }
         ],
