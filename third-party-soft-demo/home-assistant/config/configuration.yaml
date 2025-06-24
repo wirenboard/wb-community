@@ -1,0 +1,5 @@
+recorder:
+  purge_keep_days: 14
+
+homeassistant:
+  packages: !include_dir_named packages

@@ -1,0 +1,193 @@
+mqtt:
+  sensor:
+    - name: "Room Temperature (Used Thermostat)"
+      state_topic: "/devices/wb-msw-v3_52/controls/Temperature"
+      unit_of_measurement: "°C"
+      device_class: temperature
+      unique_id: wb_msw_temp
+
+    - name: "Room Humidity"
+      state_topic: "/devices/wb-msw-v3_52/controls/Humidity"
+      unit_of_measurement: "%"
+      device_class: humidity
+      unique_id: wb_msw_humidity
+
+    - name: "CO2"
+      state_topic: "/devices/wb-msw-v3_52/controls/CO2"
+      unit_of_measurement: "ppm"
+      device_class: carbon_dioxide
+      unique_id: wb_msw_co2
+
+    - name: "VOC"
+      state_topic: "/devices/wb-msw-v3_52/controls/VOC"
+      unit_of_measurement: "ppm"
+      unique_id: wb_msw_voc
+
+    - name: "Noise"
+      state_topic: "/devices/wb-msw-v3_52/controls/Noise"
+      unit_of_measurement: "dB"
+      unique_id: wb_msw_noise
+
+    - name: "Illuminance"
+      state_topic: "/devices/wb-msw-v3_52/controls/Illuminance"
+      unit_of_measurement: "lx"
+      device_class: illuminance
+      unique_id: wb_msw_light
+
+    - name: "Energy L1"
+      state_topic: "/devices/wb-map3e_12/controls/AP energy L1"
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
+      unique_id: wb_map3e_energy_l1
+
+    - name: "Energy L2"
+      state_topic: "/devices/wb-map3e_12/controls/AP energy L2"
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
+      unique_id: wb_map3e_energy_l2
+
+    - name: "Energy L3"
+      state_topic: "/devices/wb-map3e_12/controls/AP energy L3"
+      unit_of_measurement: "kWh"
+      device_class: energy
+      state_class: total_increasing
+      unique_id: wb_map3e_energy_l3
+
+    - unique_id: wb_cpu_temperature
+      name: "CPU Temperature"
+      state_topic: "/devices/hwmon/controls/CPU Temperature"
+      unit_of_measurement: "°C"
+
+  switch:
+    - name: "WB-MR6C Relay K1 (Used Thermostat)"
+      state_topic: "/devices/wb-mr6c_32/controls/K1"
+      command_topic: "/devices/wb-mr6c_32/controls/K1/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_mr6c_k1
+
+    - name: "WB-MR6C Relay K2"
+      state_topic: "/devices/wb-mr6c_32/controls/K2"
+      command_topic: "/devices/wb-mr6c_32/controls/K2/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_mr6c_k2
+
+    - name: "WB-MR6C Relay K3"
+      state_topic: "/devices/wb-mr6c_32/controls/K3"
+      command_topic: "/devices/wb-mr6c_32/controls/K3/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_mr6c_k3
+
+    - name: "WB-MR6C Relay K4"
+      state_topic: "/devices/wb-mr6c_32/controls/K4"
+      command_topic: "/devices/wb-mr6c_32/controls/K4/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_mr6c_k4
+
+    - name: "WB-MR6C Relay K5"
+      state_topic: "/devices/wb-mr6c_32/controls/K5"
+      command_topic: "/devices/wb-mr6c_32/controls/K5/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_mr6c_k5
+
+    - name: "WB-MR6C Relay K6"
+      state_topic: "/devices/wb-mr6c_32/controls/K6"
+      command_topic: "/devices/wb-mr6c_32/controls/K6/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_mr6c_k6
+
+    - name: "MSW LED Green"
+      state_topic: "/devices/wb-msw-v3_52/controls/LED Green"
+      command_topic: "/devices/wb-msw-v3_52/controls/LED Green/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_msw_led_green
+
+    - name: "MSW LED Red"
+      state_topic: "/devices/wb-msw-v3_52/controls/LED Red"
+      command_topic: "/devices/wb-msw-v3_52/controls/LED Red/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_msw_led_red
+
+    - name: "MSW Buzzer"
+      state_topic: "/devices/wb-msw-v3_52/controls/Buzzer"
+      command_topic: "/devices/wb-msw-v3_52/controls/Buzzer/on"
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+      unique_id: wb_msw_buzzer
+
+  light:
+    - name: "MDM3 Light 1"
+      unique_id: wb_mdm3_light_1
+      state_topic: "/devices/wb-mdm3_42/controls/K1"
+      command_topic: "/devices/wb-mdm3_42/controls/K1/on"
+      brightness_state_topic: "/devices/wb-mdm3_42/controls/Channel 1"
+      brightness_command_topic: "/devices/wb-mdm3_42/controls/Channel 1/on"
+      brightness_scale: 100
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+
+    - name: "MDM3 Light 2"
+      unique_id: wb_mdm3_light_2
+      state_topic: "/devices/wb-mdm3_42/controls/K2"
+      command_topic: "/devices/wb-mdm3_42/controls/K2/on"
+      brightness_state_topic: "/devices/wb-mdm3_42/controls/Channel 2"
+      brightness_command_topic: "/devices/wb-mdm3_42/controls/Channel 2/on"
+      brightness_scale: 100
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+
+    - name: "MDM3 Light 3"
+      unique_id: wb_mdm3_light_3
+      state_topic: "/devices/wb-mdm3_42/controls/K3"
+      command_topic: "/devices/wb-mdm3_42/controls/K3/on"
+      brightness_state_topic: "/devices/wb-mdm3_42/controls/Channel 3"
+      brightness_command_topic: "/devices/wb-mdm3_42/controls/Channel 3/on"
+      brightness_scale: 100
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+
+    - unique_id: wb_buzzer
+      name: "PLC Buzzer (Real)"
+      state_topic: "/devices/buzzer/controls/enabled"
+      command_topic: "/devices/buzzer/controls/enabled/on"
+      brightness_state_topic: '/devices/buzzer/controls/volume'
+      brightness_command_topic: '/devices/buzzer/controls/volume/on'
+      brightness_scale: 100
+      payload_on: "1"
+      payload_off: "0"
+      retain: true
+
+climate:
+  - platform: generic_thermostat
+    name: Room Thermostat
+    heater: switch.relay_k1
+    target_sensor: sensor.room_temperature
+    min_temp: 10
+    max_temp: 30
+    target_temp: 22
+    ac_mode: false
+    cold_tolerance: 0.5
+    hot_tolerance: 0.5
+    away_temp: 18
+    precision: 0.1
