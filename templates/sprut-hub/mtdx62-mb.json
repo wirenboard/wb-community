@@ -56,9 +56,9 @@
       ],
       "name": "Чувствительность",
       "type": "Double",
-      "minValue": 1,
-      "maxValue": 9,
-      "minStep": 1
+      "minValue": 1.0,
+      "maxValue": 9.0,
+      "minStep": 1.0
     },
     {
       "link": [
@@ -70,9 +70,9 @@
       ],
       "name": "Максимальное расстояние",
       "type": "Double",
-      "minValue": 2,
-      "maxValue": 10,
-      "minStep": 1
+      "minValue": 2.0,
+      "maxValue": 10.0,
+      "minStep": 1.0
     },
     {
       "link": [
@@ -85,7 +85,7 @@
       "name": "Минимальное расстояние",
       "type": "Double",
       "minValue": 0.6,
-      "maxValue": 10,
+      "maxValue": 10.0,
       "minStep": 0.1
     },
     {
@@ -99,7 +99,7 @@
       "name": "Задержка обнаружения присутствия",
       "type": "Double",
       "minValue": 0.1,
-      "maxValue": 5,
+      "maxValue": 5.0,
       "minStep": 0.1
     },
     {
@@ -112,9 +112,9 @@
       ],
       "name": "Задержка определения отсутствия",
       "type": "Double",
-      "minValue": 1,
+      "minValue": 1.0,
       "maxValue": 1500,
-      "minStep": 5
+      "minStep": 5.0
     }
   ]
 }

@@ -29,7 +29,7 @@
             {
               "type": "Double",
               "topicGet": "/devices/(1)/controls/humidity",
-              "minStep": 1,
+              "minStep": 1.0,
               "checkValue": true
             }
           ]
