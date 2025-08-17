@@ -9,85 +9,99 @@
       "characteristics": [
         {
           "type": "TargetTemperature",
-          "link": {
-            "type": "Double",
-            "topicGet": "/devices/(1)/controls/setting_temperature",
-            "topicSet": "/devices/(1)/controls/setting_temperature/on"
-          },
-          "minValue": 15.0,
-          "maxValue": 27.0,
+          "link": [
+            {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/setting_temperature",
+              "topicSet": "/devices/(1)/controls/setting_temperature/on"
+            }
+          ],
+          "minValue": 15,
+          "maxValue": 27,
           "minStep": 0.5
         },
         {
           "type": "CurrentTemperature",
-          "link": {
-            "type": "Double",
-            "topicGet": "/devices/(1)/controls/temperature_from_internal_sensor"
-          }
+          "link": [
+            {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/temperature_from_internal_sensor"
+            }
+          ]
         },
         {
           "type": "TargetHeatingCoolingState",
-          "link": {
-            "type": "Double",
-            "topicGet": "/devices/(1)/controls/power_status",
-            "topicSet": "/devices/(1)/controls/power_status/on",
-            "map": {
-              "0": "OFF",
-              "1": "HEAT"
+          "link": [
+            {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/power_status",
+              "topicSet": "/devices/(1)/controls/power_status/on",
+              "map": {
+                "0": "OFF",
+                "1": "HEAT"
+              }
             }
-          },
+          ],
           "validValues": "HEAT,OFF"
         },
         {
           "type": "CurrentHeatingCoolingState",
-          "link": {
-            "type": "Double",
-            "topicGet": "/devices/(1)/controls/heating_status",
-            "map": {
-              "0": "0",
-              "1": "1"
-            },
-            "validValues": "0,1"
-          }
+          "validValues": "0,1",
+          "link": [
+            {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/heating_status",
+              "map": {
+                "0": "0",
+                "1": "1"
+              }
+            }
+          ]
         }
       ]
     }
   ],
   "options": [
     {
-      "link": {
-        "type": "Boolean",
-        "topicGet": "/devices/(1)/controls/manual_mode",
-        "topicSet": "/devices/(1)/controls/manual_mode/on"
-      },
+      "link": [
+        {
+          "type": "Boolean",
+          "topicGet": "/devices/(1)/controls/manual_mode",
+          "topicSet": "/devices/(1)/controls/manual_mode/on"
+        }
+      ],
       "type": "Boolean",
       "name": "Ручной режим",
       "init": true,
       "value": false
     },
     {
-      "link": {
-        "type": "Boolean",
-        "topicGet": "/devices/(1)/controls/lock_buttons",
-        "topicSet": "/devices/(1)/controls/lock_buttons/on"
-      },
+      "link": [
+        {
+          "type": "Boolean",
+          "topicGet": "/devices/(1)/controls/lock_buttons",
+          "topicSet": "/devices/(1)/controls/lock_buttons/on"
+        }
+      ],
       "type": "Boolean",
       "name": "Блокировка кнопок",
       "init": true,
       "value": false
     },
     {
-      "link": {
-        "type": "Double",
-        "topicGet": "/devices/(1)/controls/weekly_program_setting_temperature",
-        "topicSet": "/devices/(1)/controls/weekly_program_setting_temperature/on"
-      },
+      "link": [
+        {
+          "type": "Double",
+          "topicGet": "/devices/(1)/controls/weekly_program_setting_temperature",
+          "topicSet": "/devices/(1)/controls/weekly_program_setting_temperature/on"
+        }
+      ],
       "type": "Double",
       "name": "Установка температуры для недельной программы",
       "init": true,
-      "value": 15.0,
-      "minValue": 5.0,
-      "maxValue": 35.0,
+      "value": 15,
+      "minValue": 5,
+      "maxValue": 35,
       "minStep": 0.5
     }
   ]
