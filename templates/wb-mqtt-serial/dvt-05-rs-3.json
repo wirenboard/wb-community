@@ -1,0 +1,88 @@
+{
+  "device_type": "DVT-05.RS.3",
+  "title": "DVT05_title",
+  "group": "g-climate-sensor",
+  "device": {
+    "name": "DVT-05-RS-3",
+    "id": "dvt-05-rs-3",
+    "channels": [
+      {
+        "name": "Temperature",
+        "units": "deg C",
+        "scale": 0.1,
+        "reg_type": "holding",
+        "format": "u16",
+        "address": 0,
+        "type": "temperature",
+        "readonly": true,
+        "group": "channels"
+      },
+      {
+        "name": "Humidity",
+        "scale": 0.1,
+        "reg_type": "holding",
+        "format": "u16",
+        "address": 1,
+        "type": "rel_humidity",
+        "readonly": true,
+        "group": "channels"
+      },
+      {
+        "name": "Address",
+        "reg_type": "holding",
+        "format": "u16",
+        "address": 4,
+        "type": "value",
+        "readonly": true,
+        "group": "settings"
+      },
+      {
+        "name": "Speed",
+        "format": "u16",
+        "address": 5,
+        "type": "value",
+        "reg_type": "holding",
+        "readonly": true,
+        "enabled": false,
+        "group": "settings"
+      },
+      {
+        "name": "FW Version",
+        "reg_type": "holding",
+        "address": 6,
+        "format": "u16",
+        "type": "value",
+        "readonly": true,
+        "enabled": false,
+        "group": "settings"
+      },
+      {
+        "name": "SW Version",
+        "reg_type": "holding",
+        "address": 7,
+        "format": "u16",
+        "type": "value",
+        "readonly": true,
+        "enabled": false,
+        "group": "settings"
+      }
+    ],
+ 
+      "translations": 
+      {
+        "en": {
+          "device_type_title": "DVT-05.RS.3",
+          "DVT_name": "DVT-05.RS.3",
+          "DVT05_title": "RELSIB DVT-05 Climate Sensor"
+        },
+        "ru": {
+          "device_type_title": "ДВТ-05.RS.3",
+          "DVT_name": "ДВТ-05.RS.3",
+          "DVT-05-RS-3": "ДВТ-05.RS.3",
+          "DVT05_title": "РЭЛСИБ ДВТ-05 Датчик температуры и влажности",
+          "Temperature": "Температура",
+          "Humidity": "Влажность"
+        }
+      }
+  }
+}
