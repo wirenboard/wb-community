@@ -1,0 +1,1172 @@
+{
+  "title": "Multiplex_UPS",
+  "device_type": "Multiplex_UPS",
+  "device": {
+    "name": "Multiplex_UPS",
+    "id": "Multiplex_UPS",
+    "channels": [
+      {
+        "name": "Bypass_Urms_L1",
+        "reg_type": "holding",
+        "address": 1,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Bypass_Urms_L2",
+        "reg_type": "holding",
+        "address": 2,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Bypass_Urms_L3",
+        "reg_type": "holding",
+        "address": 3,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Bypass_Irms_L1",
+        "reg_type": "holding",
+        "address": 4,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Bypass_Irms_L2",
+        "reg_type": "holding",
+        "address": 5,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Bypass_Irms_L3",
+        "reg_type": "holding",
+        "address": 6,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Bypass_Frequency_L1",
+        "reg_type": "holding",
+        "address": 7,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Bypass_Frequency_L2",
+        "reg_type": "holding",
+        "address": 8,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Bypass_Frequency_L3",
+        "reg_type": "holding",
+        "address": 9,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Bypass_PF_L1",
+        "reg_type": "holding",
+        "address": 10,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Bypass_PF_L2",
+        "reg_type": "holding",
+        "address": 11,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Bypass_PF_L3",
+        "reg_type": "holding",
+        "address": 12,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Input_Urms_L1",
+        "reg_type": "holding",
+        "address": 13,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Input_Urms_L2",
+        "reg_type": "holding",
+        "address": 14,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Input_Urms_L3",
+        "reg_type": "holding",
+        "address": 15,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Input_Irms_L1",
+        "reg_type": "holding",
+        "address": 16,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Input_Irms_L2",
+        "reg_type": "holding",
+        "address": 17,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Input_Irms_L3",
+        "reg_type": "holding",
+        "address": 18,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Input_Frequency_L1",
+        "reg_type": "holding",
+        "address": 19,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Input_Frequency_L2",
+        "reg_type": "holding",
+        "address": 20,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Input_Frequency_L3",
+        "reg_type": "holding",
+        "address": 21,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Input_PF_L1",
+        "reg_type": "holding",
+        "address": 22,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Input_PF_L2",
+        "reg_type": "holding",
+        "address": 23,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Input_PF_L3",
+        "reg_type": "holding",
+        "address": 24,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Out_Urms_L1",
+        "reg_type": "holding",
+        "address": 25,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Urms_L2",
+        "reg_type": "holding",
+        "address": 26,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Urms_L3",
+        "reg_type": "holding",
+        "address": 27,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Irms_L1",
+        "reg_type": "holding",
+        "address": 28,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Irms_L2",
+        "reg_type": "holding",
+        "address": 29,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Irms_L3",
+        "reg_type": "holding",
+        "address": 30,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Ouput_Frequency_L1",
+        "reg_type": "holding",
+        "address": 31,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Ouput_Frequency_L2",
+        "reg_type": "holding",
+        "address": 32,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Ouput_Frequency_L3",
+        "reg_type": "holding",
+        "address": 33,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Out_PF_L1",
+        "reg_type": "holding",
+        "address": 34,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Out_PF_L2",
+        "reg_type": "holding",
+        "address": 35,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Out_PF_L3",
+        "reg_type": "holding",
+        "address": 36,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.01
+      },
+      {
+        "name": "Out_S_L1",
+        "reg_type": "holding",
+        "address": 37,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_S_L2",
+        "reg_type": "holding",
+        "address": 38,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_S_L3",
+        "reg_type": "holding",
+        "address": 39,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_active_P_L1",
+        "reg_type": "holding",
+        "address": 40,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_active_P_L2",
+        "reg_type": "holding",
+        "address": 41,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_active_P_L3",
+        "reg_type": "holding",
+        "address": 42,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Q_L1",
+        "reg_type": "holding",
+        "address": 43,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Q_L2",
+        "reg_type": "holding",
+        "address": 44,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Q_L3",
+        "reg_type": "holding",
+        "address": 45,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Load_L1",
+        "reg_type": "holding",
+        "address": 46,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Load_L2",
+        "reg_type": "holding",
+        "address": 47,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Out_Load_L3",
+        "reg_type": "holding",
+        "address": 48,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Temperature",
+        "reg_type": "holding",
+        "address": 49,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Battery_U",
+        "reg_type": "holding",
+        "address": 50,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Battery_U_neg",
+        "reg_type": "holding",
+        "address": 51,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Positive_charging_current",
+        "reg_type": "holding",
+        "address": 52,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Negative_charging_current",
+        "reg_type": "holding",
+        "address": 53,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Battery_Temperature",
+        "reg_type": "holding",
+        "address": 54,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Time_to_discharge",
+        "reg_type": "holding",
+        "address": 55,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "battery_percentage",
+        "reg_type": "holding",
+        "address": 56,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Bypass_fan_running_time",
+        "reg_type": "holding",
+        "address": 57,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Monitor_series_number",
+        "reg_type": "holding",
+        "address": 68,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "First_monitor_version_number",
+        "reg_type": "holding",
+        "address": 69,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Second_monitor_version_number",
+        "reg_type": "holding",
+        "address": 70,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "UPS_series_number",
+        "reg_type": "holding",
+        "address": 78,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "UPS_Type",
+        "reg_type": "holding",
+        "address": 79,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Current_Module_Number",
+        "reg_type": "holding",
+        "address": 2000,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "DC_Bus_Capacitor_Running_Time_(hour)",
+        "reg_type": "holding",
+        "address": 2074,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Forbid_Rectifier_Power_On_Sign_Integration",
+        "reg_type": "holding",
+        "address": 2077,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Utility_Power_And_Battery_Sign_Integration",
+        "reg_type": "holding",
+        "address": 2078,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Rectifier_DSP_Input_Port",
+        "reg_type": "holding",
+        "address": 2081,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Rectifier_DSP_Output_Port",
+        "reg_type": "holding",
+        "address": 2082,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_DSP_Input_Port",
+        "reg_type": "holding",
+        "address": 2083,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_DSP_Output",
+        "reg_type": "holding",
+        "address": 2084,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Allow_Invertor_On_Sign_Integration",
+        "reg_type": "holding",
+        "address": 2085,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Allow_Transfer_to_Invert_Sign_Integration",
+        "reg_type": "holding",
+        "address": 2086,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Transfer_to_Bypass_Locked_Sign_Integration",
+        "reg_type": "holding",
+        "address": 2087,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_Power_Off_Locked_Sign_Integration",
+        "reg_type": "holding",
+        "address": 2088,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_IO_CAN",
+        "reg_type": "holding",
+        "address": 2090,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_DATA_CAN",
+        "reg_type": "holding",
+        "address": 2091,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Parallel_Signal",
+        "reg_type": "holding",
+        "address": 2092,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Read_Rectifier_Variate",
+        "reg_type": "holding",
+        "address": 2093,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Write_Rectifier_Variate",
+        "reg_type": "holding",
+        "address": 2094,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Read_Invertor_Variate",
+        "reg_type": "holding",
+        "address": 2095,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Write_Invertor_Variate",
+        "reg_type": "holding",
+        "address": 2096,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Inlet_Temperature",
+        "reg_type": "holding",
+        "address": 2097,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Outlet_Temperature",
+        "reg_type": "holding",
+        "address": 2098,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Rectifier_IGBT_Temperature_Phase_A",
+        "reg_type": "holding",
+        "address": 2099,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Rectifier_IGBT_Temperature_Phase_B",
+        "reg_type": "holding",
+        "address": 2100,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Rectifier_IGBT_Temperature_Phase_C",
+        "reg_type": "holding",
+        "address": 2101,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Invertor_IGBT_Temperature_Phase_A",
+        "reg_type": "holding",
+        "address": 2102,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Invertor_IGBT_Temperature_Phase_B",
+        "reg_type": "holding",
+        "address": 2103,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Invertor_IGBT_Temperature_Phase_C",
+        "reg_type": "holding",
+        "address": 2104,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Input_SCR_Temperature",
+        "reg_type": "holding",
+        "address": 2108,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 0.1
+      },
+      {
+        "name": "Rectifier_Identifer",
+        "reg_type": "holding",
+        "address": 2145,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Rectifier_Series_Number",
+        "reg_type": "holding",
+        "address": 2146,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Rectifier_First_Version_Number",
+        "reg_type": "holding",
+        "address": 2147,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Rectifier_Second_Version_Number",
+        "reg_type": "holding",
+        "address": 2148,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_Identifer",
+        "reg_type": "holding",
+        "address": 2149,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_Series_Number",
+        "reg_type": "holding",
+        "address": 2150,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_First_Version_Number",
+        "reg_type": "holding",
+        "address": 2151,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Invertor_Second_Version_Number",
+        "reg_type": "holding",
+        "address": 2152,
+        "readonly": true,
+        "type": "value",
+        "format": "u16",
+        "scale": 1
+      },
+      {
+        "name": "Load_On_Source",
+        "reg_type": "input",
+        "address": 81,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Status",
+        "reg_type": "input",
+        "address": 82,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Battery_Connect_Status",
+        "reg_type": "input",
+        "address": 83,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Maintain_Cb_Status",
+        "reg_type": "input",
+        "address": 84,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "EPO",
+        "reg_type": "input",
+        "address": 85,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Invertor_Ready_Capacity",
+        "reg_type": "input",
+        "address": 86,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Generator_Input",
+        "reg_type": "input",
+        "address": 87,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Input_Fail",
+        "reg_type": "input",
+        "address": 88,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Bypass_Sequence_Fail",
+        "reg_type": "input",
+        "address": 89,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Bypass_Voltage_Fail",
+        "reg_type": "input",
+        "address": 90,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Bypass_Fail",
+        "reg_type": "input",
+        "address": 91,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Bypass_Over_Load",
+        "reg_type": "input",
+        "address": 92,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Bypass_Over_Load_Timeout",
+        "reg_type": "input",
+        "address": 93,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Bypass_Untrack",
+        "reg_type": "input",
+        "address": 94,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Tx_Time_Limit",
+        "reg_type": "input",
+        "address": 95,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Output_Shorted",
+        "reg_type": "input",
+        "address": 96,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Battery_EOD",
+        "reg_type": "input",
+        "address": 97,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Battery_Test_Begin_(Res)",
+        "reg_type": "input",
+        "address": 98,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Battery_Test_Result",
+        "reg_type": "input",
+        "address": 99,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Battery_Manual_Test_(Res)",
+        "reg_type": "input",
+        "address": 100,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Battery_Maintain_Result",
+        "reg_type": "input",
+        "address": 101,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "On_Ups_Inhibited",
+        "reg_type": "input",
+        "address": 105,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Manual_Tx_Bypass",
+        "reg_type": "input",
+        "address": 106,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Battery_Volt_Low",
+        "reg_type": "input",
+        "address": 107,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Battery_Reverse",
+        "reg_type": "input",
+        "address": 108,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "REC_Status",
+        "reg_type": "input",
+        "address": 109,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Input_Neutral_Lost",
+        "reg_type": "input",
+        "address": 110,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Bypass_Fan_Fail",
+        "reg_type": "input",
+        "address": 111,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Lost_N_X_Redundant",
+        "reg_type": "input",
+        "address": 112,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "EOD_System_Inhibited",
+        "reg_type": "input",
+        "address": 113,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Electrolyte_Leakage",
+        "reg_type": "input",
+        "address": 115,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Sensor_status",
+        "reg_type": "input",
+        "address": 116,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Integrated_Alarm",
+        "reg_type": "input",
+        "address": 118,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "First_Module_Online_Flag_Bit",
+        "reg_type": "input",
+        "address": 119,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      },
+      {
+        "name": "Second_Module_Online_Flag_Bit",
+        "reg_type": "input",
+        "address": 120,
+        "readonly": true,
+        "type": "value",
+        "format": "u16"
+      }
+    ]
+  }
+}
