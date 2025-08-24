@@ -1,9 +1,9 @@
 {
-  "title": "Multiplex_UPS",
-  "device_type": "Multiplex_UPS",
+  "title": "Impuls Multiplex UPS",
+  "device_type": "impuls-multiplex",
   "device": {
-    "name": "Multiplex_UPS",
-    "id": "Multiplex_UPS",
+    "name": "Impuls Multiplex UPS",
+    "id": "impuls_multiplex",
     "channels": [
       {
         "name": "Bypass_Urms_L1",
