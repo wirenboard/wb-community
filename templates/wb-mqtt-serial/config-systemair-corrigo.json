@@ -1,0 +1,364 @@
+{
+  "device_type": "SystemAir_Corrigo",
+  "group": "g-climate-control",
+  "device": {
+    "name": "SystemAir_Corrigo",
+    "id": "SystemAir_Corrigo",
+    "channels": [
+      {
+        "name": "Enable_de-icing",
+        "reg_type": "coil",
+        "address": 8,
+        "type": "switch"
+      },
+      {
+        "name": "Temperature-outdoor",
+        "reg_type": "input",
+        "address": 0,
+        "type": "temperature",
+        "scale": 0.1,
+        "round_to": 0.1
+      },
+      {
+        "name": "status",
+        "reg_type": "input",
+        "address": 2,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "enum_titles": [
+          "Stopped",
+          "Starting up",
+          "Starting reduced speed",
+          "Starting full speed",
+          "Starting normal run",
+          "Normal run",
+          "Support control heating",
+          "Support control cooling",
+          "CO2 run",
+          "Night cooling",
+          "Full speed stop",
+          "Stopping fan"
+        ]
+      },
+      {
+        "name": "Temperatire-inflow",
+        "reg_type": "input",
+        "address": 6,
+        "type": "temperature",
+        "scale": 0.1,
+        "round_to": 0.1
+      },
+      {
+        "name": "Temperature-setpoint-st",
+        "reg_type": "input",
+        "address": 7,
+        "type": "temperature",
+        "scale": 0.1,
+        "round_to": 0.1
+      },
+      {
+        "name": "Temperature-outflow",
+        "reg_type": "input",
+        "address": 8,
+        "type": "temperature",
+        "scale": 0.1,
+        "round_to": 0.1
+      },
+      {
+        "name": "Temperature",
+        "reg_type": "input",
+        "address": 9,
+        "type": "temperature",
+        "scale": 0.1,
+        "round_to": 0.1
+      },
+      {
+        "name": "outflow_temperature",
+        "reg_type": "input",
+        "address": 19,
+        "type": "temperature",
+        "scale": 0.1,
+        "round_to": 0.1
+      },
+      {
+        "name": "Alarm_fan_inflow",
+        "reg_type": "input",
+        "address": 70,
+        "type": "value"
+      },
+      {
+        "name": "Alarm_fan_outflow",
+        "reg_type": "input",
+        "address": 71,
+        "type": "value"
+      },
+      {
+        "name": "fire",
+        "reg_type": "input",
+        "address": 79,
+        "type": "value"
+      },
+      {
+        "name": "Alarm_frosr_risk",
+        "reg_type": "input",
+        "address": 93,
+        "type": "value"
+      },
+      {
+        "name": "Temperature",
+        "reg_type": "input",
+        "address": 149,
+        "type": "temperature",
+        "scale": 0.1,
+        "round_to": 0.1
+      },
+      {
+        "name": "Temperature-inflow",
+        "reg_type": "input",
+        "address": 285,
+        "type": "temperature",
+        "scale": 0.1,
+        "round_to": 0.1
+      },
+      {
+        "name": "SpeedRun",
+        "reg_type": "holding",
+        "address": 367,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "enum_titles": [
+          "Off",
+          "RunReduced",
+          "RunNormal",
+          "Auto"
+        ]
+      },
+	  {
+        "name": "StopRun",
+        "reg_type": "holding",
+        "address": 367,
+        "type": "switch",
+        "scale": 0.33,
+        "round_to": 1.0
+      },
+      {
+        "name": "tempModeOffOnAuto",
+        "reg_type": "holding",
+        "address": 368,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "ManOff",
+          "ManOn",
+          "Auto"
+        ]
+      },
+      {
+        "name": "Heating-set",
+        "reg_type": "holding",
+        "address": 376,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "Exchanger-set",
+        "reg_type": "holding",
+        "address": 378,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "Cooling-set",
+        "reg_type": "holding",
+        "address": 380,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "Humidification-set",
+        "reg_type": "holding",
+        "address": 382,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "AirDamper_mode",
+        "reg_type": "holding",
+        "address": 388,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "RecirculationDamper_mode",
+        "reg_type": "holding",
+        "address": 389,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "ExtractAirDamper_mode",
+        "reg_type": "holding",
+        "address": 390,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "HumidityMode-set",
+        "reg_type": "holding",
+        "address": 420,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "external_StopRun",
+        "reg_type": "holding",
+        "address": 433,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "HeatingCooling-set",
+        "reg_type": "holding",
+        "address": 435,
+        "type": "switch"
+      },
+      {
+        "name": "ExtModul-set",
+        "reg_type": "holding",
+        "address": 436,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "enum_titles": [
+          "Off",
+          "Manual",
+          "Auto"
+        ]
+      },
+      {
+        "name": "StopRun - extcontrol",
+        "reg_type": "holding",
+        "address": 450,
+        "type": "text",
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "enum_titles": [
+          "ExternalFullSpeed",
+          "ExternalStop",
+          "NoExternal",
+          "ExternalStopwithInflowControl"
+        ]
+      }
+    ]
+  }
+}
