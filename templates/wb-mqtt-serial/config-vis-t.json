@@ -1,0 +1,99 @@
+{
+    "device_type": "VIS.Tv2",
+    "title": "Heat meter VIS.Tv2",
+    "group": "g-heat-meter",
+    "device": {
+        "name": "VISTv2",
+        "id": "g-heat-meter",
+        "groups": [
+            {
+                "title": "Channels",
+                "id": "channels",
+                "order": 0
+            }
+        ],
+
+        "channels": [
+            {
+                "name": "Accumulated energy",
+                "reg_type": "input",
+                "address": 4123,
+                "type": "value",
+                "group": "channels",
+                "scale": 0.0001,
+                "format": "s32"
+            },
+            {
+                "name": "Thermal power",
+                "reg_type": "input",
+                "address": 800,
+                "type": "value",
+                "group": "channels",
+                "format": "u16"
+            },
+            {
+                "name": "Consumption",
+                "reg_type": "input",
+                "address": 787,
+                "type": "value",
+                "group": "channels",
+                "scale": 0.01,
+                "format": "u16"
+            },
+            {
+                "name": "Supply temperature",
+                "reg_type": "input",
+                "address": 518,
+                "type": "value",
+                "group": "channels",
+                "scale": 0.01,
+                "format": "u16"
+            },
+            {
+                "name": "Return temperature",
+                "reg_type": "input",
+                "address": 519,
+                "type": "value",
+                "group": "channels",
+                "scale": 0.01,
+                "format": "u16"
+            },
+            {
+                "name": "Pressure supply",
+                "reg_type": "input",
+                "address": 546,
+                "type": "value",
+                "group": "channels",
+                "scale": 0.1,
+                "format": "u16"
+            },
+            {
+                "name": "Return pressure",
+                "reg_type": "input",
+                "address": 547,
+                "type": "value",
+                "group": "channels",
+                "scale": 0.1,
+                "format": "u16"
+            },
+        ],
+
+        "parameters": [
+            
+        ],
+        
+        "translations": {
+            "ru": {
+                "Channels": "Каналы",
+                "Settings": "Настройки",
+                "Accumulated energy": "Накопленная энергия",
+                "Thermal power": "Тепловая мощность",
+                "Consumption": "Расход",
+                "Supply temperature": "Температура подачи",
+                "Return temperature": "Температура обратки",
+                "Pressure supply": "Давление подача",
+                "Return pressure": "Давление обратка"
+            }
+        }
+    }
+}
