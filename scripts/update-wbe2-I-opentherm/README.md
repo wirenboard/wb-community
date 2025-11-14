@@ -19,3 +19,11 @@
 ![alt text](photo/upd-wbe2-i-opentherm_3.png)
 
 Если доступна версия новее, то можно обновиться нажав кнопку "Install/Update firmware".
+
+Запустится обновление:
+
+![alt text](photo/upd-wbe2-i-opentherm_4.png)
+
+По завершении обновления можно убедиться, что номер текущей прошивки и доступной одинаковый:
+
+![alt text](photo/upd-wbe2-i-opentherm_5.png)
