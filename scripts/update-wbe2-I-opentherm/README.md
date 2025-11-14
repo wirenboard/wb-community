@@ -7,7 +7,7 @@
 ![alt text](photo/upd-wbe2-i-opentherm_1.png)
 
 ## Проверка доступности обновления
-Укажите в "Module slot" номер слота, в который установлен модуль. В примере это "MOD1". Нажмите "Enter".
+Укажите в "Module slot" номер слота, в который установлен модуль. В примере это "MOD1". Далее нажмите "Check installed firmware version and device info".
 Подождите:
 ![alt text](photo/upd-wbe2-i-opentherm_2.png)
 
