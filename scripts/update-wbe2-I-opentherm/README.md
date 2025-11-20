@@ -7,18 +7,18 @@
 Скачайте файл скрипта (upd-wbe2-I-opentherm.js) из репозитория. Скопируйте на контроллер в папку  /mnt/data/etc/wb-rules/.
 Далее через веб-интерфейс в меню "Устройства" станет доступным виджет для обновления модуля:
 
-![alt text](photo/upd-wbe2-i-opentherm_1.png)
+![alt text](photo/upd-wbe2-i-opentherm-1.png)
 
 ## Проверка доступности обновления
 Укажите в "Module slot" номер слота, в который установлен модуль. В примере это "MOD1". Далее нажмите "Check installed firmware version and device info".
 
 Подождите:
 
-![alt text](photo/upd-wbe2-i-opentherm_2.png)
+![alt text](photo/upd-wbe2-i-opentherm-2.png)
 
 После завершения проверки на виджете отобразятся актуальные данные по номеру текущей прошивки и доступной:
 
-![alt text](photo/upd-wbe2-i-opentherm_3.png)
+![alt text](photo/upd-wbe2-i-opentherm-3.png)
 
 ## Обновление прошивки
 
@@ -26,8 +26,8 @@
 
 Запустится обновление:
 
-![alt text](photo/upd-wbe2-i-opentherm_4.png)
+![alt text](photo/upd-wbe2-i-opentherm-4.png)
 
 По завершении обновления можно убедиться, что номер текущей прошивки и доступной одинаковый:
 
-![alt text](photo/upd-wbe2-i-opentherm_5.png)
+![alt text](photo/upd-wbe2-i-opentherm-5.png)
