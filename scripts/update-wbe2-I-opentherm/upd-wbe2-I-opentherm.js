@@ -155,7 +155,6 @@ function get_device_info(command, connection) {
         });
     }
     // if there is connection and there is no firmware on device, we can manually install it
-    // может добавить для случая что нет коннекта но сама папка есть, чтоб можно было шить без коннекта
     else if (connection) {
         if (getControl("Nevoton-Boiler-Gate/device_info").getValue() == "OpenTherm-Modbus-WB" || getControl("Nevoton-Boiler-Gate/device_info").getValue() == "eBus-Modbus-WB") {
             get_version_latest(command);
