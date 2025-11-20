@@ -54,30 +54,18 @@ defineVirtualDevice("Nevoton-Boiler-Gate", {
 });
 
 function hide_buttons() {
-    // getControl("Nevoton-Boiler-Gate/Update").setType("text");
-    // getControl("Nevoton-Boiler-Gate/Update").setValue("");
-    // getControl("Nevoton-Boiler-Gate/Update").setTitle("");
-    // getControl("Nevoton-Boiler-Gate/CheckFirmwareVersion").setType("text");
-    // getControl("Nevoton-Boiler-Gate/CheckFirmwareVersion").setValue("");
-    // getControl("Nevoton-Boiler-Gate/CheckFirmwareVersion").setTitle("");
-    // addControl("Nevoton-Boiler-Gate/cunt", {type: "pushbutton", title: "cunt", order: 8, forceDefault: true,});
     getControl("Nevoton-Boiler-Gate/slot").setReadonly(true);
     getDevice("Nevoton-Boiler-Gate").removeControl("update");
     getDevice("Nevoton-Boiler-Gate").removeControl("check_firmware_version");
 }
 
 function show_buttons() {
-    // getControl("Nevoton-Boiler-Gate/Update").setType("pushbutton");
-    // getControl("Nevoton-Boiler-Gate/Update").setTitle("Install/Update firmware");
-    // getControl("Nevoton-Boiler-Gate/CheckFirmwareVersion").setType("pushbutton");
-    // getControl("Nevoton-Boiler-Gate/CheckFirmwareVersion").setTitle("Check installed firmware version and device info");
     getControl("Nevoton-Boiler-Gate/slot").setReadonly(false);
     if (!getDevice("Nevoton-Boiler-Gate").isControlExists("check_firmware_version")) { getDevice("Nevoton-Boiler-Gate").addControl("check_firmware_version", { type: "pushbutton", title: "Check Installed Firmware Version And Device Info", order: 4, forceDefault: true, }) }
     if (!getDevice("Nevoton-Boiler-Gate").isControlExists("update")) { getDevice("Nevoton-Boiler-Gate").addControl("update", { type: "pushbutton", title: "Install/Update Firmware", order: 7, forceDefault: true, }) }
 }
 
 function show_Status(new_status) {
-    // getControl("Nevoton-Boiler-Gate/Status").setTitle("Status:");
     getControl("Nevoton-Boiler-Gate/status").setValue(new_status);
 }
 
@@ -97,7 +85,6 @@ function error_device_unknown() {
 }
 
 function download_archive_and_script(command) {
-    // runShellCommand("wget -O /home/nevoton_gate/nvt_lin.tar --no-check-certificate -P /home/nevoton_gate 'https://gitlab.nevoton.ru/kuliev/FirmwareWIRENBOARD/-/raw/484fc76eddf29d3d145dea5ccde7f5425667cf14/nvt_lin.tar?inline=false'", {
     runShellCommand("mkdir -p /home/nevoton_gate && wget -O /home/nevoton_gate/nvt_lin.tar --no-check-certificate -P /home/nevoton_gate 'https://gitlab.nevoton.ru/kuliev/FirmwareWIRENBOARD/-/raw/master/nvt_lin.tar?inline=false' && wget -O /home/nevoton_gate/script.sh --no-check-certificate -P /home/nevoton_gate 'https://gitlab.nevoton.ru/kuliev/FirmwareWIRENBOARD/-/raw/wirenboard_files/burn.sh?ref_type=heads&inline=false'", {
         captureOutput: true,
         exitCallback: function (exitCode, capturedOutput) {
@@ -125,7 +112,6 @@ function download_archive_and_script(command) {
                 }
                 show_Status("Network error");
                 show_buttons();
-                // error: network error!
             }
         }
     });
@@ -150,13 +136,6 @@ function get_device_info(command, connection) {
                     }
                     else {
                         if (command == "check") { getControl("Nevoton-Boiler-Gate/version_firmware_current").setValue(String(parsedJson["version"])); }
-                        // // вот этот позор на одну строку заменить следовало бы на одну
-                        // if (parsedJson["name"] == "Opentherm-Modbus-WB") {
-                        //     new_value = "OpenTherm-Modbus-WB";
-                        // }
-                        // else {
-                        //     new_value = parsedJson["name"];
-                        // }
                         getControl("Nevoton-Boiler-Gate/device_info").setValue((parsedJson["name"]));
                         if (connection) {
                             get_version_latest(command);
@@ -209,7 +188,6 @@ function check_for_nvt_directory() {
 }
 
 function get_version_latest(command) {
-    // ещё неясно в одном архиве все файлы будут лежать или нет так что пока оставим так но здесь может появиться условие типа if()
     runShellCommand("wget -O /home/nevoton_gate/version.json --no-check-certificate -P /home/ot_modbus/wb 'https://gitlab.nevoton.ru/kuliev/FirmwareWIRENBOARD/-/raw/master/version.json?ref_type=heads&inline=false'", {
         captureOutput: true,
         exitCallback: function (exitCode, capturedOutput) {
@@ -233,9 +211,7 @@ function show_version_latest(command) {
             if (String(exitCode) == "0") {
                 parsedJsonVersions = JSON.parse(capturedOutput);
                 new_version = parsedJsonVersions[getControl("Nevoton-Boiler-Gate/device_info").getValue()];
-                // log.info("show_version_latest new_version : " + String(new_version));
                 getControl("Nevoton-Boiler-Gate/version_firmware_latest").setValue(String(new_version));
-                // log.info(getControl("Nevoton-Boiler-Gate/VersionFirmwareLatest").getValue());
                 if (command == "update") {
                     burn_device();
                 }
@@ -293,9 +269,6 @@ defineRule("UpdateNevoton-Boiler-Gate", {
             else if (getControl("Nevoton-Boiler-Gate/device_info").getValue() == "2") {
                 getControl("Nevoton-Boiler-Gate/device_info").setValue("eBus-Modbus-WB");
             }
-            // else if(getControl("Nevoton-Boiler-Gate/Device_info").getValue() == "unknown"){
-            //     getControl("Nevoton-Boiler-Gate/Device_info").setValue("...");
-            // }
             getControl("Nevoton-Boiler-Gate/device_info").setReadonly(true)
         }
         show_Status("Wait...");
@@ -319,9 +292,6 @@ defineRule("CheckFirmwareVersion", {
             else if (getControl("Nevoton-Boiler-Gate/device_info").getValue() == "2") {
                 getControl("Nevoton-Boiler-Gate/device_info").setValue("eBus-Modbus-WB");
             }
-            // else if(getControl("Nevoton-Boiler-Gate/Device_info").getValue() == "unknown"){
-            //     getControl("Nevoton-Boiler-Gate/Device_info").setValue("...");
-            // }
             getControl("Nevoton-Boiler-Gate/device_info").setReadonly(true)
         }
         show_Status("Wait...");
