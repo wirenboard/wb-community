@@ -1,145 +1,153 @@
 #!/bin/bash
 
 ###############################################################################
-# Скрипт установки Docker на контроллер Wiren Board
-# Основано на инструкции: https://wiki.wirenboard.com/wiki/Docker
+# Script to install Docker on a Wiren Board controller
+# Based on the instructions: https://wiki.wirenboard.com/wiki/Docker
 ###############################################################################
 
-set -e  # Прервать выполнение при ошибке
+set -e  # Exit on error
 
-# Цвета для вывода
+# Output colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Функция для вывода сообщений об ошибках
+# Function to print error messages
 error_exit() {
-    echo -e "${RED}[ОШИБКА] $1${NC}" >&2
+    echo -e "${RED}[ERROR] $1${NC}" >&2
     exit 1
 }
 
-# Функция для вывода предупреждений
+# Function to print warnings
 warning() {
-    echo -e "${YELLOW}[ПРЕДУПРЕЖДЕНИЕ] $1${NC}"
+    echo -e "${YELLOW}[WARNING] $1${NC}"
 }
 
-# Функция для вывода успешных сообщений
+# Function to print success messages
 success() {
     echo -e "${GREEN}[OK] $1${NC}"
 }
 
-# Функция для вывода информационных сообщений
+# Function to print informational messages
 info() {
     echo -e "[INFO] $1"
 }
 
-# Проверка прав root
+# Check for root privileges
 if [ "$EUID" -ne 0 ]; then 
-    error_exit "Этот скрипт нужно запускать с правами root. Используйте: sudo $0"
+    error_exit "This script must be run as root. Use: sudo $0"
 fi
 
-info "Начало установки Docker на контроллер Wiren Board..."
+info "Starting Docker installation on the Wiren Board controller..."
 
 ###############################################################################
-# 1. ПОДГОТОВКА К УСТАНОВКЕ
+# 1. PREPARATION FOR INSTALLATION
 ###############################################################################
 
-info "Шаг 1: Установка зависимостей..."
+info "Step 1: Installing dependencies..."
 if ! apt update; then
-    error_exit "Не удалось обновить список пакетов. Проверьте подключение к интернету."
+    error_exit "Failed to update package list. Check internet connection."
 fi
 
 if ! apt install -y ca-certificates curl gnupg lsb-release iptables; then
-    error_exit "Не удалось установить необходимые зависимости."
+    error_exit "Failed to install required dependencies."
 fi
-success "Зависимости установлены"
+success "Dependencies installed"
 
-info "Шаг 2: Добавление GPG ключа репозитория Docker..."
-if ! curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg; then
-    error_exit "Не удалось загрузить GPG ключ репозитория Docker. Проверьте подключение к интернету."
+info "Step 2: Adding Docker repository GPG key..."
+TMP_KEY="/usr/share/keyrings/docker-archive-keyring.gpg.tmp"
+if curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o "$TMP_KEY"; then
+    if mv -f "$TMP_KEY" /usr/share/keyrings/docker-archive-keyring.gpg; then
+        success "GPG key added (overwritten if existed)"
+    else
+        rm -f "$TMP_KEY"
+        error_exit "Failed to move GPG key to /usr/share/keyrings/docker-archive-keyring.gpg"
+    fi
+else
+    rm -f "$TMP_KEY"
+    error_exit "Failed to download Docker repository GPG key. Check internet connection."
 fi
-success "GPG ключ добавлен"
 
-info "Шаг 3: Добавление репозитория Docker..."
+info "Step 3: Adding Docker repository..."
 ARCH=$(dpkg --print-architecture)
 CODENAME=$(lsb_release -cs)
 echo "deb [arch=${ARCH} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian ${CODENAME} stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 if [ ! -f /etc/apt/sources.list.d/docker.list ]; then
-    error_exit "Не удалось создать файл репозитория Docker."
+    error_exit "Failed to create Docker repository file."
 fi
-success "Репозиторий Docker добавлен"
+success "Docker repository added"
 
-info "Шаг 4: Настройка iptables для совместимости с Docker..."
-# Проверяем, существует ли команда update-alternatives
+info "Step 4: Configure iptables for Docker compatibility..."
+# Check if the update-alternatives command exists
 if command -v update-alternatives &> /dev/null; then
-    # Проверяем наличие iptables-legacy
+    # Check for iptables-legacy
     if [ -f /usr/sbin/iptables-legacy ]; then
-        update-alternatives --set iptables /usr/sbin/iptables-legacy || warning "Не удалось переключить iptables на legacy версию"
+        update-alternatives --set iptables /usr/sbin/iptables-legacy || warning "Failed to switch iptables to legacy version"
     fi
     if [ -f /usr/sbin/ip6tables-legacy ]; then
-        update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || warning "Не удалось переключить ip6tables на legacy версию"
+        update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || warning "Failed to switch ip6tables to legacy version"
     fi
-    success "iptables настроены"
+    success "iptables configured"
 else
-    warning "update-alternatives не найден, пропускаем настройку iptables"
+    warning "update-alternatives not found, skipping iptables configuration"
 fi
 
 ###############################################################################
-# 2. ПРЕДВАРИТЕЛЬНАЯ НАСТРОЙКА
+# 2. PRELIMINARY CONFIGURATION
 ###############################################################################
 
-info "Шаг 5: Создание директорий для Docker на /mnt/data..."
+info "Step 5: Creating Docker directories on /mnt/data..."
 
-# Создание директории для конфигурации Docker
+# Create directory for Docker configuration
 if [ ! -d /mnt/data/etc/docker ]; then
     if ! mkdir -p /mnt/data/etc/docker; then
-        error_exit "Не удалось создать директорию /mnt/data/etc/docker"
+        error_exit "Failed to create directory /mnt/data/etc/docker"
     fi
 fi
 
-# Создание симлинка для конфигурации
+# Create symlink for configuration
 if [ ! -L /etc/docker ]; then
     if [ -d /etc/docker ]; then
-        warning "/etc/docker уже существует как директория, удаляем..."
+        warning "/etc/docker already exists as a directory, removing..."
         rm -rf /etc/docker
     fi
     if ! ln -s /mnt/data/etc/docker /etc/docker; then
-        error_exit "Не удалось создать симлинк /etc/docker"
+        error_exit "Failed to create symlink /etc/docker"
     fi
 fi
-success "Директория конфигурации настроена"
+success "Configuration directory set up"
 
-# Создание директории для containerd
+# Create directory for containerd
 if [ ! -d /mnt/data/var/lib/containerd ]; then
     if ! mkdir -p /mnt/data/var/lib/containerd; then
-        error_exit "Не удалось создать директорию /mnt/data/var/lib/containerd"
+        error_exit "Failed to create directory /mnt/data/var/lib/containerd"
     fi
 fi
 
-# Создание симлинка для containerd
+# Create symlink for containerd
 if [ ! -L /var/lib/containerd ]; then
     if [ -d /var/lib/containerd ]; then
-        warning "/var/lib/containerd уже существует как директория, удаляем..."
+        warning "/var/lib/containerd already exists as a directory, removing..."
         rm -rf /var/lib/containerd
     fi
     if ! ln -s /mnt/data/var/lib/containerd /var/lib/containerd; then
-        error_exit "Не удалось создать симлинк /var/lib/containerd"
+        error_exit "Failed to create symlink /var/lib/containerd"
     fi
 fi
-success "Директория containerd настроена"
+success "containerd directory set up"
 
-# Создание директории для образов Docker
-info "Шаг 6: Создание директории для хранения образов Docker..."
+# Create directory for Docker images
+info "Step 6: Creating directory to store Docker images..."
 if [ ! -d /mnt/data/.docker ]; then
     if ! mkdir -p /mnt/data/.docker; then
-        error_exit "Не удалось создать директорию /mnt/data/.docker"
+        error_exit "Failed to create directory /mnt/data/.docker"
     fi
 fi
-success "Директория для образов создана"
+success "Images directory created"
 
-# Создание конфигурационного файла daemon.json
-info "Шаг 7: Создание конфигурационного файла daemon.json..."
+# Create daemon.json configuration file
+info "Step 7: Creating daemon.json configuration file..."
 cat > /etc/docker/daemon.json <<EOF
 {
   "data-root": "/mnt/data/.docker",
@@ -152,77 +160,77 @@ cat > /etc/docker/daemon.json <<EOF
 EOF
 
 if [ ! -f /etc/docker/daemon.json ]; then
-    error_exit "Не удалось создать файл /etc/docker/daemon.json"
+    error_exit "Failed to create /etc/docker/daemon.json"
 fi
-success "Конфигурационный файл daemon.json создан"
+success "daemon.json configuration file created"
 
 ###############################################################################
-# 3. УСТАНОВКА DOCKER
+# 3. INSTALL DOCKER
 ###############################################################################
 
-info "Шаг 8: Обновление списка пакетов..."
+info "Step 8: Updating package list..."
 if ! apt update; then
-    error_exit "Не удалось обновить список пакетов перед установкой Docker."
+    error_exit "Failed to update package list before installing Docker."
 fi
 
-info "Шаг 9: Установка Docker (это может занять несколько минут)..."
+info "Step 9: Installing Docker (this may take a few minutes)..."
 if ! apt install -y docker-ce docker-ce-cli containerd.io; then
-    error_exit "Не удалось установить Docker. Проверьте подключение к интернету и доступность репозитория."
+    error_exit "Failed to install Docker. Check internet connection and repository availability."
 fi
-success "Docker установлен"
+success "Docker installed"
 
 ###############################################################################
-# 4. ПРОВЕРКА УСТАНОВКИ
+# 4. VERIFY INSTALLATION
 ###############################################################################
 
-info "Шаг 10: Проверка работы Docker..."
+info "Step 10: Verifying Docker..."
 
-# Ожидание запуска Docker daemon
+# Wait for Docker daemon to start
 sleep 2
 
-# Попытка запустить Docker, если он не запущен
+# Try to start Docker if it's not running
 if ! systemctl is-active --quiet docker; then
-    info "Docker daemon не запущен, пытаемся запустить..."
+    info "Docker daemon is not active, attempting to start..."
     if ! systemctl start docker; then
-        error_exit "Не удалось запустить Docker daemon. Попробуйте выполнить 'systemctl status docker' для диагностики."
+        error_exit "Failed to start Docker daemon. Try 'systemctl status docker' for diagnostics."
     fi
     sleep 2
 fi
 
-# Проверка возможного конфликта iptables
+# Check for possible iptables conflict
 if ! docker info &> /dev/null; then
-    warning "Docker daemon может иметь проблемы с iptables, применяем исправление..."
+    warning "Docker daemon may have issues with iptables, applying workaround..."
     if iptables -w10 -t nat -I POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE 2>/dev/null; then
-        success "Правило iptables добавлено"
+        success "iptables rule added"
         systemctl restart docker
         sleep 2
     fi
 fi
 
-# Запуск тестового контейнера
-info "Запуск тестового контейнера hello-world..."
+# Run test container
+info "Running test container hello-world..."
 if docker run --rm hello-world &> /tmp/docker_test_output.txt; then
     if grep -q "Hello from Docker!" /tmp/docker_test_output.txt; then
-        success "Тестовый контейнер успешно запущен!"
+        success "Test container ran successfully!"
         echo ""
         cat /tmp/docker_test_output.txt
         echo ""
         rm -f /tmp/docker_test_output.txt
     else
-        warning "Контейнер запущен, но не вернул ожидаемый результат"
+        warning "Container ran but did not return the expected output"
         cat /tmp/docker_test_output.txt
         rm -f /tmp/docker_test_output.txt
     fi
 else
-    error_exit "Не удалось запустить тестовый контейнер. Вывод сохранен в /tmp/docker_test_output.txt. \nВозможно, требуется перезагрузка контроллера командой 'reboot'."
+    error_exit "Failed to run test container. Output saved to /tmp/docker_test_output.txt.\nYou may need to reboot the controller using 'reboot'."
 fi
 
-# Включение автозапуска Docker
-info "Шаг 11: Настройка автозапуска Docker..."
+# Enable Docker autostart
+info "Step 11: Enabling Docker autostart..."
 if systemctl enable docker; then
-    success "Docker будет автоматически запускаться при загрузке системы"
+    success "Docker will start automatically on boot"
 else
-    warning "Не удалось настроить автозапуск Docker"
+    warning "Failed to enable Docker autostart"
 fi
 
 ###############################################################################
@@ -232,24 +240,24 @@ fi
 echo ""
 echo -e "${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${GREEN}║                                                                ║${NC}"
-echo -e "${GREEN}║  ✓ Docker успешно установлен на контроллер Wiren Board!        ║${NC}"
+echo -e "${GREEN}║  ✓ Docker has been successfully installed on the Wiren Board!   ║${NC}"
 echo -e "${GREEN}║                                                                ║${NC}"
 echo -e "${GREEN}╚════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
-info "Полезные команды:"
-echo "  - Просмотр справки:           docker --help"
-echo "  - Список образов:             docker image ls"
-echo "  - Список контейнеров:         docker ps -a"
-echo "  - Запуск контейнера:          docker run [параметры] [образ]"
-echo "  - Остановка контейнера:       docker stop [имя/id]"
-echo "  - Удаление контейнера:        docker rm [имя/id]"
+info "Useful commands:"
+echo "  - Show help:                  docker --help"
+echo "  - List images:                docker image ls"
+echo "  - List containers:            docker ps -a"
+echo "  - Run a container:            docker run [options] [image]"
+echo "  - Stop a container:           docker stop [name/id]"
+echo "  - Remove a container:         docker rm [name/id]"
 echo ""
-info "Дополнительная информация:"
+info "Additional information:"
 echo "  - Wiki: https://wiki.wirenboard.com/wiki/Docker"
-echo "  - Образы хранятся в: /mnt/data/.docker"
-echo "  - Конфигурация: /etc/docker/daemon.json"
+echo "  - Images are stored in: /mnt/data/.docker"
+echo "  - Configuration: /etc/docker/daemon.json"
 echo ""
-warning "Если что-то работает неправильно, попробуйте перезагрузить контроллер: reboot"
+warning "If something doesn't work correctly, try rebooting the controller: reboot"
 echo ""
 
 exit 0
