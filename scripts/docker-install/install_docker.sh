@@ -34,10 +34,37 @@ info() {
     echo -e "[INFO] $1"
 }
 
+# Show usage
+usage() {
+    echo "Usage: $0 [--uninstall|-u]"
+    echo ""
+    echo "Options:"
+    echo "  (no arguments)   Install Docker on the Wiren Board controller"
+    echo "  --uninstall, -u  Stop, disable and remove Docker and all related files"
+    echo ""
+    exit 0
+}
+
 # Check for root privileges
 if [ "$EUID" -ne 0 ]; then 
     error_exit "This script must be run as root. Use: sudo $0"
 fi
+
+# Parse arguments
+ACTION="install"
+for arg in "$@"; do
+    case "$arg" in
+        --uninstall|-u) ACTION="uninstall" ;;
+        --help|-h) usage ;;
+        *) error_exit "Unknown argument: $arg. Run '$0 --help' for usage." ;;
+    esac
+done
+
+######################
+# Install function   #
+######################
+
+cmd_install() {
 
 info "Starting Docker installation on the Wiren Board controller..."
 
@@ -259,5 +286,119 @@ echo "  - Configuration: /etc/docker/daemon.json"
 echo ""
 warning "If something doesn't work correctly, try rebooting the controller: reboot"
 echo ""
+
+} # end cmd_install
+
+########################
+# Uninstall function   #
+########################
+
+cmd_uninstall() {
+    info "Starting Docker uninstallation from the Wiren Board controller..."
+
+    # Stop and remove all containers and images
+    info "Step 1: Stopping and removing all containers and images..."
+    if command -v docker &>/dev/null && systemctl is-active --quiet docker 2>/dev/null; then
+        CONTAINERS=$(docker ps -aq 2>/dev/null)
+        if [ -n "$CONTAINERS" ]; then
+            info "Stopping all running containers..."
+            docker stop $CONTAINERS || warning "Some containers could not be stopped"
+            info "Removing all containers..."
+            docker rm $CONTAINERS || warning "Some containers could not be removed"
+            success "All containers removed"
+        else
+            info "No containers found"
+        fi
+
+        IMAGES=$(docker images -q 2>/dev/null)
+        if [ -n "$IMAGES" ]; then
+            warning "The following Docker images will be removed:"
+            docker images --format "  - {{.Repository}}:{{.Tag}} ({{.Size}})"
+            read -r -p "Remove all Docker images? [y/N] " confirm_images
+            if [[ "$confirm_images" =~ ^[Yy]$ ]]; then
+                docker rmi -f $IMAGES || warning "Some images could not be removed"
+                success "All images removed"
+            else
+                info "Skipped removal of images"
+            fi
+        else
+            info "No images found"
+        fi
+    else
+        info "Docker is not running, skipping container/image cleanup"
+    fi
+
+    # Stop and disable Docker service
+    info "Step 2: Stopping and disabling Docker service..."
+    if systemctl is-active --quiet docker 2>/dev/null; then
+        systemctl stop docker || warning "Failed to stop Docker service"
+        success "Docker service stopped"
+    else
+        info "Docker service is not running, skipping stop"
+    fi
+    if systemctl is-enabled --quiet docker 2>/dev/null; then
+        systemctl disable docker || warning "Failed to disable Docker autostart"
+        success "Docker autostart disabled"
+    fi
+
+    # Remove Docker packages
+    info "Step 3: Removing Docker packages..."
+    apt purge -y docker-ce docker-ce-cli containerd.io \
+        docker-buildx-plugin docker-compose-plugin 2>/dev/null || \
+        warning "Some Docker packages were not found or could not be removed"
+    apt autoremove -y || true
+    success "Docker packages removed"
+
+    # Remove Docker repository and GPG key
+    info "Step 4: Removing Docker repository and GPG key..."
+    rm -f /etc/apt/sources.list.d/docker.list
+    rm -f /usr/share/keyrings/docker-archive-keyring.gpg
+    apt update || true
+    success "Repository and GPG key removed"
+
+    # Remove symlinks
+    info "Step 5: Removing symlinks..."
+    if [ -L /etc/docker ]; then
+        rm -f /etc/docker
+        success "Removed symlink /etc/docker"
+    fi
+    if [ -L /var/lib/containerd ]; then
+        rm -f /var/lib/containerd
+        success "Removed symlink /var/lib/containerd"
+    fi
+
+    # Remove data directories (with confirmation)
+    info "Step 6: Removing data directories from /mnt/data..."
+    warning "This will permanently delete all Docker images, containers and configuration!"
+    read -r -p "Delete /mnt/data/.docker, /mnt/data/var/lib/containerd and /mnt/data/etc/docker? [y/N] " confirm
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        rm -rf /mnt/data/.docker
+        rm -rf /mnt/data/var/lib/containerd
+        rm -rf /mnt/data/etc/docker
+        success "Data directories removed"
+    else
+        info "Skipped removal of data directories"
+    fi
+
+    echo ""
+    echo -e "${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${GREEN}║                                                                ║${NC}"
+    echo -e "${GREEN}║  ✓ Docker has been successfully removed from the Wiren Board!  ║${NC}"
+    echo -e "${GREEN}║                                                                ║${NC}"
+    echo -e "${GREEN}╚════════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    warning "A reboot is recommended to ensure all changes take effect: reboot"
+    echo ""
+
+} # end cmd_uninstall
+
+############
+# Dispatch #
+############
+
+case "$ACTION" in
+    install)   cmd_install ;;
+    uninstall) cmd_uninstall ;;
+esac
 
 exit 0
