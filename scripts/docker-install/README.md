@@ -60,19 +60,19 @@ wget -O - https://raw.githubusercontent.com/wb-community/refs/heads/main/scripts
 
 ### Ошибка подключения к интернету
 ```
-[ОШИБКА] Не удалось обновить список пакетов. Проверьте подключение к интернету.
+Failed to update package list. Check internet connection
 ```
 **Решение:** Проверьте сетевое подключение контроллера.
 
 ### Ошибка прав доступа
 ```
-[ОШИБКА] Этот скрипт нужно запускать с правами root. Используйте: sudo ./install_docker.sh
+This script must be run as root. Use: sudo ./install_docker.sh
 ```
 **Решение:** Запустите скрипт с правами root или через sudo.
 
 ### Docker daemon не запускается
 ```
-[ОШИБКА] Не удалось запустить Docker daemon.
+Failed to start Docker daemon. Try 'systemctl status docker' for diagnostics.
 ```
 **Решение:** Попробуйте перезагрузить контроллер командой `reboot`, затем проверьте статус:
 ```bash
@@ -81,7 +81,8 @@ systemctl status docker
 
 ### Тестовый контейнер не запускается
 ```
-[ОШИБКА] Не удалось запустить тестовый контейнер.
+Failed to run test container. Output saved to /tmp/docker_test_output.txt.
+You may need to reboot the controller using 'reboot'.
 ```
 **Решение:** 
 1. Перезагрузите контроллер: `reboot`
