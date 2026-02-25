@@ -43,21 +43,6 @@ usage() {
     exit 0
 }
 
-# Check for root privileges
-if [ "$EUID" -ne 0 ]; then 
-    error_exit "This script must be run as root. Use: sudo $0"
-fi
-
-# Parse arguments
-ACTION="install"
-for arg in "$@"; do
-    case "$arg" in
-        --uninstall|-u) ACTION="uninstall" ;;
-        --help|-h) usage ;;
-        *) error_exit "Unknown argument: $arg. Run '$0 --help' for usage." ;;
-    esac
-done
-
 # Install function 
 cmd_install() {
 
@@ -369,11 +354,27 @@ cmd_uninstall() {
 
 } # end cmd_uninstall
 
-# Dispatch 
+main() {
+    # Check for root privileges
+    if [ "$EUID" -ne 0 ]; then
+        error_exit "This script must be run as root. Use: sudo $0"
+    fi
 
-case "$ACTION" in
-    install)   cmd_install ;;
-    uninstall) cmd_uninstall ;;
-esac
+    # Parse arguments
+    ACTION="install"
+    for arg in "$@"; do
+        case "$arg" in
+            --uninstall|-u) ACTION="uninstall" ;;
+            --help|-h) usage ;;
+            *) error_exit "Unknown argument: $arg. Run '$0 --help' for usage." ;;
+        esac
+    done
 
-exit 0
+    # Dispatch
+    case "$ACTION" in
+        install)   cmd_install ;;
+        uninstall) cmd_uninstall ;;
+    esac
+}
+
+main "${@}"
