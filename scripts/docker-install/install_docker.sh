@@ -1,9 +1,9 @@
 #!/bin/bash
 
-###############################################################################
-# Script to install Docker on a Wiren Board controller
-# Based on the instructions: https://wiki.wirenboard.com/wiki/Docker
-###############################################################################
+#######################################################################
+# Script to install Docker on a Wiren Board controller                #
+# Based on the instructions: https://wiki.wirenboard.com/wiki/Docker  #
+#######################################################################
 
 set -e  # Exit on error
 
@@ -41,9 +41,9 @@ fi
 
 info "Starting Docker installation on the Wiren Board controller..."
 
-###############################################################################
-# 1. PREPARATION FOR INSTALLATION
-###############################################################################
+####################################
+# 1. Preparation for installation  #
+####################################
 
 info "Step 1: Installing dependencies..."
 if ! apt update; then
@@ -93,9 +93,9 @@ else
     warning "update-alternatives not found, skipping iptables configuration"
 fi
 
-###############################################################################
-# 2. PRELIMINARY CONFIGURATION
-###############################################################################
+#################################
+# 2. Preliminary configuration  #
+#################################
 
 info "Step 5: Creating Docker directories on /mnt/data..."
 
@@ -164,9 +164,9 @@ if [ ! -f /etc/docker/daemon.json ]; then
 fi
 success "daemon.json configuration file created"
 
-###############################################################################
-# 3. INSTALL DOCKER
-###############################################################################
+######################
+# 3. Install Docker  #
+######################
 
 info "Step 8: Updating package list..."
 if ! apt update; then
@@ -179,9 +179,9 @@ if ! apt install -y docker-ce docker-ce-cli containerd.io; then
 fi
 success "Docker installed"
 
-###############################################################################
-# 4. VERIFY INSTALLATION
-###############################################################################
+###########################
+# 4. Verify installation  #
+###########################
 
 info "Step 10: Verifying Docker..."
 
@@ -233,14 +233,14 @@ else
     warning "Failed to enable Docker autostart"
 fi
 
-###############################################################################
-# ИТОГ
-###############################################################################
+###########
+# Summary #
+###########
 
 echo ""
 echo -e "${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${GREEN}║                                                                ║${NC}"
-echo -e "${GREEN}║  ✓ Docker has been successfully installed on the Wiren Board!   ║${NC}"
+echo -e "${GREEN}║  ✓ Docker has been successfully installed on the Wiren Board!  ║${NC}"
 echo -e "${GREEN}║                                                                ║${NC}"
 echo -e "${GREEN}╚════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
