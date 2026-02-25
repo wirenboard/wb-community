@@ -3,7 +3,7 @@
 # Script to install Docker on a Wiren Board controller                #
 # Based on the instructions: https://wiki.wirenboard.com/wiki/Docker  #
 
-set -e  # Exit on error
+set -e # Exit on error
 
 # Output colors
 RED='\033[0;31m'
@@ -43,113 +43,113 @@ usage() {
     exit 0
 }
 
-# Install function 
+# Install function
 cmd_install() {
 
-info "Starting Docker installation on the Wiren Board controller..."
+    info "Starting Docker installation on the Wiren Board controller..."
 
-# 1. Preparation for installation  
-info "Step 1: Installing dependencies..."
-if ! apt update; then
-    error_exit "Failed to update package list. Check internet connection."
-fi
+    # 1. Preparation for installation
+    info "Step 1: Installing dependencies..."
+    if ! apt update; then
+        error_exit "Failed to update package list. Check internet connection."
+    fi
 
-if ! apt install -y ca-certificates curl gnupg lsb-release iptables; then
-    error_exit "Failed to install required dependencies."
-fi
-success "Dependencies installed"
+    if ! apt install -y ca-certificates curl gnupg lsb-release iptables; then
+        error_exit "Failed to install required dependencies."
+    fi
+    success "Dependencies installed"
 
-info "Step 2: Adding Docker repository GPG key..."
-TMP_KEY="/usr/share/keyrings/docker-archive-keyring.gpg.tmp"
-if curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o "$TMP_KEY"; then
-    if mv -f "$TMP_KEY" /usr/share/keyrings/docker-archive-keyring.gpg; then
-        success "GPG key added (overwritten if existed)"
+    info "Step 2: Adding Docker repository GPG key..."
+    TMP_KEY="/usr/share/keyrings/docker-archive-keyring.gpg.tmp"
+    if curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o "$TMP_KEY"; then
+        if mv -f "$TMP_KEY" /usr/share/keyrings/docker-archive-keyring.gpg; then
+            success "GPG key added (overwritten if existed)"
+        else
+            rm -f "$TMP_KEY"
+            error_exit "Failed to move GPG key to /usr/share/keyrings/docker-archive-keyring.gpg"
+        fi
     else
         rm -f "$TMP_KEY"
-        error_exit "Failed to move GPG key to /usr/share/keyrings/docker-archive-keyring.gpg"
+        error_exit "Failed to download Docker repository GPG key. Check internet connection."
     fi
-else
-    rm -f "$TMP_KEY"
-    error_exit "Failed to download Docker repository GPG key. Check internet connection."
-fi
 
-info "Step 3: Adding Docker repository..."
-ARCH=$(dpkg --print-architecture)
-CODENAME=$(lsb_release -cs)
-echo "deb [arch=${ARCH} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian ${CODENAME} stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-if [ ! -f /etc/apt/sources.list.d/docker.list ]; then
-    error_exit "Failed to create Docker repository file."
-fi
-success "Docker repository added"
+    info "Step 3: Adding Docker repository..."
+    ARCH=$(dpkg --print-architecture)
+    CODENAME=$(lsb_release -cs)
+    echo "deb [arch=${ARCH} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian ${CODENAME} stable" | tee /etc/apt/sources.list.d/docker.list >/dev/null
+    if [ ! -f /etc/apt/sources.list.d/docker.list ]; then
+        error_exit "Failed to create Docker repository file."
+    fi
+    success "Docker repository added"
 
-info "Step 4: Configure iptables for Docker compatibility..."
-# Check if the update-alternatives command exists
-if command -v update-alternatives &> /dev/null; then
-    # Check for iptables-legacy
-    if [ -f /usr/sbin/iptables-legacy ]; then
-        update-alternatives --set iptables /usr/sbin/iptables-legacy || warning "Failed to switch iptables to legacy version"
+    info "Step 4: Configure iptables for Docker compatibility..."
+    # Check if the update-alternatives command exists
+    if command -v update-alternatives &>/dev/null; then
+        # Check for iptables-legacy
+        if [ -f /usr/sbin/iptables-legacy ]; then
+            update-alternatives --set iptables /usr/sbin/iptables-legacy || warning "Failed to switch iptables to legacy version"
+        fi
+        if [ -f /usr/sbin/ip6tables-legacy ]; then
+            update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || warning "Failed to switch ip6tables to legacy version"
+        fi
+        success "iptables configured"
+    else
+        warning "update-alternatives not found, skipping iptables configuration"
     fi
-    if [ -f /usr/sbin/ip6tables-legacy ]; then
-        update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy || warning "Failed to switch ip6tables to legacy version"
-    fi
-    success "iptables configured"
-else
-    warning "update-alternatives not found, skipping iptables configuration"
-fi
 
-# 2. Preliminary configuration
-info "Step 5: Creating Docker directories on /mnt/data..."
+    # 2. Preliminary configuration
+    info "Step 5: Creating Docker directories on /mnt/data..."
 
-# Create directory for Docker configuration
-if [ ! -d /mnt/data/etc/docker ]; then
-    if ! mkdir -p /mnt/data/etc/docker; then
-        error_exit "Failed to create directory /mnt/data/etc/docker"
+    # Create directory for Docker configuration
+    if [ ! -d /mnt/data/etc/docker ]; then
+        if ! mkdir -p /mnt/data/etc/docker; then
+            error_exit "Failed to create directory /mnt/data/etc/docker"
+        fi
     fi
-fi
 
-# Create symlink for configuration
-if [ ! -L /etc/docker ]; then
-    if [ -d /etc/docker ]; then
-        warning "/etc/docker already exists as a directory, removing..."
-        rm -rf /etc/docker
+    # Create symlink for configuration
+    if [ ! -L /etc/docker ]; then
+        if [ -d /etc/docker ]; then
+            warning "/etc/docker already exists as a directory, removing..."
+            rm -rf /etc/docker
+        fi
+        if ! ln -s /mnt/data/etc/docker /etc/docker; then
+            error_exit "Failed to create symlink /etc/docker"
+        fi
     fi
-    if ! ln -s /mnt/data/etc/docker /etc/docker; then
-        error_exit "Failed to create symlink /etc/docker"
-    fi
-fi
-success "Configuration directory set up"
+    success "Configuration directory set up"
 
-# Create directory for containerd
-if [ ! -d /mnt/data/var/lib/containerd ]; then
-    if ! mkdir -p /mnt/data/var/lib/containerd; then
-        error_exit "Failed to create directory /mnt/data/var/lib/containerd"
+    # Create directory for containerd
+    if [ ! -d /mnt/data/var/lib/containerd ]; then
+        if ! mkdir -p /mnt/data/var/lib/containerd; then
+            error_exit "Failed to create directory /mnt/data/var/lib/containerd"
+        fi
     fi
-fi
 
-# Create symlink for containerd
-if [ ! -L /var/lib/containerd ]; then
-    if [ -d /var/lib/containerd ]; then
-        warning "/var/lib/containerd already exists as a directory, removing..."
-        rm -rf /var/lib/containerd
+    # Create symlink for containerd
+    if [ ! -L /var/lib/containerd ]; then
+        if [ -d /var/lib/containerd ]; then
+            warning "/var/lib/containerd already exists as a directory, removing..."
+            rm -rf /var/lib/containerd
+        fi
+        if ! ln -s /mnt/data/var/lib/containerd /var/lib/containerd; then
+            error_exit "Failed to create symlink /var/lib/containerd"
+        fi
     fi
-    if ! ln -s /mnt/data/var/lib/containerd /var/lib/containerd; then
-        error_exit "Failed to create symlink /var/lib/containerd"
-    fi
-fi
-success "containerd directory set up"
+    success "containerd directory set up"
 
-# Create directory for Docker images
-info "Step 6: Creating directory to store Docker images..."
-if [ ! -d /mnt/data/.docker ]; then
-    if ! mkdir -p /mnt/data/.docker; then
-        error_exit "Failed to create directory /mnt/data/.docker"
+    # Create directory for Docker images
+    info "Step 6: Creating directory to store Docker images..."
+    if [ ! -d /mnt/data/.docker ]; then
+        if ! mkdir -p /mnt/data/.docker; then
+            error_exit "Failed to create directory /mnt/data/.docker"
+        fi
     fi
-fi
-success "Images directory created"
+    success "Images directory created"
 
-# Create daemon.json configuration file
-info "Step 7: Creating daemon.json configuration file..."
-cat > /etc/docker/daemon.json <<EOF
+    # Create daemon.json configuration file
+    info "Step 7: Creating daemon.json configuration file..."
+    cat >/etc/docker/daemon.json <<EOF
 {
   "data-root": "/mnt/data/.docker",
   "log-driver": "json-file",
@@ -160,97 +160,97 @@ cat > /etc/docker/daemon.json <<EOF
 }
 EOF
 
-if [ ! -f /etc/docker/daemon.json ]; then
-    error_exit "Failed to create /etc/docker/daemon.json"
-fi
-success "daemon.json configuration file created"
-
-# 3. Install Docker
-info "Step 8: Updating package list..."
-if ! apt update; then
-    error_exit "Failed to update package list before installing Docker."
-fi
-
-info "Step 9: Installing Docker (this may take a few minutes)..."
-if ! apt install -y docker-ce docker-ce-cli containerd.io; then
-    error_exit "Failed to install Docker. Check internet connection and repository availability."
-fi
-success "Docker installed"
-
-# 4. Verify installation
-info "Step 10: Verifying Docker..."
-
-# Wait for Docker daemon to start
-sleep 2
-
-# Try to start Docker if it's not running
-if ! systemctl is-active --quiet docker; then
-    info "Docker daemon is not active, attempting to start..."
-    if ! systemctl start docker; then
-        error_exit "Failed to start Docker daemon. Try 'systemctl status docker' for diagnostics."
+    if [ ! -f /etc/docker/daemon.json ]; then
+        error_exit "Failed to create /etc/docker/daemon.json"
     fi
-    sleep 2
-fi
+    success "daemon.json configuration file created"
 
-# Check for possible iptables conflict
-if ! docker info &> /dev/null; then
-    warning "Docker daemon may have issues with iptables, applying workaround..."
-    if iptables -w10 -t nat -I POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE 2>/dev/null; then
-        success "iptables rule added"
-        systemctl restart docker
+    # 3. Install Docker
+    info "Step 8: Updating package list..."
+    if ! apt update; then
+        error_exit "Failed to update package list before installing Docker."
+    fi
+
+    info "Step 9: Installing Docker (this may take a few minutes)..."
+    if ! apt install -y docker-ce docker-ce-cli containerd.io; then
+        error_exit "Failed to install Docker. Check internet connection and repository availability."
+    fi
+    success "Docker installed"
+
+    # 4. Verify installation
+    info "Step 10: Verifying Docker..."
+
+    # Wait for Docker daemon to start
+    sleep 2
+
+    # Try to start Docker if it's not running
+    if ! systemctl is-active --quiet docker; then
+        info "Docker daemon is not active, attempting to start..."
+        if ! systemctl start docker; then
+            error_exit "Failed to start Docker daemon. Try 'systemctl status docker' for diagnostics."
+        fi
         sleep 2
     fi
-fi
 
-# Run test container
-info "Running test container hello-world..."
-if docker run --rm hello-world &> /tmp/docker_test_output.txt; then
-    if grep -q "Hello from Docker!" /tmp/docker_test_output.txt; then
-        success "Test container ran successfully!"
-        echo ""
-        cat /tmp/docker_test_output.txt
-        echo ""
-        rm -f /tmp/docker_test_output.txt
-    else
-        warning "Container ran but did not return the expected output"
-        cat /tmp/docker_test_output.txt
-        rm -f /tmp/docker_test_output.txt
+    # Check for possible iptables conflict
+    if ! docker info &>/dev/null; then
+        warning "Docker daemon may have issues with iptables, applying workaround..."
+        if iptables -w10 -t nat -I POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE 2>/dev/null; then
+            success "iptables rule added"
+            systemctl restart docker
+            sleep 2
+        fi
     fi
-else
-    error_exit "Failed to run test container. Output saved to /tmp/docker_test_output.txt.\nYou may need to reboot the controller using 'reboot'."
-fi
 
-# Enable Docker autostart
-info "Step 11: Enabling Docker autostart..."
-if systemctl enable docker; then
-    success "Docker will start automatically on boot"
-else
-    warning "Failed to enable Docker autostart"
-fi
+    # Run test container
+    info "Running test container hello-world..."
+    if docker run --rm hello-world &>/tmp/docker_test_output.txt; then
+        if grep -q "Hello from Docker!" /tmp/docker_test_output.txt; then
+            success "Test container ran successfully!"
+            echo ""
+            cat /tmp/docker_test_output.txt
+            echo ""
+            rm -f /tmp/docker_test_output.txt
+        else
+            warning "Container ran but did not return the expected output"
+            cat /tmp/docker_test_output.txt
+            rm -f /tmp/docker_test_output.txt
+        fi
+    else
+        error_exit "Failed to run test container. Output saved to /tmp/docker_test_output.txt.\nYou may need to reboot the controller using 'reboot'."
+    fi
 
-# Summary
-echo ""
-echo -e "${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║                                                                ║${NC}"
-echo -e "${GREEN}║  ✓ Docker has been successfully installed on the Wiren Board!  ║${NC}"
-echo -e "${GREEN}║                                                                ║${NC}"
-echo -e "${GREEN}╚════════════════════════════════════════════════════════════════╝${NC}"
-echo ""
-info "Useful commands:"
-echo "  - Show help:                  docker --help"
-echo "  - List images:                docker image ls"
-echo "  - List containers:            docker ps -a"
-echo "  - Run a container:            docker run [options] [image]"
-echo "  - Stop a container:           docker stop [name/id]"
-echo "  - Remove a container:         docker rm [name/id]"
-echo ""
-info "Additional information:"
-echo "  - Wiki: https://wiki.wirenboard.com/wiki/Docker"
-echo "  - Images are stored in: /mnt/data/.docker"
-echo "  - Configuration: /etc/docker/daemon.json"
-echo ""
-warning "If something doesn't work correctly, try rebooting the controller: reboot"
-echo ""
+    # Enable Docker autostart
+    info "Step 11: Enabling Docker autostart..."
+    if systemctl enable docker; then
+        success "Docker will start automatically on boot"
+    else
+        warning "Failed to enable Docker autostart"
+    fi
+
+    # Summary
+    echo ""
+    echo -e "${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${GREEN}║                                                                ║${NC}"
+    echo -e "${GREEN}║  ✓ Docker has been successfully installed on the Wiren Board!  ║${NC}"
+    echo -e "${GREEN}║                                                                ║${NC}"
+    echo -e "${GREEN}╚════════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    info "Useful commands:"
+    echo "  - Show help:                  docker --help"
+    echo "  - List images:                docker image ls"
+    echo "  - List containers:            docker ps -a"
+    echo "  - Run a container:            docker run [options] [image]"
+    echo "  - Stop a container:           docker stop [name/id]"
+    echo "  - Remove a container:         docker rm [name/id]"
+    echo ""
+    info "Additional information:"
+    echo "  - Wiki: https://wiki.wirenboard.com/wiki/Docker"
+    echo "  - Images are stored in: /mnt/data/.docker"
+    echo "  - Configuration: /etc/docker/daemon.json"
+    echo ""
+    warning "If something doesn't work correctly, try rebooting the controller: reboot"
+    echo ""
 
 } # end cmd_install
 
@@ -306,7 +306,7 @@ cmd_uninstall() {
     # Remove Docker packages
     info "Step 3: Removing Docker packages..."
     apt purge -y docker-ce docker-ce-cli containerd.io \
-        docker-buildx-plugin docker-compose-plugin 2>/dev/null || \
+        docker-buildx-plugin docker-compose-plugin 2>/dev/null ||
         warning "Some Docker packages were not found or could not be removed"
     apt autoremove -y || true
     success "Docker packages removed"
@@ -364,16 +364,16 @@ main() {
     ACTION="install"
     for arg in "$@"; do
         case "$arg" in
-            --uninstall|-u) ACTION="uninstall" ;;
-            --help|-h) usage ;;
-            *) error_exit "Unknown argument: $arg. Run '$0 --help' for usage." ;;
+        --uninstall | -u) ACTION="uninstall" ;;
+        --help | -h) usage ;;
+        *) error_exit "Unknown argument: $arg. Run '$0 --help' for usage." ;;
         esac
     done
 
     # Dispatch
     case "$ACTION" in
-        install)   cmd_install ;;
-        uninstall) cmd_uninstall ;;
+    install) cmd_install ;;
+    uninstall) cmd_uninstall ;;
     esac
 }
 
