@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#######################################################################
 # Script to install Docker on a Wiren Board controller                #
 # Based on the instructions: https://wiki.wirenboard.com/wiki/Docker  #
-#######################################################################
 
 set -e  # Exit on error
 
@@ -60,18 +58,12 @@ for arg in "$@"; do
     esac
 done
 
-######################
-# Install function   #
-######################
-
+# Install function 
 cmd_install() {
 
 info "Starting Docker installation on the Wiren Board controller..."
 
-####################################
-# 1. Preparation for installation  #
-####################################
-
+# 1. Preparation for installation  
 info "Step 1: Installing dependencies..."
 if ! apt update; then
     error_exit "Failed to update package list. Check internet connection."
@@ -120,10 +112,7 @@ else
     warning "update-alternatives not found, skipping iptables configuration"
 fi
 
-#################################
-# 2. Preliminary configuration  #
-#################################
-
+# 2. Preliminary configuration
 info "Step 5: Creating Docker directories on /mnt/data..."
 
 # Create directory for Docker configuration
@@ -191,10 +180,7 @@ if [ ! -f /etc/docker/daemon.json ]; then
 fi
 success "daemon.json configuration file created"
 
-######################
-# 3. Install Docker  #
-######################
-
+# 3. Install Docker
 info "Step 8: Updating package list..."
 if ! apt update; then
     error_exit "Failed to update package list before installing Docker."
@@ -206,10 +192,7 @@ if ! apt install -y docker-ce docker-ce-cli containerd.io; then
 fi
 success "Docker installed"
 
-###########################
-# 4. Verify installation  #
-###########################
-
+# 4. Verify installation
 info "Step 10: Verifying Docker..."
 
 # Wait for Docker daemon to start
@@ -260,10 +243,7 @@ else
     warning "Failed to enable Docker autostart"
 fi
 
-###########
-# Summary #
-###########
-
+# Summary
 echo ""
 echo -e "${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${GREEN}║                                                                ║${NC}"
@@ -289,10 +269,7 @@ echo ""
 
 } # end cmd_install
 
-########################
-# Uninstall function   #
-########################
-
+# Uninstall function
 cmd_uninstall() {
     info "Starting Docker uninstallation from the Wiren Board controller..."
 
@@ -392,9 +369,7 @@ cmd_uninstall() {
 
 } # end cmd_uninstall
 
-############
-# Dispatch #
-############
+# Dispatch 
 
 case "$ACTION" in
     install)   cmd_install ;;
