@@ -2,6 +2,25 @@
 
 Автоматизированный скрипт для установки Docker на контроллерах Wiren Board согласно [официальной инструкции](https://wiki.wirenboard.com/wiki/Docker).
 
+## Использование скрипта
+
+### Установка Docker (по умолчанию)
+
+```bash
+./install_docker.sh
+```
+
+### Удаление Docker
+```bash
+./install_docker.sh --uninstall
+./install_docker.sh -u       # краткая форма
+```
+
+### Справка
+```bash
+./install_docker.sh --help
+```
+
 ## Описание
 
 Скрипт выполняет полную установку и настройку Docker:
