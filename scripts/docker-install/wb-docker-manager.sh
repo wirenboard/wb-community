@@ -48,6 +48,29 @@ cmd_install() {
 
     info "Starting Docker installation on the Wiren Board controller..."
 
+    # 0. Check that Docker is not already installed
+    if command -v docker &>/dev/null; then
+        echo ""
+        echo -e "${YELLOW}╔════════════════════════════════════════════════════════════════╗${NC}"
+        echo -e "${YELLOW}║                                                                ║${NC}"
+        echo -e "${YELLOW}║  Docker is already installed on this controller.               ║${NC}"
+        echo -e "${YELLOW}║                                                                ║${NC}"
+        echo -e "${YELLOW}╚════════════════════════════════════════════════════════════════╝${NC}"
+        echo ""
+        info "Installed Docker version: $(docker --version)"
+        echo ""
+        warning "This script performs a clean installation only."
+        info "If you want to reinstall Docker, first remove it using:"
+        echo ""
+        echo -e "  ${GREEN}${0} --uninstall${NC}"
+        echo ""
+        info "Then run the installation again:"
+        echo ""
+        echo -e "  ${GREEN}${0} --install${NC}"
+        echo ""
+        exit 0
+    fi
+
     # 1. Preparation for installation
     info "Step 1: Installing dependencies..."
     if ! apt update; then
@@ -60,10 +83,13 @@ cmd_install() {
     success "Dependencies installed"
 
     info "Step 2: Adding Docker repository GPG key..."
+    if [ -f /usr/share/keyrings/docker-archive-keyring.gpg ]; then
+        error_exit "GPG key /usr/share/keyrings/docker-archive-keyring.gpg already exists.\nRun '${0} --uninstall' first, or remove it manually:\n  rm -f /usr/share/keyrings/docker-archive-keyring.gpg"
+    fi
     TMP_KEY="/usr/share/keyrings/docker-archive-keyring.gpg.tmp"
     if curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o "${TMP_KEY}"; then
-        if mv -f "${TMP_KEY}" /usr/share/keyrings/docker-archive-keyring.gpg; then
-            success "GPG key added (overwritten if existed)"
+        if mv "${TMP_KEY}" /usr/share/keyrings/docker-archive-keyring.gpg; then
+            success "GPG key added"
         else
             rm -f "${TMP_KEY}"
             error_exit "Failed to move GPG key to /usr/share/keyrings/docker-archive-keyring.gpg"
@@ -74,6 +100,9 @@ cmd_install() {
     fi
 
     info "Step 3: Adding Docker repository..."
+    if [ -f /etc/apt/sources.list.d/docker.list ]; then
+        error_exit "Docker repository file /etc/apt/sources.list.d/docker.list already exists.\nRun '${0} --uninstall' first, or remove it manually:\n  rm -f /etc/apt/sources.list.d/docker.list"
+    fi
     ARCH=$(dpkg --print-architecture)
     CODENAME=$(lsb_release -cs)
     echo "deb [arch=${ARCH} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian ${CODENAME} stable" | tee /etc/apt/sources.list.d/docker.list >/dev/null
@@ -101,49 +130,56 @@ cmd_install() {
     info "Step 5: Creating Docker directories on /mnt/data..."
 
     # Create directory for Docker configuration
-    if [ ! -d /mnt/data/etc/docker ]; then
-        if ! mkdir -p /mnt/data/etc/docker; then
-            error_exit "Failed to create directory /mnt/data/etc/docker"
-        fi
+    if [ -d /mnt/data/etc/docker ] || [ -L /mnt/data/etc/docker ]; then
+        error_exit "Directory /mnt/data/etc/docker already exists.\
+Run '${0} --uninstall' first, or remove it manually:\
+  rm -rf /mnt/data/etc/docker"
+    fi
+    if ! mkdir -p /mnt/data/etc/docker; then
+        error_exit "Failed to create directory /mnt/data/etc/docker"
     fi
 
     # Create symlink for configuration
-    if [ ! -L /etc/docker ]; then
-        if [ -d /etc/docker ]; then
-            warning "/etc/docker already exists as a directory, removing..."
-            rm -rf /etc/docker
-        fi
-        if ! ln -s /mnt/data/etc/docker /etc/docker; then
-            error_exit "Failed to create symlink /etc/docker"
-        fi
+    if [ -e /etc/docker ] || [ -L /etc/docker ]; then
+        error_exit "/etc/docker already exists.\
+Run '${0} --uninstall' first, or remove it manually:\
+  rm -rf /etc/docker"
+    fi
+    if ! ln -s /mnt/data/etc/docker /etc/docker; then
+        error_exit "Failed to create symlink /etc/docker"
     fi
     success "Configuration directory set up"
 
     # Create directory for containerd
-    if [ ! -d /mnt/data/var/lib/containerd ]; then
-        if ! mkdir -p /mnt/data/var/lib/containerd; then
-            error_exit "Failed to create directory /mnt/data/var/lib/containerd"
-        fi
+    if [ -d /mnt/data/var/lib/containerd ] || [ -L /mnt/data/var/lib/containerd ]; then
+        error_exit "Directory /mnt/data/var/lib/containerd already exists.\
+Run '${0} --uninstall' first, or remove it manually:\
+  rm -rf /mnt/data/var/lib/containerd"
+    fi
+    if ! mkdir -p /mnt/data/var/lib/containerd; then
+        error_exit "Failed to create directory /mnt/data/var/lib/containerd"
     fi
 
     # Create symlink for containerd
-    if [ ! -L /var/lib/containerd ]; then
-        if [ -d /var/lib/containerd ]; then
-            warning "/var/lib/containerd already exists as a directory, removing..."
-            rm -rf /var/lib/containerd
-        fi
-        if ! ln -s /mnt/data/var/lib/containerd /var/lib/containerd; then
-            error_exit "Failed to create symlink /var/lib/containerd"
-        fi
+    if [ -e /var/lib/containerd ] || [ -L /var/lib/containerd ]; then
+        error_exit "/var/lib/containerd already exists.\
+Run '${0} --uninstall' first, or remove it manually:\
+  rm -rf /var/lib/containerd"
+    fi
+    if ! ln -s /mnt/data/var/lib/containerd /var/lib/containerd; then
+        error_exit "Failed to create symlink /var/lib/containerd"
     fi
     success "containerd directory set up"
 
     # Create directory for Docker images
     info "Step 6: Creating directory to store Docker images..."
-    if [ ! -d /mnt/data/.docker ]; then
-        if ! mkdir -p /mnt/data/.docker; then
-            error_exit "Failed to create directory /mnt/data/.docker"
-        fi
+    if [ -d /mnt/data/.docker ] || [ -L /mnt/data/.docker ]; then
+        error_exit "Directory /mnt/data/.docker already exists.\
+Run '${0} --uninstall' first, or remove it manually:\
+  rm -rf /mnt/data/.docker"
+    fi
+    if ! mkdir -p /mnt/data/.docker; then
+        error_exit "Failed to create directory /mnt/data/.docker"
     fi
     success "Images directory created"
 
@@ -192,14 +228,9 @@ EOF
         sleep 2
     fi
 
-    # Check for possible iptables conflict
+    # Check Docker is functional
     if ! docker info &>/dev/null; then
-        warning "Docker daemon may have issues with iptables, applying workaround..."
-        if iptables -w10 -t nat -I POSTROUTING -s 172.17.0.0/16 ! -o docker0 -j MASQUERADE 2>/dev/null; then
-            success "iptables rule added"
-            systemctl restart docker
-            sleep 2
-        fi
+        error_exit "Docker daemon started but is not responding. Possible iptables conflict.\nCheck: systemctl status docker\nIf the issue persists, try rebooting: reboot"
     fi
 
     # Run test container
