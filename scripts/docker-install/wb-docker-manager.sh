@@ -34,12 +34,12 @@ info() {
 
 # Show usage
 usage() {
-    echo "Usage: $0 [--uninstall|-u]"
+    echo "Usage: $0 --install | --uninstall"
     echo ""
-    echo "Options:"
-    echo "  (no arguments)   Install Docker on the Wiren Board controller"
+    echo "One of the following arguments is required:"
+    echo "  --install, -i    Install Docker on the Wiren Board controller"
     echo "  --uninstall, -u  Stop, disable and remove Docker and all related files"
-    echo ""
+    echo "  --help,      -h  Show this help message"
     exit 0
 }
 
@@ -361,9 +361,10 @@ main() {
     fi
 
     # Parse arguments
-    ACTION="install"
+    ACTION="help"
     for arg in "$@"; do
         case "$arg" in
+        --install | -i) ACTION="install" ;;
         --uninstall | -u) ACTION="uninstall" ;;
         --help | -h) usage ;;
         *) error_exit "Unknown argument: $arg. Run '$0 --help' for usage." ;;
@@ -374,6 +375,7 @@ main() {
     case "$ACTION" in
     install) cmd_install ;;
     uninstall) cmd_uninstall ;;
+    help) usage ;;
     esac
 }
 
