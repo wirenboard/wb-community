@@ -34,7 +34,7 @@ info() {
 
 # Show usage
 usage() {
-    echo "Usage: $0 --install | --uninstall"
+    echo "Usage: ${0} --install | --uninstall"
     echo ""
     echo "One of the following arguments is required:"
     echo "  --install, -i    Install Docker on the Wiren Board controller"
@@ -61,15 +61,15 @@ cmd_install() {
 
     info "Step 2: Adding Docker repository GPG key..."
     TMP_KEY="/usr/share/keyrings/docker-archive-keyring.gpg.tmp"
-    if curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o "$TMP_KEY"; then
-        if mv -f "$TMP_KEY" /usr/share/keyrings/docker-archive-keyring.gpg; then
+    if curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o "${TMP_KEY}"; then
+        if mv -f "${TMP_KEY}" /usr/share/keyrings/docker-archive-keyring.gpg; then
             success "GPG key added (overwritten if existed)"
         else
-            rm -f "$TMP_KEY"
+            rm -f "${TMP_KEY}"
             error_exit "Failed to move GPG key to /usr/share/keyrings/docker-archive-keyring.gpg"
         fi
     else
-        rm -f "$TMP_KEY"
+        rm -f "${TMP_KEY}"
         error_exit "Failed to download Docker repository GPG key. Check internet connection."
     fi
 
@@ -262,23 +262,23 @@ cmd_uninstall() {
     info "Step 1: Stopping and removing all containers and images..."
     if command -v docker &>/dev/null && systemctl is-active --quiet docker 2>/dev/null; then
         CONTAINERS=$(docker ps -aq 2>/dev/null)
-        if [ -n "$CONTAINERS" ]; then
+        if [ -n "${CONTAINERS}" ]; then
             info "Stopping all running containers..."
-            docker stop $CONTAINERS || warning "Some containers could not be stopped"
+            docker stop "${CONTAINERS}" || warning "Some containers could not be stopped"
             info "Removing all containers..."
-            docker rm $CONTAINERS || warning "Some containers could not be removed"
+            docker rm "${CONTAINERS}" || warning "Some containers could not be removed"
             success "All containers removed"
         else
             info "No containers found"
         fi
 
         IMAGES=$(docker images -q 2>/dev/null)
-        if [ -n "$IMAGES" ]; then
+        if [ -n "${IMAGES}" ]; then
             warning "The following Docker images will be removed:"
             docker images --format "  - {{.Repository}}:{{.Tag}} ({{.Size}})"
             read -r -p "Remove all Docker images? [y/N] " confirm_images
-            if [[ "$confirm_images" =~ ^[Yy]$ ]]; then
-                docker rmi -f $IMAGES || warning "Some images could not be removed"
+            if [[ "${confirm_images}" =~ ^[Yy]$ ]]; then
+                docker rmi -f "${IMAGES}" || warning "Some images could not be removed"
                 success "All images removed"
             else
                 info "Skipped removal of images"
@@ -333,7 +333,7 @@ cmd_uninstall() {
     info "Step 6: Removing data directories from /mnt/data..."
     warning "This will permanently delete all Docker images, containers and configuration!"
     read -r -p "Delete /mnt/data/.docker, /mnt/data/var/lib/containerd and /mnt/data/etc/docker? [y/N] " confirm
-    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+    if [[ "${confirm}" =~ ^[Yy]$ ]]; then
         rm -rf /mnt/data/.docker
         rm -rf /mnt/data/var/lib/containerd
         rm -rf /mnt/data/etc/docker
@@ -356,23 +356,23 @@ cmd_uninstall() {
 
 main() {
     # Check for root privileges
-    if [ "$EUID" -ne 0 ]; then
-        error_exit "This script must be run as root. Use: sudo $0"
+    if [ "${EUID}" -ne 0 ]; then
+        error_exit "This script must be run as root. Use: sudo ${0}"
     fi
 
     # Parse arguments
     ACTION="help"
     for arg in "$@"; do
-        case "$arg" in
+        case "${arg}" in
         --install | -i) ACTION="install" ;;
         --uninstall | -u) ACTION="uninstall" ;;
         --help | -h) usage ;;
-        *) error_exit "Unknown argument: $arg. Run '$0 --help' for usage." ;;
+        *) error_exit "Unknown argument: ${arg}. Run '${0} --help' for usage." ;;
         esac
     done
 
     # Dispatch
-    case "$ACTION" in
+    case "${ACTION}" in
     install) cmd_install ;;
     uninstall) cmd_uninstall ;;
     help) usage ;;
