@@ -43,6 +43,60 @@ usage() {
     exit 0
 }
 
+# Stop and remove all Docker containers
+cleanup_containers() {
+    info "Checking for containers..."
+
+    local containers
+    containers=$(docker ps -aq 2>/dev/null)
+
+    if [ -n "${containers}" ]; then
+        info "Found the following containers:"
+        docker ps -a --format "  - {{.Names}} ({{.ID}}) [{{.Status}}]"
+        echo ""
+
+        read -r -p "Stop all containers? [y/N] " confirm_stop
+        if [[ ! "${confirm_stop}" =~ ^[Yy]$ ]]; then
+            echo ""
+            info "To stop and remove containers manually, run:"
+            for id in ${containers}; do
+                echo "  docker stop ${id}"
+            done
+            for id in ${containers}; do
+                echo "  docker rm ${id}"
+            done
+            echo ""
+            error_exit "Uninstallation aborted. Please stop and remove all containers first."
+        fi
+
+        info "Stopping containers..."
+        for id in ${containers}; do
+            docker stop "${id}" && info "  Stopped: ${id}" || warning "  Failed to stop: ${id}"
+        done
+        success "Containers stopped"
+        echo ""
+
+        read -r -p "Remove all containers? [y/N] " confirm_rm
+        if [[ ! "${confirm_rm}" =~ ^[Yy]$ ]]; then
+            echo ""
+            info "To remove containers manually, run:"
+            for id in ${containers}; do
+                echo "  docker rm ${id}"
+            done
+            echo ""
+            error_exit "Uninstallation aborted. Please remove all containers first."
+        fi
+
+        info "Removing containers..."
+        for id in ${containers}; do
+            docker rm "${id}" && info "  Removed: ${id}" || warning "  Failed to remove: ${id}"
+        done
+        success "All containers removed"
+    else
+        info "No containers found"
+    fi
+}
+
 # Install function
 cmd_install() {
 
@@ -292,16 +346,7 @@ cmd_uninstall() {
     # Stop and remove all containers and images
     info "Step 1: Stopping and removing all containers and images..."
     if command -v docker &>/dev/null && systemctl is-active --quiet docker 2>/dev/null; then
-        CONTAINERS=$(docker ps -aq 2>/dev/null)
-        if [ -n "${CONTAINERS}" ]; then
-            info "Stopping all running containers..."
-            docker stop "${CONTAINERS}" || warning "Some containers could not be stopped"
-            info "Removing all containers..."
-            docker rm "${CONTAINERS}" || warning "Some containers could not be removed"
-            success "All containers removed"
-        else
-            info "No containers found"
-        fi
+        cleanup_containers
 
         IMAGES=$(docker images -q 2>/dev/null)
         if [ -n "${IMAGES}" ]; then
