@@ -11,17 +11,21 @@
       "characteristics": [
         {
           "type": "OccupancyDetected",
-          "link": {
-            "type": "Boolean",
-            "topicGet": "/devices/(1)/controls/Presence Status"            
-          }
+          "link": [
+            {
+              "type": "Boolean",
+              "topicGet": "/devices/(1)/controls/Presence Status"
+            }
+          ]
         },
         {
           "type": "C_Distance",
-          "link": {
-            "type": "Double",
-            "topicGet": "/devices/(1)/controls/Target distance"
-          }
+          "link": [
+            {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/Target distance"
+            }
+          ]
         }
       ]
     },
@@ -31,42 +35,53 @@
       "characteristics": [
         {
           "type": "CurrentAmbientLightLevel",
-          "link": {
-            "type": "Double",
-            "topicGet": "/devices/(1)/controls/Illuminance status"
-          }
+          "link": [
+            {
+              "type": "Double",
+              "topicGet": "/devices/(1)/controls/Illuminance status"
+            }
+          ]
         }
       ]
     }
   ],
   "options": [
     {
-      "link": {
-      "topicGet": "/devices/(1)/controls/Trigger sensitivity",
-      "topicSet": "/devices/(1)/controls/Trigger sensitivity/on"      
-      },
+      "link": [
+        {
+          "type": "Double",
+          "topicGet": "/devices/(1)/controls/Trigger sensitivity",
+          "topicSet": "/devices/(1)/controls/Trigger sensitivity/on"
+        }
+      ],
       "name": "Чувствительность",
       "type": "Double",
       "minValue": 1.0,
       "maxValue": 9.0,
-      "minStep": 1
+      "minStep": 1.0
     },
     {
-      "link": {
-      "topicGet": "/devices/(1)/controls/Detection distance",
-      "topicSet": "/devices/(1)/controls/Detection distance/on"      
-      },
+      "link": [
+        {
+          "type": "Double",
+          "topicGet": "/devices/(1)/controls/Detection distance",
+          "topicSet": "/devices/(1)/controls/Detection distance/on"
+        }
+      ],
       "name": "Максимальное расстояние",
       "type": "Double",
       "minValue": 2.0,
       "maxValue": 10.0,
-      "minStep": 1
+      "minStep": 1.0
     },
     {
-      "link": {
-      "topicGet": "/devices/(1)/controls/Detecting shielding distance",
-      "topicSet": "/devices/(1)/controls/Detecting shielding distance/on"      
-      },
+      "link": [
+        {
+          "type": "Double",
+          "topicGet": "/devices/(1)/controls/Detecting shielding distance",
+          "topicSet": "/devices/(1)/controls/Detecting shielding distance/on"
+        }
+      ],
       "name": "Минимальное расстояние",
       "type": "Double",
       "minValue": 0.6,
@@ -74,10 +89,13 @@
       "minStep": 0.1
     },
     {
-      "link": {
-      "topicGet": "/devices/(1)/controls/Admission confirmation delayed",
-      "topicSet": "/devices/(1)/controls/Admission confirmation delayed/on"      
-      },
+      "link": [
+        {
+          "type": "Double",
+          "topicGet": "/devices/(1)/controls/Admission confirmation delayed",
+          "topicSet": "/devices/(1)/controls/Admission confirmation delayed/on"
+        }
+      ],
       "name": "Задержка обнаружения присутствия",
       "type": "Double",
       "minValue": 0.1,
@@ -85,15 +103,18 @@
       "minStep": 0.1
     },
     {
-      "link": {
-      "topicGet": "/devices/(1)/controls/Departure disappearance delay",
-      "topicSet": "/devices/(1)/controls/Departure disappearance delay/on"      
-      },
+      "link": [
+        {
+          "type": "Double",
+          "topicGet": "/devices/(1)/controls/Departure disappearance delay",
+          "topicSet": "/devices/(1)/controls/Departure disappearance delay/on"
+        }
+      ],
       "name": "Задержка определения отсутствия",
       "type": "Double",
       "minValue": 1.0,
-      "maxValue": 1500.0,
-      "minStep": 5
+      "maxValue": 1500,
+      "minStep": 5.0
     }
   ]
 }
