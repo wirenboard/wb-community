@@ -51,8 +51,9 @@
 
 2. Скачайте скрипт на контроллер:
    ```bash
-   wget https://raw.githubusercontent.com/wb-community/refs/heads/main/scripts/docker-install/wb-docker-manager.sh
+   wget https://raw.githubusercontent.com/wirenboard/wb-community/refs/heads/main/scripts/docker-install/wb-docker-manager.sh
    ```
+   
 
 3. Сделайте скрипт исполняемым:
    ```bash
@@ -67,7 +68,7 @@
 ### Прямая установка одной командой
 
 ```bash
-wget -O - https://raw.githubusercontent.com/wb-community/refs/heads/main/scripts/docker-install/wb-docker-manager.sh | bash
+wget -O - https://raw.githubusercontent.com/wirenboard/wb-community/refs/heads/main/scripts/docker-install/wb-docker-manager.sh | bash -s -- --install
 ```
 
 
