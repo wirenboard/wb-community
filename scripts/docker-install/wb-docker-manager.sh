@@ -415,7 +415,11 @@ cmd_uninstall() {
         rm -rf /mnt/data/etc/docker
         success "Data directories removed"
     else
-        info "Skipped removal of data directories"
+        info "Skipped removal of data directories."
+        info "To remove them manually, run:"
+        echo "  rm -rf /mnt/data/.docker"
+        echo "  rm -rf /mnt/data/var/lib/containerd"
+        echo "  rm -rf /mnt/data/etc/docker"
     fi
 
     echo ""
