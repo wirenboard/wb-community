@@ -1,24 +1,30 @@
 # Скрипт установки Docker для контроллеров Wiren Board
 
 Автоматизированный скрипт для установки Docker на контроллерах Wiren Board согласно [официальной инструкции](https://wiki.wirenboard.com/wiki/Docker).
+Учитывает специфику контроллера:
+- Перенос данных (/etc/docker, /var/lib/containerd) на ```/mnt/data``` (самый большой раздел флеш-накопителя)
+- Хранение образов на встроенном накопителе в ```/mnt/data/.docker```
+- Ограничение размера логов контейнеров (3 файла по 10M)
+- Адаптация сетевых правил (iptables)
 
 ## Использование скрипта
 
-### Установка Docker (по умолчанию)
+### Установка Docker
 
 ```bash
-./install_docker.sh
+./wb-docker-manager.sh --install
+./wb-docker-manager.sh -i       # краткая форма
 ```
 
 ### Удаление Docker
 ```bash
-./install_docker.sh --uninstall
-./install_docker.sh -u       # краткая форма
+./wb-docker-manager.sh --uninstall
+./wb-docker-manager.sh -u       # краткая форма
 ```
 
 ### Справка
 ```bash
-./install_docker.sh --help
+./wb-docker-manager.sh --help
 ```
 
 ## Описание
@@ -45,23 +51,23 @@
 
 2. Скачайте скрипт на контроллер:
    ```bash
-   wget https://raw.githubusercontent.com/wb-community/refs/heads/main/scripts/docker-install/install_docker.sh
+   wget https://raw.githubusercontent.com/wb-community/refs/heads/main/scripts/docker-install/wb-docker-manager.sh
    ```
 
 3. Сделайте скрипт исполняемым:
    ```bash
-   chmod +x install_docker.sh
+   chmod +x wb-docker-manager.sh
    ```
 
 4. Запустите установку:
    ```bash
-   ./install_docker.sh
+   ./wb-docker-manager.sh --install
    ```
 
 ### Прямая установка одной командой
 
 ```bash
-wget -O - https://raw.githubusercontent.com/wb-community/refs/heads/main/scripts/docker-install/install_docker.sh | bash
+wget -O - https://raw.githubusercontent.com/wb-community/refs/heads/main/scripts/docker-install/wb-docker-manager.sh | bash
 ```
 
 
@@ -85,7 +91,7 @@ Failed to update package list. Check internet connection
 
 ### Ошибка прав доступа
 ```
-This script must be run as root. Use: sudo ./install_docker.sh
+This script must be run as root. Use: sudo ./wb-docker-manager.sh
 ```
 **Решение:** Запустите скрипт с правами root или через sudo.
 
