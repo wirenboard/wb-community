@@ -14,17 +14,14 @@
 // ТОПИКИ К УСТРОЙСТВУ (server/+/openair/...):
 //   system → {"type":"auth"} | {"shutdown":{"limit":N}} | {"firmware":{...}} | {"reset":[...]}
 //   mode   → {"capabilities":{mode,on_off,speed,gate}}
-//            {"settings":{gate,smart_speed,emerg_shunt}}
+//            {"settings":{gate,smart_speed,emerg_shunt,temperature_speed:[temp,speed]}}
 //
 // =============================================================
 // УПРАВЛЕНИЕ РЕЖИМОМ
 // =============================================================
 // Поле "Workmode" — редактируемое текстовое поле.
-// Пишите значение и нажимайте Enter:
 //   manual     — ручной режим
 //   super_auto — смарт-режим
-// Значение отправляется напрямую на устройство как есть.
-// При получении feedback с устройства поле обновляется автоматически.
 //
 // =============================================================
 // ИНТЕРЛОК заслонки и скорости
@@ -35,10 +32,16 @@
 // CloseGate → speed=0 → off (через 1.5с)
 //
 // =============================================================
+// ОБНОВЛЕНИЕ ДАННЫХ
+// =============================================================
+// Контрол "ForceRefresh" (pushbutton) — принудительно запросить
+// состояние устройства (auth + эхо текущих capabilities).
+// Автоматически выполняется каждые deep_poll_interval секунд.
+//
+// =============================================================
 // ОТЛАДОЧНЫЙ ЛОГ
 // =============================================================
 // Контрол "Debug_Log" (switch) — включить/выключить детальный лог
-// без перезагрузки скрипта прямо из веб-интерфейса WB.
 // Смотреть: journalctl -u wb-rules -f
 // =============================================================
 
@@ -46,7 +49,8 @@ createVakioOpenAir({
   id: 1,
   topic: "VAKIO",
   endpoint: "openair",
-  polling_interval: 10,
+  polling_interval: 10, // интервал heartbeat (сек)
+  deep_poll_interval: 300, // интервал глубокого опроса (сек), по умолчанию 5 минут
 });
 
 function createVakioOpenAir(params) {
@@ -55,48 +59,47 @@ function createVakioOpenAir(params) {
   var endpoint = params.endpoint !== undefined ? params.endpoint : "openair";
   var polling_interval =
     params.polling_interval !== undefined ? params.polling_interval : 10;
+  var deep_poll_interval =
+    params.deep_poll_interval !== undefined ? params.deep_poll_interval : 300;
 
   var vd = "Vakio_" + id + "_" + endpoint;
 
   // ============================================================
   // Имена контролов
   // ============================================================
-  // Управление
   var ctrlState = "State";
-  var ctrlWorkmode = "Workmode"; // text editable: manual | super_auto
+  var ctrlWorkmode = "Workmode";
   var ctrlSpeed = "Speed";
   var ctrlGate = "Gate";
   var ctrlClose = "CloseGate";
+  var ctrlForceRefresh = "ForceRefresh";
 
-  // Статус
   var ctrlConnect = "Connect";
   var ctrlTemp = "Temperature";
   var ctrlHumidity = "Humidity";
   var ctrlErrShutdown = "Err_Shutdown";
 
-  // Настройки смарт (управляемые)
-  var ctrlSmartGate = "Smart_Gate";
-  var ctrlSmartSpeed = "Smart_Speed";
-  var ctrlEmergShunt = "Emerg_Shunt";
+  // Настройки смарт — то что ОТПРАВЛЯЕМ на устройство
+  var ctrlSmartGate = "Smart_Gate"; // gate в smart (позиция заслонки)
+  var ctrlSmartSpeed = "Smart_Speed"; // smart_speed
+  var ctrlEmergShunt = "Emerg_Shunt"; // emerg_shunt (темп. отключения клапана)
+  var ctrlSmartTempThreshold = "Smart_Temp"; // temperature_speed[0] — порог температуры
   var ctrlShutdownLimit = "Shutdown_Limit";
 
-  // Авто-режим (readonly, из settings устройства)
-  var ctrlAutoTemp = "Auto_Temp";
-  var ctrlAutoSpeed = "Auto_Speed";
+  // Readonly — что ПОЛУЧАЕМ из settings устройства (feedback)
+  var ctrlAutoTemp = "Auto_Temp"; // temperature_speed[0]
+  var ctrlAutoSpeed = "Auto_Speed"; // temperature_speed[1]
+  var ctrlRelGate = "Rel_Gate"; // settings.gate (feedback)
+  var ctrlRelSmartSpd = "Rel_SmartSpeed"; // settings.smart_speed (feedback)
+  var ctrlRelEmerg = "Rel_EmergShunt"; // settings.emerg_shunt (feedback)
 
-  // Информация об устройстве (readonly, из system)
+  // Информация об устройстве (readonly)
   var ctrlFwVer = "FW_Version";
   var ctrlMac = "Device_MAC";
   var ctrlSeries = "HW_Series";
   var ctrlSubtype = "HW_Subtype";
   var ctrlExchange = "Exchange";
 
-  // Relation из settings (readonly, из mode)
-  var ctrlRelGate = "Rel_Gate";
-  var ctrlRelSmartSpd = "Rel_SmartSpeed";
-  var ctrlRelEmerg = "Rel_EmergShunt";
-
-  // Отладка
   var ctrlDebugLog = "Debug_Log";
 
   // ============================================================
@@ -113,9 +116,10 @@ function createVakioOpenAir(params) {
   var _initialized = false;
   var _lastAlive = 0;
   var _isOnline = false;
+  var _deepPollTick = 0;
 
   // ============================================================
-  // Определение виртуального устройства
+  // Виртуальное устройство
   // ============================================================
   defineVirtualDevice(vd, {
     title: "Vakio OpenAir [" + topic + "/" + endpoint + "]",
@@ -127,9 +131,6 @@ function createVakioOpenAir(params) {
         value: false,
         order: 1,
       },
-      // Редактируемое текстовое поле режима.
-      // Допустимые значения: manual | super_auto
-      // Обновляется автоматически из feedback устройства.
       Workmode: {
         title: "Режим (manual / super_auto)",
         type: "text",
@@ -158,6 +159,12 @@ function createVakioOpenAir(params) {
         type: "pushbutton",
         value: false,
         order: 5,
+      },
+      ForceRefresh: {
+        title: "Обновить данные с устройства",
+        type: "pushbutton",
+        value: false,
+        order: 6,
       },
 
       // --- Статус ---
@@ -190,7 +197,11 @@ function createVakioOpenAir(params) {
         order: 13,
       },
 
-      // --- Настройки смарт-режима ---
+      // --- Настройки смарт-режима (ЗАПИСЫВАЕМЫЕ) ---
+      // Smart_Gate:  позиция заслонки в smart режиме → settings.gate
+      // Smart_Speed: скорость в smart режиме         → settings.smart_speed
+      // Smart_Temp:  порог температуры               → settings.temperature_speed[0]
+      // Emerg_Shunt: темп. отключения клапана        → settings.emerg_shunt
       Smart_Gate: {
         title: "Смарт: заслонка (1-4)",
         type: "range",
@@ -207,97 +218,105 @@ function createVakioOpenAir(params) {
         max: 5,
         order: 21,
       },
+      Smart_Temp: {
+        title: "Смарт: порог температуры (°C)",
+        type: "range",
+        value: 20,
+        min: -20,
+        max: 40,
+        order: 22,
+      },
       Emerg_Shunt: {
-        title: "Смарт: температура откл. (°C)",
+        title: "Смарт: темп. откл. клапана (°C)",
         type: "range",
         value: 10,
         min: -20,
         max: 25,
-        order: 22,
+        order: 23,
       },
       Shutdown_Limit: {
         title: "Порог переохлаждения (°C)",
         type: "range",
         value: 0,
         min: -30,
-        max: 10,
-        order: 23,
+        max: 25,
+        order: 24,
       },
 
-      // --- Авто-режим (readonly) ---
+      // --- Авто-режим (readonly, feedback из settings) ---
       Auto_Temp: {
-        title: "Авто: порог темп. (°C)",
+        title: "Авто: порог темп. (°C) [feedback]",
         type: "value",
         value: 0,
         readonly: true,
-        order: 25,
+        order: 30,
       },
       Auto_Speed: {
-        title: "Авто: скорость",
+        title: "Авто: скорость [feedback]",
         type: "value",
         value: 0,
         readonly: true,
-        order: 26,
+        order: 31,
       },
 
-      // --- Информация об устройстве ---
+      // --- Информация об устройстве (readonly) ---
       FW_Version: {
         title: "Прошивка",
         type: "text",
         value: "—",
         readonly: true,
-        order: 30,
+        order: 40,
       },
       Device_MAC: {
         title: "MAC адрес",
         type: "text",
         value: "—",
         readonly: true,
-        order: 31,
+        order: 41,
       },
       HW_Series: {
         title: "Серия железа",
         type: "text",
         value: "—",
         readonly: true,
-        order: 32,
+        order: 42,
       },
       HW_Subtype: {
         title: "Подтип железа",
         type: "text",
         value: "—",
         readonly: true,
-        order: 33,
+        order: 43,
       },
       Exchange: {
         title: "Протокол обмена",
         type: "text",
         value: "—",
         readonly: true,
-        order: 34,
+        order: 44,
       },
 
-      // --- Relation (readonly) ---
+      // --- Rel (readonly, feedback) ---
       Rel_Gate: {
-        title: "Rel: заслонка авто",
+        title: "Rel: заслонка [feedback]",
         type: "value",
         value: 0,
         readonly: true,
-        order: 40,
+        order: 50,
       },
       Rel_SmartSpeed: {
-        title: "Rel: скорость смарт",
+        title: "Rel: скорость смарт [feedback]",
         type: "value",
         value: 0,
         readonly: true,
-        order: 41,
+        order: 51,
       },
       Rel_EmergShunt: {
-        title: "Rel: emerg_shunt",
+        title: "Rel: emerg_shunt [feedback]",
         type: "value",
         value: 0,
         readonly: true,
-        order: 42,
+        order: 52,
       },
 
       // --- Отладка ---
@@ -305,7 +324,7 @@ function createVakioOpenAir(params) {
         title: "Детальный лог (Debug)",
         type: "switch",
         value: false,
-        order: 50,
+        order: 60,
       },
     },
   });
@@ -377,6 +396,26 @@ function createVakioOpenAir(params) {
   }
 
   // ============================================================
+  // Глубокий опрос — только запрос auth + 0687
+  //
+  // ВАЖНО: НЕ эхоим capabilities обратно на устройство!
+  // Если эхоить — устройство применяет значения и присылает feedback,
+  // перезатирая реальное состояние после интерлока (speed=0 при смене gate).
+  //
+  // Устройство само присылает актуальное состояние в ответ на auth:
+  //   device/.../system → auth + device_subtype (mac, fw, серия)
+  //   device/.../mode   → capabilities + settings (скорость, заслонка, режим)
+  // ============================================================
+  function deepPoll() {
+    // Запрос system → устройство ответит mac, fw, subtype
+    sendSystem({ type: "auth" });
+    // Легаси heartbeat → устройство ответит текущим состоянием
+    publish(legacyBase + "/system", "0687", 2, false);
+    dbg("DEEP_POLL", "auth + 0687 отправлены, ждём ответа от устройства");
+    log.info("[" + vd + "] глубокий опрос выполнен");
+  }
+
+  // ============================================================
   // Команды пользователя → Устройство
   // ============================================================
 
@@ -390,9 +429,7 @@ function createVakioOpenAir(params) {
     },
   );
 
-  // --- Режим: редактируемый текст, отправляем как есть ---
-  // Пользователь вводит "manual" или "super_auto" и нажимает Enter.
-  // Значение уходит напрямую в capabilities.mode без какой-либо обработки.
+  // --- Режим ---
   trackMqtt(
     "/devices/" + vd + "/controls/" + ctrlWorkmode + "/on",
     function (msg) {
@@ -403,8 +440,6 @@ function createVakioOpenAir(params) {
   );
 
   // --- Скорость с интерлоком ---
-  // Speed = 0 → стоп → заслонка в 2
-  // Speed > 0 → заслонка в 4 → скорость + вкл
   trackMqtt(
     "/devices/" + vd + "/controls/" + ctrlSpeed + "/on",
     function (msg) {
@@ -428,7 +463,6 @@ function createVakioOpenAir(params) {
   );
 
   // --- Заслонка с интерлоком ---
-  // Стоп вентилятора → переход заслонки
   trackMqtt("/devices/" + vd + "/controls/" + ctrlGate + "/on", function (msg) {
     if (_selfChange) {
       return;
@@ -457,7 +491,19 @@ function createVakioOpenAir(params) {
     },
   });
 
-  // --- Настройки смарт-режима ---
+  // --- ForceRefresh ---
+  defineRule("ForceRefresh_" + vd, {
+    whenChanged: vd + "/" + ctrlForceRefresh,
+    then: function (newValue) {
+      if (!newValue) {
+        return;
+      }
+      log.info("[" + vd + "] принудительное обновление данных...");
+      deepPoll();
+    },
+  });
+
+  // --- Настройки смарт: gate + smart_speed + emerg_shunt ---
   defineRule("SmartSettings_" + vd, {
     whenChanged: [
       vd + "/" + ctrlSmartGate,
@@ -484,6 +530,23 @@ function createVakioOpenAir(params) {
     },
   });
 
+  // --- Настройки смарт: temperature_speed (порог + скорость) ---
+  // Отправляем вместе: [порог_температуры, скорость_в_smart]
+  defineRule("SmartTempSpeed_" + vd, {
+    whenChanged: vd + "/" + ctrlSmartTempThreshold,
+    then: function () {
+      var threshold = parseFloat(dev[vd][ctrlSmartTempThreshold]);
+      var speed = parseInt(dev[vd][ctrlSmartSpeed], 10);
+      var s = {
+        temperature_speed: [threshold, speed],
+      };
+      sendSettings(s);
+      log.info(
+        "[" + vd + "] temperature_speed → " + threshold + "°C / speed=" + speed,
+      );
+    },
+  });
+
   // --- Порог переохлаждения ---
   defineRule("ShutdownLimit_" + vd, {
     whenChanged: vd + "/" + ctrlShutdownLimit,
@@ -506,33 +569,20 @@ function createVakioOpenAir(params) {
     }
 
     if (obj.auth) {
-      dbg(
-        "RX/system",
-        "auth: mac=" + obj.auth.device_mac + " ver=" + obj.auth.version,
-      );
       if (obj.auth.device_mac !== undefined && obj.auth.device_mac !== null) {
         dev[vd][ctrlMac] = String(obj.auth.device_mac);
       }
       if (obj.auth.version !== undefined && obj.auth.version !== null) {
         dev[vd][ctrlFwVer] = String(obj.auth.version);
       }
-    } else {
-      dbg("RX/system", "нет поля auth");
+      dbg(
+        "RX/system",
+        "auth: mac=" + dev[vd][ctrlMac] + " ver=" + dev[vd][ctrlFwVer],
+      );
     }
 
     if (obj.device_subtype) {
       var ds = obj.device_subtype;
-      dbg(
-        "RX/system",
-        "device_subtype: exchange=" +
-          ds.exchange_type +
-          " series=" +
-          ds.series +
-          " subtype=" +
-          ds.subtype +
-          " xtal=" +
-          ds.xtal_freq,
-      );
       if (ds.exchange_type !== undefined && ds.exchange_type !== null) {
         dev[vd][ctrlExchange] = String(ds.exchange_type);
       }
@@ -546,19 +596,23 @@ function createVakioOpenAir(params) {
         }
         dev[vd][ctrlSubtype] = sub;
       }
-    } else {
-      dbg("RX/system", "нет поля device_subtype");
+      dbg(
+        "RX/system",
+        "device_subtype: exchange=" +
+          ds.exchange_type +
+          " series=" +
+          ds.series +
+          " subtype=" +
+          ds.subtype,
+      );
     }
 
-    if (obj.errors !== undefined) {
-      dbg("RX/system", "errors: " + JSON.stringify(obj.errors));
-      if (obj.errors.shutdown !== undefined) {
-        var isShutdown = parseInt(obj.errors.shutdown, 10) === 1;
-        dev[vd][ctrlErrShutdown] = isShutdown;
-        setCtrlError(ctrlErrShutdown, isShutdown);
-        if (isShutdown) {
-          log.warning("[" + vd + "] ПЕРЕОХЛАЖДЕНИЕ! shutdown=1");
-        }
+    if (obj.errors !== undefined && obj.errors.shutdown !== undefined) {
+      var isShutdown = parseInt(obj.errors.shutdown, 10) === 1;
+      dev[vd][ctrlErrShutdown] = isShutdown;
+      setCtrlError(ctrlErrShutdown, isShutdown);
+      if (isShutdown) {
+        log.warning("[" + vd + "] ПЕРЕОХЛАЖДЕНИЕ! shutdown=1");
       }
     }
 
@@ -590,18 +644,6 @@ function createVakioOpenAir(params) {
 
     if (obj.capabilities !== undefined) {
       var cap = obj.capabilities;
-      dbg(
-        "RX/mode",
-        "capabilities: mode=" +
-          cap.mode +
-          " on_off=" +
-          cap.on_off +
-          " speed=" +
-          cap.speed +
-          " gate=" +
-          cap.gate,
-      );
-
       if (cap.speed !== undefined && cap.speed !== null) {
         dev[vd][ctrlSpeed] = parseInt(cap.speed, 10);
       }
@@ -615,39 +657,54 @@ function createVakioOpenAir(params) {
         dev[vd][ctrlState] = cap.on_off === "on";
       }
       if (cap.mode !== undefined && cap.mode !== null) {
-        // Обновляем текстовое поле режима из feedback устройства
         dev[vd][ctrlWorkmode] = String(cap.mode);
       }
-    } else {
-      dbg("RX/mode", "нет поля capabilities");
+      dbg(
+        "RX/mode",
+        "capabilities: mode=" +
+          cap.mode +
+          " on_off=" +
+          cap.on_off +
+          " speed=" +
+          cap.speed +
+          " gate=" +
+          cap.gate,
+      );
     }
 
     if (obj.settings !== undefined) {
       var s = obj.settings;
       dbg("RX/mode", "settings: " + JSON.stringify(s));
 
+      // temperature_speed: [порог_темп, скорость]
       if (
         s.temperature_speed !== undefined &&
         Array.isArray(s.temperature_speed)
       ) {
         if (s.temperature_speed.length >= 1) {
-          dev[vd][ctrlAutoTemp] = parseFloat(s.temperature_speed[0]);
+          var thr = parseFloat(s.temperature_speed[0]);
+          dev[vd][ctrlAutoTemp] = thr;
+          // Синхронизируем writable контрол только если не менялся пользователем
+          dev[vd][ctrlSmartTempThreshold] = thr;
         }
         if (s.temperature_speed.length >= 2) {
           dev[vd][ctrlAutoSpeed] = parseInt(s.temperature_speed[1], 10);
         }
       }
+
       if (s.emerg_shunt !== undefined && s.emerg_shunt !== null) {
         dev[vd][ctrlRelEmerg] = parseFloat(s.emerg_shunt);
+        // Синхронизируем writable контрол
+        dev[vd][ctrlEmergShunt] = parseFloat(s.emerg_shunt);
       }
       if (s.gate !== undefined && s.gate !== null) {
         dev[vd][ctrlRelGate] = parseInt(s.gate, 10);
+        dev[vd][ctrlSmartGate] = parseInt(s.gate, 10);
       }
       if (s.smart_speed !== undefined && s.smart_speed !== null) {
         dev[vd][ctrlRelSmartSpd] = parseInt(s.smart_speed, 10);
+        dev[vd][ctrlSmartSpeed] = parseInt(s.smart_speed, 10);
       }
-    } else {
-      dbg("RX/mode", "нет поля settings");
     }
 
     setOnline();
@@ -655,82 +712,99 @@ function createVakioOpenAir(params) {
 
   // --- Легаси: температура ---
   trackMqtt(legacyBase + "/temp", function (msg) {
-    dbg("RX/temp", "RAW: " + msg.value);
     var v = parseFloat(msg.value);
     if (!isNaN(v)) {
       dev[vd][ctrlTemp] = v;
     }
     setOnline();
+    dbg("RX/temp", msg.value);
   });
 
   // --- Легаси: влажность ---
   trackMqtt(legacyBase + "/hud", function (msg) {
-    dbg("RX/hud", "RAW: " + msg.value);
     var v = parseFloat(msg.value);
     if (!isNaN(v)) {
       dev[vd][ctrlHumidity] = v;
     }
     setOnline();
+    dbg("RX/hud", msg.value);
   });
 
   // --- Легаси: state ---
   trackMqtt(legacyBase + "/state", function (msg) {
-    dbg("RX/state", "RAW: " + msg.value);
     dev[vd][ctrlState] = msg.value === "on";
     setOnline();
+    dbg("RX/state", msg.value);
   });
 
   // --- Легаси: speed ---
   trackMqtt(legacyBase + "/speed", function (msg) {
-    dbg("RX/speed", "RAW: " + msg.value);
     var v = parseInt(msg.value, 10);
     if (!isNaN(v) && v >= 0 && v <= 5) {
       dev[vd][ctrlSpeed] = v;
     }
     setOnline();
+    dbg("RX/speed", msg.value);
   });
 
   // --- Легаси: gate ---
   trackMqtt(legacyBase + "/gate", function (msg) {
-    dbg("RX/gate", "RAW: " + msg.value);
     var v = parseInt(msg.value, 10);
     if (!isNaN(v) && v >= 1 && v <= 4) {
       dev[vd][ctrlGate] = v;
     }
     setOnline();
+    dbg("RX/gate", msg.value);
   });
 
   // --- Легаси: workmode ---
   trackMqtt(legacyBase + "/workmode", function (msg) {
-    dbg("RX/workmode", "RAW: " + msg.value);
     dev[vd][ctrlWorkmode] = String(msg.value);
     setOnline();
+    dbg("RX/workmode", msg.value);
+  });
+
+  // --- Легаси: ответ на 0687 ---
+  trackMqtt(legacyBase + "/system", function (msg) {
+    setOnline();
+    dbg("RX/legacy-system", msg.value);
   });
 
   // ============================================================
   // Polling / watchdog
   // ============================================================
-  // Двойной опрос при каждом тике:
-  // 1. {"type":"auth"} → server/.../system  (JSON-протокол)
-  // 2. "0687" → legacyBase/system           (легаси "повтор регистрации")
 
   function pollDevice() {
     sendSystem({ type: "auth" });
     publish(legacyBase + "/system", "0687", 2, false);
-    dbg("POLL", "auth + 0687 отправлены");
+    dbg("POLL", "heartbeat отправлен");
   }
 
-  // Ловим ответ на 0687 (legacy heartbeat)
-  trackMqtt(legacyBase + "/system", function (msg) {
-    dbg("RX/legacy-system", "RAW: " + msg.value);
-    setOnline();
-  });
-
   var _monitorReady = false;
+  var _pollCount = 0;
+  var _deepInterval = Math.max(
+    1,
+    Math.round(deep_poll_interval / polling_interval),
+  );
+
+  // Первый запрос сразу при старте
   pollDevice();
+  setTimeout(deepPoll, 2000); // глубокий опрос через 2с после старта
 
   setInterval(function () {
+    _pollCount++;
     pollDevice();
+
+    // Глубокий опрос каждые deep_poll_interval секунд
+    if (_pollCount % _deepInterval === 0) {
+      deepPoll();
+      log.info(
+        "[" +
+          vd +
+          "] плановый глубокий опрос #" +
+          Math.floor(_pollCount / _deepInterval),
+      );
+    }
 
     if (!_monitorReady) {
       _monitorReady = true;
@@ -744,22 +818,22 @@ function createVakioOpenAir(params) {
   }, polling_interval * 1000);
 
   log.info("[" + vd + "] инициализирован.");
-  log.info("[" + vd + "]   JSON RX : " + deviceBase + "/{system,mode}");
-  log.info("[" + vd + "]   JSON TX : " + serverBase + "/{system,mode}");
+  log.info("[" + vd + "]   JSON RX     : " + deviceBase + "/{system,mode}");
+  log.info("[" + vd + "]   JSON TX     : " + serverBase + "/{system,mode}");
   log.info(
     "[" +
       vd +
-      "]   Легаси  : " +
+      "]   Легаси      : " +
       legacyBase +
       "/{system,temp,hud,state,speed,gate,workmode}",
   );
-  log.info(
-    "[" + vd + "]   Polling : каждые " + polling_interval + "с (auth + 0687)",
-  );
+  log.info("[" + vd + "]   Heartbeat   : каждые " + polling_interval + "с");
+  log.info("[" + vd + "]   Глубокий опрос: каждые " + deep_poll_interval + "с");
+  log.info("[" + vd + "]   ForceRefresh: кнопка в веб-интерфейсе");
   log.info(
     "[" +
       vd +
-      "]   Debug   : включить '" +
+      "]   Debug       : включить '" +
       ctrlDebugLog +
       "' в веб-интерфейсе WB",
   );
