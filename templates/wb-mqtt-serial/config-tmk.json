@@ -1,76 +1,84 @@
 {
-    "device_type": "TMK",
-    "title": "Теплочсётчик ТМК",
-    "group": "g-heat-meter",
-    "device": {
-        "name": "TMK",
-        "id": "g-heat-meter",
-        "groups": [
-            {
-                "title": "Channels",
-                "id": "channels",
-                "order": 0
-            },
-            {
-                "title": "Settings",
-                "id": "settings",
-                "order": 1
-            }
-        ],
-        "channels": [
-            {
-                "name": "TE1 Input",
-                "reg_type": "input",
-                "address": 56,
-                "type": "value",
-                "group": "channels",
-                "scale": 0.01,
-                "type": "temperature"
-            },
-            {
-                "name": "TE2 Output",
-                "reg_type": "input",
-                "address": 57,
-                "type": "value",
-                "group": "channels",
-                "scale": 0.01,
-                "type": "temperature"
-            },
-            {
-                "name": "Power",
-                "reg_type": "input",
-                "address": 41,
-                "type": "value",
-                "group": "channels",
-                "format": "float"
-            },
-            {
-                "name": "Accumulated energy",
-                "reg_type": "input",
-                "address": 18,
-                "type": "value",
-                "group": "channels"
-            },
-            {
-                "name": "Accumulated energy (fractional part)",
-                "reg_type": "input",
-                "address": 19,
-                "type": "value",
-                "group": "channels",
-                "format": "float"
-            }      
-        ],
-        "parameters": [],
-        "translations": {
-            "ru": {
-                "Channels": "Каналы",
-                "Settings": "Настройки",
-                "TE1 Input": "ТЕ1 подача",
-                "TE2 Output": "ТЕ2 обратка",
-                "Power": "Мощность",
-                "Accumulated energy": "Накопленная энергия",
-                "Accumulated energy (fractional part)": "Накопленная энергия (дробная часть)"
-            }
-        }
-    }
+	"device_type": "TMK",
+	"title": "tmk_template_title",
+	"group": "g-heat-meter",
+
+	"device": {
+		"name": "TMK",
+		"id": "tmk",
+
+		"groups": [
+			{
+				"title": "General",
+				"id": "general"
+			}
+		],
+
+		"channels": [
+			{
+				"name": "TE1 Input",
+				"reg_type": "input",
+				"address": 56,
+				"type": "temperature",
+				"scale": 0.01,
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "TE2 Output",
+				"reg_type": "input",
+				"address": 57,
+				"type": "temperature",
+				"scale": 0.01,
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "Power",
+				"reg_type": "input",
+				"address": 41,
+				"type": "value",
+				"format": "float",
+				"units": "Gcal/h",
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "Accumulated Energy",
+				"reg_type": "input",
+				"address": 18,
+				"type": "value",
+				"units": "Gcal",
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "Accumulated Energy Fraction",
+				"reg_type": "input",
+				"address": 19,
+				"type": "value",
+				"format": "float",
+				"units": "Gcal",
+				"readonly": true,
+				"group": "general"
+			}
+		],
+
+		"translations": {
+			"en": {
+				"tmk_template_title": "TMK (heat meter)"
+			},
+			"ru": {
+				"tmk_template_title": "Теплосчетчик ТМК",
+
+				"General": "Основное",
+
+				"TE1 Input": "ТЕ1 подача",
+				"TE2 Output": "ТЕ2 обратка",
+				"Power": "Мощность",
+				"Accumulated Energy": "Накопленная энергия",
+				"Accumulated Energy Fraction": "Дробная часть накопленной энергии"
+			}
+		}
+	}
 }
