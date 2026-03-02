@@ -1,11 +1,11 @@
 {
-	"device_type": "TMK",
-	"title": "tmk_template_title",
+	"device_type": "TMK-N",
+	"title": "tmk_n_template_title",
 	"group": "g-heat-meter",
 
 	"device": {
-		"name": "TMK",
-		"id": "tmk",
+		"name": "TMK-N",
+		"id": "tmk-n",
 
 		"groups": [
 			{
@@ -66,10 +66,10 @@
 
 		"translations": {
 			"en": {
-				"tmk_template_title": "TMK (heat meter)"
+				"tmk_n_template_title": "TMK-N (heat meter)"
 			},
 			"ru": {
-				"tmk_template_title": "Теплосчетчик ТМК",
+				"tmk_n_template_title": "Теплосчетчик ТМК-Н",
 
 				"General": "Основное",
 
