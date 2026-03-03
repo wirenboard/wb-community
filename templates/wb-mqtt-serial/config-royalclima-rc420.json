@@ -21,7 +21,7 @@
 
 		"channels": [
 			{
-				"name": "Active",
+				"name": "active",
 				"reg_type": "holding",
 				"address": 0,
 				"type": "switch",
@@ -29,7 +29,7 @@
 				"group": "control"
 			},
 			{
-				"name": "Mode",
+				"name": "mode",
 				"reg_type": "holding",
 				"address": 1,
 				"type": "value",
@@ -43,7 +43,7 @@
 				"group": "control"
 			},
 			{
-				"name": "Fan Speed",
+				"name": "fan_speed",
 				"reg_type": "holding",
 				"address": 2,
 				"type": "value",
@@ -58,7 +58,7 @@
 				"group": "control"
 			},
 			{
-				"name": "Auto Fan Speed",
+				"name": "auto_fan_speed",
 				"reg_type": "holding",
 				"address": 3,
 				"type": "switch",
@@ -66,7 +66,7 @@
 				"group": "control"
 			},
 			{
-				"name": "Temperature Setpoint",
+				"name": "temperature_setpoint",
 				"reg_type": "holding",
 				"address": 6,
 				"type": "range",
@@ -76,7 +76,7 @@
 				"group": "control"
 			},
 			{
-				"name": "Panel Lock",
+				"name": "panel_lock",
 				"reg_type": "holding",
 				"address": 7,
 				"type": "switch",
@@ -84,7 +84,7 @@
 				"group": "control"
 			},
 			{
-				"name": "Room Temperature",
+				"name": "room_temperature",
 				"reg_type": "holding",
 				"address": 4,
 				"type": "temperature",
@@ -93,7 +93,7 @@
 				"group": "status"
 			},
 			{
-				"name": "Temperature Alarm",
+				"name": "temperature_alarm",
 				"reg_type": "holding",
 				"address": 5,
 				"type": "switch",
@@ -107,17 +107,14 @@
 			"en": {
 				"rc420_template_title": "Royal Clima MACS-RC-420MB (fan coil control panel)",
 
-				"Control": "Control",
-				"Status": "Status",
-
-				"Ventilation": "Ventilation",
-				"Cooling": "Cooling",
-				"Heating": "Heating",
-
-				"Off": "Off",
-				"Low": "Low",
-				"Medium": "Medium",
-				"High": "High"
+				"active": "Active",
+				"mode": "Mode",
+				"fan_speed": "Fan Speed",
+				"auto_fan_speed": "Auto Fan Speed",
+				"temperature_setpoint": "Temperature Setpoint",
+				"panel_lock": "Panel Lock",
+				"room_temperature": "Room Temperature",
+				"temperature_alarm": "Temperature Alarm"
 			},
 			"ru": {
 				"rc420_template_title": "Royal Clima MACS-RC-420MB (пульт управления фанкойлом)",
@@ -125,14 +122,14 @@
 				"Control": "Управление",
 				"Status": "Состояние",
 
-				"Active": "Включение",
-				"Mode": "Режим работы",
-				"Fan Speed": "Скорость вентилятора",
-				"Auto Fan Speed": "Автоматическая скорость вентилятора",
-				"Temperature Setpoint": "Уставка температуры",
-				"Panel Lock": "Блокировка пульта",
-				"Room Temperature": "Температура в помещении",
-				"Temperature Alarm": "Ошибка датчика температуры",
+				"active": "Включение",
+				"mode": "Режим работы",
+				"fan_speed": "Скорость вентилятора",
+				"auto_fan_speed": "Автоматическая скорость вентилятора",
+				"temperature_setpoint": "Уставка температуры",
+				"panel_lock": "Блокировка пульта",
+				"room_temperature": "Температура в помещении",
+				"temperature_alarm": "Ошибка датчика температуры",
 
 				"Ventilation": "Вентиляция",
 				"Cooling": "Охлаждение",
