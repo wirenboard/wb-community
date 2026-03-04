@@ -16,7 +16,7 @@
 
 		"channels": [
 			{
-				"name": "TE1 Input",
+				"name": "supply_temperature",
 				"reg_type": "input",
 				"address": 56,
 				"type": "temperature",
@@ -25,7 +25,7 @@
 				"group": "general"
 			},
 			{
-				"name": "TE2 Output",
+				"name": "return_temperature",
 				"reg_type": "input",
 				"address": 57,
 				"type": "temperature",
@@ -34,7 +34,7 @@
 				"group": "general"
 			},
 			{
-				"name": "Power",
+				"name": "thermal_power",
 				"reg_type": "input",
 				"address": 41,
 				"type": "value",
@@ -44,7 +44,7 @@
 				"group": "general"
 			},
 			{
-				"name": "Accumulated Energy",
+				"name": "accumulated_energy",
 				"reg_type": "input",
 				"address": 18,
 				"type": "value",
@@ -53,7 +53,7 @@
 				"group": "general"
 			},
 			{
-				"name": "Accumulated Energy Fraction",
+				"name": "accumulated_energy_fraction",
 				"reg_type": "input",
 				"address": 19,
 				"type": "value",
@@ -66,18 +66,24 @@
 
 		"translations": {
 			"en": {
-				"tmk_n_template_title": "TMK-N (heat meter)"
+				"tmk_n_template_title": "TMK-N (heat meter)",
+
+				"supply_temperature": "Supply Temperature",
+				"return_temperature": "Return Temperature",
+				"thermal_power": "Thermal Power",
+				"accumulated_energy": "Accumulated Energy",
+				"accumulated_energy_fraction": "Accumulated Energy Fraction"
 			},
 			"ru": {
 				"tmk_n_template_title": "Теплосчетчик ТМК-Н",
 
 				"General": "Основное",
 
-				"TE1 Input": "ТЕ1 подача",
-				"TE2 Output": "ТЕ2 обратка",
-				"Power": "Мощность",
-				"Accumulated Energy": "Накопленная энергия",
-				"Accumulated Energy Fraction": "Дробная часть накопленной энергии"
+				"supply_temperature": "Температура подачи",
+				"return_temperature": "Температура обратки",
+				"thermal_power": "Тепловая мощность",
+				"accumulated_energy": "Накопленная энергия",
+				"accumulated_energy_fraction": "Дробная часть накопленной энергии"
 			}
 		}
 	}
