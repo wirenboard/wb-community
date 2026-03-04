@@ -1,0 +1,90 @@
+{
+	"device_type": "TMK-N",
+	"title": "tmk_n_template_title",
+	"group": "g-heat-meter",
+
+	"device": {
+		"name": "TMK-N",
+		"id": "tmk-n",
+
+		"groups": [
+			{
+				"title": "General",
+				"id": "general"
+			}
+		],
+
+		"channels": [
+			{
+				"name": "supply_temperature",
+				"reg_type": "input",
+				"address": 56,
+				"type": "temperature",
+				"scale": 0.01,
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "return_temperature",
+				"reg_type": "input",
+				"address": 57,
+				"type": "temperature",
+				"scale": 0.01,
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "thermal_power",
+				"reg_type": "input",
+				"address": 41,
+				"type": "value",
+				"format": "float",
+				"units": "Gcal/h",
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "accumulated_energy",
+				"reg_type": "input",
+				"address": 18,
+				"type": "value",
+				"units": "Gcal",
+				"readonly": true,
+				"group": "general"
+			},
+			{
+				"name": "accumulated_energy_fraction",
+				"reg_type": "input",
+				"address": 19,
+				"type": "value",
+				"format": "float",
+				"units": "Gcal",
+				"readonly": true,
+				"group": "general"
+			}
+		],
+
+		"translations": {
+			"en": {
+				"tmk_n_template_title": "TMK-N (heat meter)",
+
+				"supply_temperature": "Supply Temperature",
+				"return_temperature": "Return Temperature",
+				"thermal_power": "Thermal Power",
+				"accumulated_energy": "Accumulated Energy",
+				"accumulated_energy_fraction": "Accumulated Energy Fraction"
+			},
+			"ru": {
+				"tmk_n_template_title": "Теплосчетчик ТМК-Н",
+
+				"General": "Основное",
+
+				"supply_temperature": "Температура подачи",
+				"return_temperature": "Температура обратки",
+				"thermal_power": "Тепловая мощность",
+				"accumulated_energy": "Накопленная энергия",
+				"accumulated_energy_fraction": "Дробная часть накопленной энергии"
+			}
+		}
+	}
+}
