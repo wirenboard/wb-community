@@ -1,6 +1,6 @@
 {
     "device_type": "WT53R-485",
-    "group": "g-sensor",
+    "group": "g-level",
     "title": "WT53R-485 Distance Sensor",
     "device": {
         "name": "WT53R-485 Distance Sensor",
@@ -8,24 +8,20 @@
             {
                 "title": "Channels",
                 "id": "channels"
-            },
-            {
-                "title": "Settings",
-                "id": "settings"
             }
         ],
         "channels": [
             {
-                "name": "Distance",
+                "name": "distance",
                 "reg_type": "holding",
                 "address": 52,
                 "format": "u16",
-                "scale": 0.1,
-                "units": "cm",
+                "scale": 0.001,
+                "units": "m",
                 "group": "channels"
             },
             {
-                "name": "Status",
+                "name": "status",
                 "reg_type": "holding",
                 "address": 53,
                 "format": "u16",
@@ -51,18 +47,17 @@
             }
         ],
         "translations": {
-            "en": {
-                "Channels": "Channels",
-                "Settings": "Settings",
-                "Distance": "Distance",
-                "Status": "Status",
-                "Range Valid": "Range Valid",
-                "Sigma Fail": "Sigma Fail",
-                "Signal Fail": "Signal Fail",
-                "Min Range Fail": "Min Range Fail",
-                "Phase Fail": "Phase Fail",
-                "Hardware Fail": "Hardware Fail",
-                "No Update": "No Update"
+            "ru": {
+                "Channels": "Каналы",
+                "distance": "Расстояние",
+                "status": "Статус",
+                "Range Valid": "Норма",
+                "Sigma Fail": "Ошибка сигма",
+                "Signal Fail": "Ошибка сигнала",
+                "Min Range Fail": "Ниже минимального диапазона",
+                "Phase Fail": "Ошибка фазы",
+                "Hardware Fail": "Аппаратная ошибка",
+                "No Update": "Нет обновления"
             }
         }
     }
