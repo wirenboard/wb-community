@@ -1,6 +1,6 @@
 {
     "device_type": "WT53R-485",
-    "group": "g-level",
+    "group": "g-custom",
     "title": "WT53R-485 Distance Sensor",
     "device": {
         "name": "WT53R-485 Distance Sensor",
