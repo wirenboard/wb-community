@@ -1,11 +1,11 @@
 {
-	"title": "turkov_zenit_heco_template_title",
-	"device_type": "turkov_zenit_heco",
+	"title": "turkov_zenit_heco_550e_template_title",
+	"device_type": "turkov_zenit_heco_550e",
 	"group": "g-climate-control",
 
 	"device": {
-		"name": "Turkov Zenit HECO",
-		"id": "turkov_zenit_heco",
+		"name": "Turkov Zenit HECO 550E",
+		"id": "turkov_zenit_heco_550e",
 
 		"poll_interval": 1000,
 		"frame_timeout_ms": 3,
@@ -224,7 +224,7 @@
 
 		"translations": {
 			"en": {
-				"turkov_zenit_heco_template_title": "Turkov Zenit HECO (air handling unit, controller v6)",
+				"turkov_zenit_heco_550e_template_title": "Turkov Zenit HECO 550E (air handling unit, controller v6)",
 
 				"modbus_address_desc": "Make sure that communication with device is established before changing this parameter. Select required Modbus address, save configuration and then change device address to the same value.",
 				"modbus_speed_desc": "Make sure that communication with device is established before changing this parameter. Select required baud rate, save configuration and then change port baud rate to the same value.",
@@ -246,7 +246,7 @@
 				"error_code": "Error Code"
 			},
 			"ru": {
-				"turkov_zenit_heco_template_title": "Turkov Zenit HECO (приточно-вытяжная установка, контроллер v6)",
+				"turkov_zenit_heco_550e_template_title": "Turkov Zenit HECO 550E (приточно-вытяжная установка, контроллер v6)",
 
 				"modbus_address_desc": "Перед изменением параметра убедитесь, что связь с устройством установлена. Выберите новый Modbus-адрес, сохраните конфигурацию, а затем укажите в настройках устройства этот же адрес.",
 				"modbus_speed_desc": "Перед изменением параметра убедитесь, что связь с устройством установлена. Выберите нужную скорость обмена, сохраните конфигурацию, а затем укажите в настройках порта эту же скорость.",
