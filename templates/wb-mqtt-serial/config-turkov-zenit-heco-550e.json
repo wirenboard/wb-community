@@ -1,0 +1,296 @@
+{
+	"title": "turkov_zenit_heco_550e_template_title",
+	"device_type": "turkov_zenit_heco_550e",
+	"group": "g-climate-control",
+
+	"device": {
+		"name": "Turkov Zenit HECO 550E",
+		"id": "turkov_zenit_heco_550e",
+
+		"poll_interval": 1000,
+		"frame_timeout_ms": 3,
+		"guard_interval_us": 5000,
+
+		"parameters": {
+			"modbus_address": {
+				"title": "Modbus Address",
+				"description": "modbus_address_desc",
+				"reg_type": "holding_multi",
+				"address": "0x0010",
+				"default": 1,
+				"min": 1,
+				"max": 247,
+				"group": "settings",
+				"order": 1
+			},
+			"modbus_speed": {
+				"title": "Modbus Speed",
+				"description": "modbus_speed_desc",
+				"reg_type": "holding_multi",
+				"address": "0x0009",
+				"default": 0,
+				"enum": [0, 1, 2, 3, 4],
+				"enum_titles": ["9600", "19200", "38400", "57600", "115200"],
+				"group": "settings",
+				"order": 2
+			},
+			"parity_and_stopbits": {
+				"title": "Parity and Stop Bits",
+				"reg_type": "holding_multi",
+				"address": "0x0011",
+				"default": 0,
+				"enum": [0, 1, 2, 3, 4],
+				"enum_titles": ["No Parity, 1 Stop Bit", "Even Parity, 1 Stop Bit", "Odd Parity, 1 Stop Bit", "Even Parity, 2 Stop Bits", "Odd Parity, 2 Stop Bits"],
+				"group": "settings",
+				"order": 3
+			}
+		},
+
+		"channels": [
+			{
+				"name": "power",
+				"reg_type": "holding_multi",
+				"address": "0x0001",
+				"type": "switch",
+				"format": "s16",
+				"group": "control"
+			},
+			{
+				"name": "temperature_setpoint",
+				"reg_type": "holding_multi",
+				"address": "0x0002",
+				"type": "range",
+				"format": "s16",
+				"min": 0,
+				"max": 50,
+				"units": "°C",
+				"group": "control"
+			},
+			{
+				"name": "fan_speed",
+				"reg_type": "holding_multi",
+				"address": "0x0003",
+				"type": "value",
+				"format": "s8",
+				"enum": [1, 2, 3, 4],
+				"enum_titles": ["Low", "Medium", "High", "Auto"],
+				"group": "control"
+			},
+			{
+				"name": "current_mode",
+				"reg_type": "holding_multi",
+				"address": "0x0004",
+				"type": "value",
+				"format": "s8",
+				"readonly": true,
+				"enum": [0, 1, 2],
+				"enum_titles": ["Ventilation", "Heating", "Cooling"],
+				"group": "status"
+			},
+			{
+				"name": "indoor_temperature",
+				"reg_type": "input",
+				"address": "0x010B",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "indoor_humidity",
+				"reg_type": "input",
+				"address": "0x010C",
+				"type": "rel_humidity",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "heating_active",
+				"reg_type": "input",
+				"address": "0x010E",
+				"type": "switch",
+				"format": "s8",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "outdoor_temperature",
+				"reg_type": "input",
+				"address": "0x0101",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "supply_temperature",
+				"reg_type": "input",
+				"address": "0x0102",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "water_heater_return_temperature",
+				"reg_type": "input",
+				"address": "0x0103",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"enabled": false,
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "water_heater_surface_temperature",
+				"reg_type": "input",
+				"address": "0x0104",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"enabled": false,
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "exhaust_temperature",
+				"reg_type": "input",
+				"address": "0x0105",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "fireplace",
+				"reg_type": "holding_multi",
+				"address": "0x0012",
+				"type": "switch",
+				"format": "s8",
+				"enabled": false,
+				"group": "control"
+			},
+			{
+				"name": "filter_contamination",
+				"reg_type": "input",
+				"address": "0x0106",
+				"type": "value",
+				"format": "s16",
+				"max": 100,
+				"units": "%",
+				"readonly": true,
+				"group": "info"
+			},
+			{
+				"name": "error_code",
+				"reg_type": "input",
+				"address": "0x0107",
+				"type": "value",
+				"format": "s16",
+				"readonly": true,
+				"group": "info"
+			}
+		],
+
+		"groups": [
+			{
+				"title": "Control",
+				"id": "control"
+			},
+			{
+				"title": "Status",
+				"id": "status"
+			},
+			{
+				"title": "Sensors",
+				"id": "sensors"
+			},
+			{
+				"title": "Info",
+				"id": "info"
+			},
+			{
+				"title": "Settings",
+				"id": "settings"
+			}
+		],
+
+		"translations": {
+			"en": {
+				"turkov_zenit_heco_550e_template_title": "Turkov Zenit HECO 550E (air handling unit, controller v6)",
+
+				"modbus_address_desc": "Make sure that communication with device is established before changing this parameter. Select required Modbus address, save configuration and then change device address to the same value.",
+				"modbus_speed_desc": "Make sure that communication with device is established before changing this parameter. Select required baud rate, save configuration and then change port baud rate to the same value.",
+
+				"power": "Power",
+				"temperature_setpoint": "Temperature Setpoint",
+				"fan_speed": "Fan Speed",
+				"current_mode": "Current Mode",
+				"indoor_temperature": "Indoor Temperature (D7)",
+				"indoor_humidity": "Indoor Humidity (D7)",
+				"heating_active": "Heating Active",
+				"outdoor_temperature": "Outdoor Temperature (D1)",
+				"supply_temperature": "Supply Temperature (D2)",
+				"water_heater_return_temperature": "Water Heater Return Temperature (D3)",
+				"water_heater_surface_temperature": "Water Heater Surface Temperature (D4)",
+				"exhaust_temperature": "Exhaust Temperature (D5)",
+				"fireplace": "Fireplace Mode",
+				"filter_contamination": "Filter Contamination",
+				"error_code": "Error Code"
+			},
+			"ru": {
+				"turkov_zenit_heco_550e_template_title": "Turkov Zenit HECO 550E (приточно-вытяжная установка, контроллер v6)",
+
+				"modbus_address_desc": "Перед изменением параметра убедитесь, что связь с устройством установлена. Выберите новый Modbus-адрес, сохраните конфигурацию, а затем укажите в настройках устройства этот же адрес.",
+				"modbus_speed_desc": "Перед изменением параметра убедитесь, что связь с устройством установлена. Выберите нужную скорость обмена, сохраните конфигурацию, а затем укажите в настройках порта эту же скорость.",
+
+				"Modbus Address": "Адрес устройства по Modbus",
+				"Modbus Speed": "Скорость связи по Modbus",
+				"Parity and Stop Bits": "Четность и стоп-биты",
+				"No Parity, 1 Stop Bit": "Без контроля четности, 1 стоп-бит",
+				"Even Parity, 1 Stop Bit": "Четность Even, 1 стоп-бит",
+				"Odd Parity, 1 Stop Bit": "Четность Odd, 1 стоп-бит",
+				"Even Parity, 2 Stop Bits": "Четность Even, 2 стоп-бита",
+				"Odd Parity, 2 Stop Bits": "Четность Odd, 2 стоп-бита",
+
+				"Control": "Управление",
+				"Status": "Состояние",
+				"Sensors": "Датчики",
+				"Info": "Информация",
+				"Settings": "Параметры",
+
+				"power": "Включение",
+				"temperature_setpoint": "Целевая температура",
+				"fan_speed": "Скорость вентилятора",
+				"current_mode": "Текущий режим",
+				"indoor_temperature": "Температура в помещении (D7)",
+				"indoor_humidity": "Влажность в помещении (D7)",
+				"heating_active": "Нагрев активен",
+				"outdoor_temperature": "Температура наружного воздуха (D1)",
+				"supply_temperature": "Температура приточного воздуха (D2)",
+				"water_heater_return_temperature": "Температура обратки водяного нагревателя (D3)",
+				"water_heater_surface_temperature": "Температура поверхности водяного нагревателя (D4)",
+				"exhaust_temperature": "Температура вытяжного воздуха (D5)",
+				"fireplace": "Режим \"камин\"",
+				"filter_contamination": "Загрязненность фильтра",
+				"error_code": "Код ошибки",
+
+				"Ventilation": "Вентиляция",
+				"Heating": "Обогрев",
+				"Cooling": "Охлаждение",
+
+				"Low": "Низкая",
+				"Medium": "Средняя",
+				"High": "Высокая",
+				"Auto": "Авто"
+			}
+		}
+	}
+}
