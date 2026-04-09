@@ -1,0 +1,103 @@
+{
+    "title": "Renke RS-LDO-N01-2",
+    "device_type": "Renke RS-LDO-N01-2",
+    "group": "g-water-quality",
+    "device": {
+        "name": "Renke RS-LDO-N01-2",
+        "id": "renke_rs_ldo_n01_2",
+        "groups": [
+            {
+                "title": "general_title",
+                "id": "general"
+            },
+            {
+                "title": "settings_title",
+                "id": "settings"
+            }
+        ],
+        "channels": [
+            {
+                "name": "do_saturation",
+                "address": 0,
+                "reg_type": "holding",
+                "format": "float",
+                "type": "value",
+                "scale": 100,
+                "round_to": 0.1,
+                "units": "%",
+                "readonly": true,
+                "group": "general"
+            },
+            {
+                "name": "do_concentration",
+                "address": 2,
+                "reg_type": "holding",
+                "format": "float",
+                "type": "value",
+                "round_to": 0.01,
+                "units": "mg/L",
+                "readonly": true,
+                "group": "general"
+            },
+            {
+                "name": "water_temperature",
+                "address": 4,
+                "reg_type": "holding",
+                "format": "float",
+                "type": "temperature",
+                "round_to": 0.1,
+                "units": "deg C",
+                "readonly": true,
+                "group": "general"
+            },
+            {
+                "name": "salinity",
+                "address": 4128,
+                "reg_type": "holding",
+                "format": "u16",
+                "type": "value",
+                "scale": 0.01,
+                "units": "ppt",
+                "group": "general"
+            },
+            {
+                "name": "atmospheric_pressure",
+                "address": 4130,
+                "reg_type": "holding",
+                "format": "u16",
+                "type": "value",
+                "scale": 0.01,
+                "round_to": 0.01,
+                "units": "kPa",
+                "group": "general"
+            }
+        ],
+        "parameters": [
+      
+        ],
+        "translations": {
+            "en": {
+                "general_title": "General",
+                "settings_title": "Settings",
+                "do_saturation": "DO Saturation",
+                "do_concentration": "DO Concentration",
+                "water_temperature": "Water Temperature",
+                "salinity": "Water Salinity",
+                "atmospheric_pressure": "Atmospheric Pressure",
+                "modbus_set_id": "Slave ID",
+                "modbus_baud_rate": "Baud Rate"
+            },
+            "ru": {
+                "general_title": "Общее",
+                "settings_title": "Настройки",
+                "do_saturation": "Насыщение кислородом",
+                "do_concentration": "Концентрация кислорода",
+                "water_temperature": "Температура воды",
+                "salinity": "Соленость воды",
+                "atmospheric_pressure": "Атмосферное давление",
+                "modbus_set_id": "Адрес устройства",
+                "modbus_baud_rate": "Скорость обмена"
+            }
+        }
+    }
+}
