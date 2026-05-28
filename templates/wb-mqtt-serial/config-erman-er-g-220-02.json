@@ -1,0 +1,188 @@
+{
+    "title": "erman_title",
+    "device_type": "ERMAN-ER-G-220-02",
+    "group": "g-motor-control",
+    "device": {
+        "name": "ERMAN ER-G-220-02",
+        "id": "erman-er-g-220-02",
+        "groups": [
+            {
+                "title": "Commands",
+                "id": "commands"
+            },
+            {
+                "title": "Control",
+                "id": "control"
+            },
+            {
+                "title": "Status",
+                "id": "status"
+            }
+        ],
+        "channels": [
+            {
+                "name": "commands_0",
+                "description": "p117_desc",
+                "group": "commands",
+                "reg_type": "coil",
+                "address": 0,
+                "type": "pushbutton"
+            },
+            {
+                "name": "commands_1",
+                "description": "p117_desc",
+                "group": "commands",
+                "reg_type": "coil",
+                "address": 1,
+                "type": "pushbutton"
+            },
+            {
+                "name": "commands_9",
+                "group": "commands",
+                "reg_type": "coil",
+                "address": 9,
+                "type": "pushbutton"
+            },
+            {
+                "name": "control_2",
+                "description": "p100_desc",
+                "group": "control",
+                "reg_type": "holding",
+                "address": 2,
+                "type": "range",
+                "min": 0,
+                "max": 50,
+                "scale": 0.1,
+                "units": "Hz"
+            },
+            {
+                "name": "control_3",
+                "group": "control",
+                "reg_type": "holding",
+                "address": 3,
+                "type": "range",
+                "min": 0,
+                "max": 50,
+                "scale": 0.1,
+                "units": "Hz"
+            },
+            {
+                "name": "control_4",
+                "group": "control",
+                "reg_type": "holding",
+                "address": 4,
+                "type": "range",
+                "min": 0,
+                "max": 50,
+                "scale": 0.1,
+                "units": "Hz"
+            },
+            {
+                "name": "control_98",
+                "group": "control",
+                "reg_type": "holding",
+                "address": 98,
+                "type": "range",
+                "min": 0,
+                "max": 6,
+                "scale": 0.01,
+                "units": "bar"
+            },
+            {
+                "name": "status_1",
+                "group": "status",
+                "reg_type": "input",
+                "address": 1,
+                "type": "value",
+                "scale": 0.1,
+                "units": "Hz"
+            },
+            {
+                "name": "status_3",
+                "group": "status",
+                "reg_type": "input",
+                "address": 3,
+                "type": "value",
+                "scale": 0.1,
+                "units": "A"
+            },
+            {
+                "name": "status_5",
+                "group": "status",
+                "reg_type": "input",
+                "address": 5,
+                "type": "value",
+                "units": "V"
+            },
+            {
+                "name": "status_6",
+                "group": "status",
+                "reg_type": "input",
+                "address": 6,
+                "type": "value",
+                "units": "°C"
+            },
+            {
+                "name": "status_12",
+                "group": "status",
+                "reg_type": "input",
+                "address": 12,
+                "type": "value",
+                "units": "V"
+            },
+            {
+                "name": "status_26",
+                "group": "status",
+                "reg_type": "input",
+                "address": 26,
+                "type": "value",
+                "scale": 0.01,
+                "units": "bar"
+            }
+        ],
+        "translations": {
+            "en": {
+                "erman_title": "ERMAN ER-G-220-02 (Pump Frequency Converter)",
+                "Commands": "Commands",
+                "Control": "Control",
+                "Status": "Status",
+                "control_2": "Frequency Setpoint",
+                "control_3": "Maximum Frequency",
+                "control_4": "Minimum Frequency",
+                "control_98": "Pressure Setpoint",
+                "commands_0": "Start",
+                "commands_1": "Stop",
+                "commands_9": "Reset Fault",
+                "status_1": "Output Frequency",
+                "status_3": "Motor Current",
+                "status_5": "DC Bus Voltage",
+                "status_6": "Heatsink Temperature",
+                "status_12": "Output Voltage",
+                "status_26": "Current Water Pressure",
+                "p117_desc": "To control the start via RS-485, parameter P117 must be set to 2.",
+                "p100_desc": "To control the frequency via RS-485, parameter P100 must be set to 2"
+            },
+            "ru": {
+                "erman_title": "ERMAN ER-G-220-02 (Преобразователь частоты для насосов)",
+                "Commands": "Команды",
+                "Control": "Управление",
+                "Status": "Состояние",
+                "control_2": "Заданная частота",
+                "control_3": "Максимальная частота",
+                "control_4": "Минимальная частота",
+                "control_98": "Заданное давление",
+                "commands_0": "Пуск",
+                "commands_1": "Стоп",
+                "commands_9": "Сброс ошибки",
+                "status_1": "Выходная частота",
+                "status_3": "Ток двигателя",
+                "status_5": "Напряжение шины",
+                "status_6": "Температура радиатора",
+                "status_12": "Выходное напряжение",
+                "status_26": "Текущее давление воды",
+                "p117_desc": "Для управления запуском через RS-485 параметр P117 должен быть установлен в 2",
+                "p100_desc": "Для управления частотой через RS-485 параметр P100 должен быть установлен в 2"
+            }
+        }
+    }
+}
