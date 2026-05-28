@@ -1,5 +1,5 @@
 {
-    "title": "erman_title",
+    "title": "erman_er_g_220_02_template_title",
     "device_type": "ERMAN-ER-G-220-02",
     "group": "g-motor-control",
     "device": {
@@ -7,21 +7,21 @@
         "id": "erman-er-g-220-02",
         "groups": [
             {
-                "title": "Commands",
+                "title": "commands_group",
                 "id": "commands"
             },
             {
-                "title": "Control",
+                "title": "control_group",
                 "id": "control"
             },
             {
-                "title": "Status",
+                "title": "status_group",
                 "id": "status"
             }
         ],
         "channels": [
             {
-                "name": "commands_0",
+                "name": "start",
                 "description": "p117_desc",
                 "group": "commands",
                 "reg_type": "coil",
@@ -29,22 +29,21 @@
                 "type": "pushbutton"
             },
             {
-                "name": "commands_1",
-                "description": "p117_desc",
+                "name": "stop",
                 "group": "commands",
                 "reg_type": "coil",
                 "address": 1,
                 "type": "pushbutton"
             },
             {
-                "name": "commands_9",
+                "name": "reset_fault",
                 "group": "commands",
                 "reg_type": "coil",
                 "address": 9,
                 "type": "pushbutton"
             },
             {
-                "name": "control_2",
+                "name": "frequency_setpoint",
                 "description": "p100_desc",
                 "group": "control",
                 "reg_type": "holding",
@@ -56,7 +55,7 @@
                 "units": "Hz"
             },
             {
-                "name": "control_3",
+                "name": "max_frequency",
                 "group": "control",
                 "reg_type": "holding",
                 "address": 3,
@@ -67,7 +66,7 @@
                 "units": "Hz"
             },
             {
-                "name": "control_4",
+                "name": "min_frequency",
                 "group": "control",
                 "reg_type": "holding",
                 "address": 4,
@@ -78,7 +77,7 @@
                 "units": "Hz"
             },
             {
-                "name": "control_98",
+                "name": "pressure_setpoint",
                 "group": "control",
                 "reg_type": "holding",
                 "address": 98,
@@ -89,7 +88,7 @@
                 "units": "bar"
             },
             {
-                "name": "status_1",
+                "name": "output_frequency",
                 "group": "status",
                 "reg_type": "input",
                 "address": 1,
@@ -98,7 +97,7 @@
                 "units": "Hz"
             },
             {
-                "name": "status_3",
+                "name": "motor_current",
                 "group": "status",
                 "reg_type": "input",
                 "address": 3,
@@ -107,7 +106,7 @@
                 "units": "A"
             },
             {
-                "name": "status_5",
+                "name": "dc_bus_voltage",
                 "group": "status",
                 "reg_type": "input",
                 "address": 5,
@@ -115,7 +114,7 @@
                 "units": "V"
             },
             {
-                "name": "status_6",
+                "name": "heatsink_temperature",
                 "group": "status",
                 "reg_type": "input",
                 "address": 6,
@@ -123,7 +122,7 @@
                 "units": "°C"
             },
             {
-                "name": "status_12",
+                "name": "output_voltage",
                 "group": "status",
                 "reg_type": "input",
                 "address": 12,
@@ -131,7 +130,7 @@
                 "units": "V"
             },
             {
-                "name": "status_26",
+                "name": "water_pressure",
                 "group": "status",
                 "reg_type": "input",
                 "address": 26,
@@ -142,44 +141,44 @@
         ],
         "translations": {
             "en": {
-                "erman_title": "ERMAN ER-G-220-02 (Pump Frequency Converter)",
-                "Commands": "Commands",
-                "Control": "Control",
-                "Status": "Status",
-                "control_2": "Frequency Setpoint",
-                "control_3": "Maximum Frequency",
-                "control_4": "Minimum Frequency",
-                "control_98": "Pressure Setpoint",
-                "commands_0": "Start",
-                "commands_1": "Stop",
-                "commands_9": "Reset Fault",
-                "status_1": "Output Frequency",
-                "status_3": "Motor Current",
-                "status_5": "DC Bus Voltage",
-                "status_6": "Heatsink Temperature",
-                "status_12": "Output Voltage",
-                "status_26": "Current Water Pressure",
-                "p117_desc": "To control the start via RS-485, parameter P117 must be set to 2.",
+                "erman_er_g_220_02_template_title": "ERMAN ER-G-220-02 (Pump Frequency Converter)",
+                "commands_group": "Commands",
+                "control_group": "Control",
+                "status_group": "Status",
+                "start": "Start",
+                "stop": "Stop",
+                "reset_fault": "Reset Fault",
+                "frequency_setpoint": "Frequency Setpoint",
+                "max_frequency": "Maximum Frequency",
+                "min_frequency": "Minimum Frequency",
+                "pressure_setpoint": "Pressure Setpoint",
+                "output_frequency": "Output Frequency",
+                "motor_current": "Motor Current",
+                "dc_bus_voltage": "DC Bus Voltage",
+                "heatsink_temperature": "Heatsink Temperature",
+                "output_voltage": "Output Voltage",
+                "water_pressure": "Current Water Pressure",
+                "p117_desc": "To control the start via RS-485, parameter P117 must be set to 2",
                 "p100_desc": "To control the frequency via RS-485, parameter P100 must be set to 2"
             },
             "ru": {
-                "erman_title": "ERMAN ER-G-220-02 (Преобразователь частоты для насосов)",
-                "Commands": "Команды",
-                "Control": "Управление",
-                "Status": "Состояние",
-                "control_2": "Заданная частота",
-                "control_3": "Максимальная частота",
-                "control_4": "Минимальная частота",
-                "control_98": "Заданное давление",
-                "commands_0": "Пуск",
-                "commands_1": "Стоп",
-                "commands_9": "Сброс ошибки",
-                "status_1": "Выходная частота",
-                "status_3": "Ток двигателя",
-                "status_5": "Напряжение шины",
-                "status_6": "Температура радиатора",
-                "status_12": "Выходное напряжение",
-                "status_26": "Текущее давление воды",
+                "erman_er_g_220_02_template_title": "ERMAN ER-G-220-02 (преобразователь частоты для насосов)",
+                "commands_group": "Команды",
+                "control_group": "Управление",
+                "status_group": "Состояние",
+                "start": "Пуск",
+                "stop": "Стоп",
+                "reset_fault": "Сброс ошибки",
+                "frequency_setpoint": "Заданная частота",
+                "max_frequency": "Максимальная частота",
+                "min_frequency": "Минимальная частота",
+                "pressure_setpoint": "Заданное давление",
+                "output_frequency": "Выходная частота",
+                "motor_current": "Ток двигателя",
+                "dc_bus_voltage": "Напряжение шины",
+                "heatsink_temperature": "Температура радиатора",
+                "output_voltage": "Выходное напряжение",
+                "water_pressure": "Текущее давление воды",
                 "p117_desc": "Для управления запуском через RS-485 параметр P117 должен быть установлен в 2",
                 "p100_desc": "Для управления частотой через RS-485 параметр P100 должен быть установлен в 2"
             }
