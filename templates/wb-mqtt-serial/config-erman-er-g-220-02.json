@@ -119,7 +119,7 @@
                 "reg_type": "input",
                 "address": 6,
                 "type": "value",
-                "units": "°C"
+                "units": "deg C"
             },
             {
                 "name": "output_voltage",
