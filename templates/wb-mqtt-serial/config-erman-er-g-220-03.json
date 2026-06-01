@@ -87,7 +87,7 @@
                 "address": 4,
                 "format": "s16",
                 "scale": 1,
-                "units": "°C",
+                "units": "deg C",
                 "group": "status",
                 "readonly": true
             },
@@ -234,7 +234,7 @@
                 "address": 20,
                 "format": "u16",
                 "scale": 1,
-                "units": "°C",
+                "units": "deg C",
                 "group": "status",
                 "readonly": true
             }
