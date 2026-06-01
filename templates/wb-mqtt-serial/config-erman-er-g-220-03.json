@@ -1,312 +1,299 @@
 {
-  "title": "erman_title",
-  "device_type": "ERMAN-ER-G-220-03",
-  "group": "g-motor-control",
-
-  "device": {
-    "name": "ERMAN ER-G-220-03",
-    "id": "erman-er-g-220-03",
-
-    "groups": [
-      { "title": "Commands",   "id": "commands" },
-      { "title": "Status",   "id": "status" },
-      { "title": "Control",  "id": "control" }
-    ],
-
-    "channels": [
-      {
-        "name": "cmd_start",
-        "type": "pushbutton",
-        "reg_type": "holding",
-        "address": 4097,
-        "format": "u16",
-        "value": 1,
-        "write_only": true,
-        "group": "commands"
-      },
-      {
-        "name": "cmd_stop",
-        "type": "pushbutton",
-        "reg_type": "holding",
-        "address": 4097,
-        "format": "u16",
-        "value": 4,
-        "write_only": true,
-        "group": "commands"
-      },
-      {
-        "name": "cmd_reset_alarm",
-        "type": "pushbutton",
-        "reg_type": "holding",
-        "address": 4097,
-        "format": "u16",
-        "value": 17,
-        "write_only": true,
-        "group": "commands"
-      },
-      {
-        "name": "reg1_frequency",
-        "type": "value",
-        "reg_type": "holding",
-        "address": 1,
-        "format": "u16",
-        "scale": 0.1,
-        "units": "Гц",
-        "group": "status",
-        "readonly": true
-      },
-      {
-        "name": "reg2_motor_current",
-        "type": "value",
-        "reg_type": "holding",
-        "address": 2,
-        "format": "u16",
-        "scale": 0.1,
-        "units": "А",
-        "group": "status",
-        "readonly": true
-      },
-      {
-        "name": "reg3_input_voltage",
-        "type": "value",
-        "reg_type": "holding",
-        "address": 3,
-        "format": "u16",
-        "scale": 1,
-        "units": "В",
-        "group": "status",
-        "readonly": true
-      },
-      {
-        "name": "reg4_module_temp",
-        "type": "value",
-        "reg_type": "holding",
-        "address": 4,
-        "format": "s16",
-        "scale": 1,
-        "units": "°C",
-        "group": "status",
-        "readonly": true
-      },
-      {
-        "name": "reg5_pressure",
-        "type": "value",
-        "reg_type": "holding",
-        "address": 5,
-        "format": "u16",
-        "scale": 0.01,
-        "units": "бар",
-        "group": "status",
-        "readonly": true
-      },
-      {
-        "name": "reg4096_set_pressure",
-        "type": "value",
-        "reg_type": "holding",
-        "address": 4096,
-        "format": "u16",
-        "scale": 0.01,
-        "units": "бар",
-        "group": "control",
-        "readonly": false
-      },
-      {
-        "name": "reg6_error_code",
-        "type": "value",
-        "reg_type": "holding",
-        "address": 6,
-        "format": "u16",
-        "scale": 1,
-        "group": "status",
-        "readonly": true
-      },
-      {
-		"name": "reg7_state_code",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 7,
-		"format": "u16",
-        "scale": 1,
-		"group": "status",
-		"readonly": true
-      },
-	  {
-		"name": "reg11_start_pressure_delta",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 11,
-		"format": "u16",
-		"scale": 0.01,
-		"units": "бар",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg12_no_water_pressure",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 12,
-		"format": "u16",
-		"scale": 0.01,
-		"units": "бар",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg13_dry_run_time",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 13,
-		"format": "u16",
-		"scale": 1,
-		"units": "с",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg14_carrier_freq",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 14,
-		"format": "u16",
-		"readonly": true,
-		"group": "status"
-		},
-		{
-		"name": "reg15_accel_decel_time",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 15,
-		"format": "u16",
-		"scale": 0.1,
-		"units": "сек",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg16_pressure_error",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 16,
-		"format": "u16",
-		"scale": 0.01,
-		"units": "бар",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg17_min_cutoff_freq",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 17,
-		"format": "u16",
-		"scale": 0.1,
-		"units": "Гц",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg18_nonstop_enable",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 18,
-		"format": "u16",
-		"scale": 1,
-		"units": "",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg19_sensor_range",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 19,
-		"format": "u16",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg20_overheat_threshold",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 20,
-		"format": "u16",
-		"scale": 1,
-		"units": "°C",
-		"group": "status",
-		"readonly": true
-		},
-		{
-		"name": "reg22_net_address",
-		"type": "value",
-		"reg_type": "holding",
-		"address": 22,
-		"format": "u16",
-		"scale": 1,
-		"min": 1,
-		"max": 63,
-		"units": "",
-		"group": "status",
-		"readonly": true,
-		}
-    ],
-
-    "translations": {
-      "en": {
-        "erman_title": "ERMAN ER-G-220-03 (Pump Frequency Converter)",
-        "Status": "Status",
-        "cmd_start": "Start",
-        "cmd_stop": "Stop",
-        "cmd_reset_alarm": "Reset Error",
-        "reg1_frequency": "Output Frequency",
-        "reg2_motor_current": "Motor Current",
-        "reg3_input_voltage": "Input Voltage",
-        "reg4_module_temp": "Module Temperature",
-        "reg5_pressure": "Actual Pressure",
-        "reg4096_set_pressure": "Set pressure",
-        "reg6_error_code": "Error code",
-        "reg7_state_code": "State code",
-		"reg11_start_pressure_delta": "Pressure delta at pump start",
-		"reg12_no_water_pressure": "No-water pressure threshold",
-		"reg13_dry_run_time": "Dry-run detection time, s",
-		"reg14_carrier_freq": "Carrier Frequency Value",
-		"reg15_accel_decel_time": "Acceleration/Deceleration time",
-		"reg16_pressure_error": "Permissible pressure deviation",
-		"reg17_min_cutoff_freq": "Minimum cutoff frequency",
-		"reg18_nonstop_enable": "Allow non-stop (0/1)",
-		"reg19_sensor_range": "Pressure Sensor Range",
-		"reg20_overheat_threshold": "Overheat Temperature Threshold",
-        "reg22_net_address": "Local network address",
-        "Control": "Control"
-      },
-
-      "ru": {
-        "erman_title": "ERMAN ER-G-220-03 (Преобразователь частоты насоса)",
-        "Status": "Статус",
-        "cmd_start": "Пуск",
-        "cmd_stop": "Стоп",
-        "cmd_reset_alarm": "Сброс ошибки",
-        "reg1_frequency": "Выходная частота",
-        "reg2_motor_current": "Ток двигателя",
-        "reg3_input_voltage": "Входное напряжение",
-        "reg4_module_temp": "Температура модуля",
-        "reg5_pressure": "Фактическое давление",
-        "reg4096_set_pressure": "Заданное давление",
-        "reg6_error_code": "Код ошибки",
-        "reg7_state_code": "Код состояния",
-		"reg11_start_pressure_delta": "Разность давления при запуске",
-		"reg12_no_water_pressure": "Давление отсутствия воды",
-		"reg13_dry_run_time": "Время определения отсутствия воды, с",
-		"reg14_carrier_freq": "Значение несущей частоты",
-		"reg15_accel_decel_time": "Время ускорения/торможения",
-		"reg16_pressure_error": "Допустимая погрешность давления",
-		"reg17_min_cutoff_freq": "Минимальная частота выключения",
-		"reg18_nonstop_enable": "Разрешить non-стоп (0/1)",
-		"reg19_sensor_range": "Диапазон датчика давления",
-		"reg20_overheat_threshold": "Порог аварийной температуры",
-		"reg22_net_address": "Локальный сетевой адрес",
-        "Control": "Управление"
-      }
+    "title": "erman_er_g_220_03_template_title",
+    "device_type": "ERMAN-ER-G-220-03",
+    "group": "g-motor-control",
+    "device": {
+        "name": "ERMAN ER-G-220-03",
+        "id": "erman-er-g-220-03",
+        "groups": [
+            {
+                "title": "commands_group",
+                "id": "commands"
+            },
+            {
+                "title": "status_group",
+                "id": "status"
+            },
+            {
+                "title": "control_group",
+                "id": "control"
+            }
+        ],
+        "channels": [
+            {
+                "name": "start",
+                "type": "pushbutton",
+                "reg_type": "holding",
+                "write_address": 4097,
+                "on_value": 1,
+                "format": "u16",
+                "group": "commands"
+            },
+            {
+                "name": "stop",
+                "type": "pushbutton",
+                "reg_type": "holding",
+                "write_address": 4097,
+                "on_value": 4,
+                "format": "u16",
+                "group": "commands"
+            },
+            {
+                "name": "reset_alarm",
+                "type": "pushbutton",
+                "reg_type": "holding",
+                "write_address": 4097,
+                "on_value": 17,
+                "format": "u16",
+                "group": "commands"
+            },
+            {
+                "name": "output_frequency",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 1,
+                "format": "u16",
+                "scale": 0.1,
+                "units": "Hz",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "motor_current",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 2,
+                "format": "u16",
+                "scale": 0.1,
+                "units": "A",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "input_voltage",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 3,
+                "format": "u16",
+                "scale": 1,
+                "units": "V",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "module_temperature",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 4,
+                "format": "s16",
+                "scale": 1,
+                "units": "°C",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "actual_pressure",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 5,
+                "format": "u16",
+                "scale": 0.01,
+                "units": "bar",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "set_pressure",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 4096,
+                "format": "u16",
+                "scale": 0.01,
+                "units": "bar",
+                "group": "control",
+                "readonly": false
+            },
+            {
+                "name": "error_code",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 6,
+                "format": "u16",
+                "scale": 1,
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "state_code",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 7,
+                "format": "u16",
+                "scale": 1,
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "start_pressure_delta",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 11,
+                "format": "u16",
+                "scale": 0.01,
+                "units": "bar",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "no_water_pressure",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 12,
+                "format": "u16",
+                "scale": 0.01,
+                "units": "bar",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "dry_run_time",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 13,
+                "format": "u16",
+                "scale": 1,
+                "units": "s",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "carrier_frequency",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 14,
+                "format": "u16",
+                "readonly": true,
+                "group": "status"
+            },
+            {
+                "name": "accel_decel_time",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 15,
+                "format": "u16",
+                "scale": 0.1,
+                "units": "s",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "pressure_deviation",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 16,
+                "format": "u16",
+                "scale": 0.01,
+                "units": "bar",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "min_cutoff_frequency",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 17,
+                "format": "u16",
+                "scale": 0.1,
+                "units": "Hz",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "nonstop_enable",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 18,
+                "format": "u16",
+                "scale": 1,
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "sensor_range",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 19,
+                "format": "u16",
+                "group": "status",
+                "readonly": true
+            },
+            {
+                "name": "overheat_threshold",
+                "type": "value",
+                "reg_type": "holding",
+                "address": 20,
+                "format": "u16",
+                "scale": 1,
+                "units": "°C",
+                "group": "status",
+                "readonly": true
+            }
+        ],
+        "translations": {
+            "en": {
+                "erman_er_g_220_03_template_title": "ERMAN ER-G-220-03 (Pump Frequency Converter)",
+                "commands_group": "Commands",
+                "status_group": "Status",
+                "control_group": "Control",
+                "start": "Start",
+                "stop": "Stop",
+                "reset_alarm": "Reset Error",
+                "output_frequency": "Output Frequency",
+                "motor_current": "Motor Current",
+                "input_voltage": "Input Voltage",
+                "module_temperature": "Module Temperature",
+                "actual_pressure": "Actual Pressure",
+                "set_pressure": "Set Pressure",
+                "error_code": "Error Code",
+                "state_code": "State Code",
+                "start_pressure_delta": "Start Pressure Delta",
+                "no_water_pressure": "No-Water Pressure Threshold",
+                "dry_run_time": "Dry-Run Detection Time",
+                "carrier_frequency": "Carrier Frequency",
+                "accel_decel_time": "Acceleration/Deceleration Time",
+                "pressure_deviation": "Permissible Pressure Deviation",
+                "min_cutoff_frequency": "Minimum Cutoff Frequency",
+                "nonstop_enable": "Non-Stop Enable",
+                "sensor_range": "Pressure Sensor Range",
+                "overheat_threshold": "Overheat Temperature Threshold"
+            },
+            "ru": {
+                "erman_er_g_220_03_template_title": "ERMAN ER-G-220-03 (Преобразователь частоты насоса)",
+                "commands_group": "Команды",
+                "status_group": "Статус",
+                "control_group": "Управление",
+                "start": "Пуск",
+                "stop": "Стоп",
+                "reset_alarm": "Сброс ошибки",
+                "output_frequency": "Выходная частота",
+                "motor_current": "Ток двигателя",
+                "input_voltage": "Входное напряжение",
+                "module_temperature": "Температура модуля",
+                "actual_pressure": "Фактическое давление",
+                "set_pressure": "Заданное давление",
+                "error_code": "Код ошибки",
+                "state_code": "Код состояния",
+                "start_pressure_delta": "Разность давления при запуске",
+                "no_water_pressure": "Порог давления отсутствия воды",
+                "dry_run_time": "Время определения отсутствия воды",
+                "carrier_frequency": "Несущая частота",
+                "accel_decel_time": "Время ускорения/торможения",
+                "pressure_deviation": "Допустимая погрешность давления",
+                "min_cutoff_frequency": "Минимальная частота выключения",
+                "nonstop_enable": "Разрешить безостановочный режим",
+                "sensor_range": "Диапазон датчика давления",
+                "overheat_threshold": "Порог аварийной температуры"
+            }
+        }
     }
-  }
 }
