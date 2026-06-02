@@ -1,0 +1,68 @@
+{
+  "title": "WAVIoT ФОБОС 3T (IQORLM-A)",
+  "device_type": "phobos_3t_dlms",
+  "group": "g-power-meter",
+  "device": {
+    "name": "ФОБОС 3T",
+    "id": "phobos3t",
+    "protocol": "dlms",
+    "dlms_client_address": 32,
+    "dlms_auth": 1,
+    "password": ["0x52", "0x65", "0x61", "0x64", "0x65", "0x72"],
+    "channels": [
+      { "name": "Ток L1", "id": "Current L1", "address": "1.0.31.7.0.255", "reg_type": "default", "type": "current" },
+      { "name": "Ток L2", "id": "Current L2", "address": "1.0.51.7.0.255", "reg_type": "default", "type": "current" },
+      { "name": "Ток L3", "id": "Current L3", "address": "1.0.71.7.0.255", "reg_type": "default", "type": "current" },
+      { "name": "Ток N", "id": "Current N", "address": "1.0.91.7.0.255", "reg_type": "default", "type": "current" },
+
+      { "name": "Напряжение L1", "id": "Voltage L1", "address": "1.0.32.7.0.255", "reg_type": "default", "type": "voltage" },
+      { "name": "Напряжение L2", "id": "Voltage L2", "address": "1.0.52.7.0.255", "reg_type": "default", "type": "voltage" },
+      { "name": "Напряжение L3", "id": "Voltage L3", "address": "1.0.72.7.0.255", "reg_type": "default", "type": "voltage" },
+
+      { "name": "Напряжение L1-L2", "id": "Voltage L1-L2", "address": "1.0.12.7.1.255", "reg_type": "default", "type": "voltage" },
+      { "name": "Напряжение L2-L3", "id": "Voltage L2-L3", "address": "1.0.12.7.2.255", "reg_type": "default", "type": "voltage" },
+      { "name": "Напряжение L1-L3", "id": "Voltage L1-L3", "address": "1.0.12.7.3.255", "reg_type": "default", "type": "voltage" },
+
+      { "name": "Коэффициент мощности L1", "id": "Power Factor L1", "address": "1.0.33.7.0.255", "reg_type": "default", "type": "value" },
+      { "name": "Коэффициент мощности L2", "id": "Power Factor L2", "address": "1.0.53.7.0.255", "reg_type": "default", "type": "value" },
+      { "name": "Коэффициент мощности L3", "id": "Power Factor L3", "address": "1.0.73.7.0.255", "reg_type": "default", "type": "value" },
+      { "name": "Коэффициент мощности Суммарный", "id": "Power Factor Total", "address": "1.0.13.7.0.255", "reg_type": "default", "type": "value" },
+
+      { "name": "Частота", "id": "Frequency", "address": "1.0.14.7.0.255", "reg_type": "default", "type": "value", "units": "Hz" },
+
+      { "name": "Полная мощность Суммарная, кВА", "id": "Apparent Power Total", "address": "1.0.9.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Полная мощность L1, кВА", "id": "Apparent Power L1", "address": "1.0.29.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Полная мощность L2, кВА", "id": "Apparent Power L2", "address": "1.0.49.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Полная мощность L3, кВА", "id": "Apparent Power L3", "address": "1.0.69.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+
+      { "name": "Активная мощность Суммарная, кВт", "id": "Active Power Total", "address": "1.0.1.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Активная мощность L1, кВт", "id": "Active Power L1", "address": "1.0.21.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Активная мощность L2, кВт", "id": "Active Power L2", "address": "1.0.41.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Активная мощность L3, кВт", "id": "Active Power L3", "address": "1.0.61.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+
+      { "name": "Реактивная мощность Суммарная, кВАр", "id": "Reactive Power Total", "address": "1.0.3.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Реактивная мощность L1, кВАр", "id": "Reactive Power L1", "address": "1.0.23.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Реактивная мощность L2, кВАр", "id": "Reactive Power L2", "address": "1.0.43.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Реактивная мощность L3, кВАр", "id": "Reactive Power L3", "address": "1.0.63.7.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+
+      { "name": "Активная энергия потребленная Суммарная", "id": "Active Energy Import (Total)", "address": "1.0.1.8.0.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+      { "name": "Активная энергия потребленная T1", "id": "Active Energy Import (T1)", "address": "1.0.1.8.1.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+      { "name": "Активная энергия потребленная T2", "id": "Active Energy Import (T2)", "address": "1.0.1.8.2.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+      { "name": "Активная энергия потребленная T3", "id": "Active Energy Import (T3)", "address": "1.0.1.8.3.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+      { "name": "Активная энергия потребленная T4", "id": "Active Energy Import (T4)", "address": "1.0.1.8.4.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+
+      { "name": "Активная энергия отданная Суммарная", "id": "Active Energy Export (Total)", "address": "1.0.2.8.0.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+      { "name": "Активная энергия отданная T1", "id": "Active Energy Export (T1)", "address": "1.0.2.8.1.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+      { "name": "Активная энергия отданная T2", "id": "Active Energy Export (T2)", "address": "1.0.2.8.2.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+      { "name": "Активная энергия отданная T3", "id": "Active Energy Export (T3)", "address": "1.0.2.8.3.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+      { "name": "Активная энергия отданная T4", "id": "Active Energy Export (T4)", "address": "1.0.2.8.4.255", "reg_type": "default", "type": "power_consumption", "scale": 0.001 },
+
+      { "name": "Реактивная энергия потребленная Суммарная, кВАр·ч", "id": "Reactive Energy Import (Total)", "address": "1.0.3.8.0.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Реактивная энергия потребленная T1, кВАр·ч", "id": "Reactive Energy Import (T1)", "address": "1.0.3.8.1.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Реактивная энергия потребленная T2, кВАр·ч", "id": "Reactive Energy Import (T2)", "address": "1.0.3.8.2.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+      { "name": "Реактивная энергия потребленная T3, кВАр·ч", "id": "Reactive Energy Import (T3)", "address": "1.0.3.8.3.255", "reg_type": "default", "type": "value", "scale": 0.001 },
+
+      { "name": "Реактивная энергия отданная Суммарная, кВАр·ч", "id": "Reactive Energy Export (Total)", "address": "1.0.4.8.0.255", "reg_type": "default", "type": "value", "scale": 0.001 }
+    ]
+  }
+}
