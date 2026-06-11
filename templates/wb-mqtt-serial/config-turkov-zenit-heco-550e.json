@@ -2,21 +2,18 @@
 	"title": "turkov_zenit_heco_550e_template_title",
 	"device_type": "turkov_zenit_heco_550e",
 	"group": "g-climate-control",
-
 	"device": {
 		"name": "Turkov Zenit HECO 550E",
 		"id": "turkov_zenit_heco_550e",
-
 		"poll_interval": 1000,
 		"frame_timeout_ms": 3,
 		"guard_interval_us": 5000,
-
 		"parameters": {
 			"modbus_address": {
 				"title": "Modbus Address",
 				"description": "modbus_address_desc",
 				"reg_type": "holding_multi",
-				"address": "0x0010",
+				"address": "0x000A",
 				"default": 1,
 				"min": 1,
 				"max": 247,
@@ -29,23 +26,46 @@
 				"reg_type": "holding_multi",
 				"address": "0x0009",
 				"default": 0,
-				"enum": [0, 1, 2, 3, 4],
-				"enum_titles": ["9600", "19200", "38400", "57600", "115200"],
+				"enum": [
+					0,
+					1,
+					2,
+					3,
+					4
+				],
+				"enum_titles": [
+					"9600",
+					"19200",
+					"38400",
+					"57600",
+					"115200"
+				],
 				"group": "settings",
 				"order": 2
 			},
 			"parity_and_stopbits": {
 				"title": "Parity and Stop Bits",
 				"reg_type": "holding_multi",
-				"address": "0x0011",
+				"address": "0x000B",
 				"default": 0,
-				"enum": [0, 1, 2, 3, 4],
-				"enum_titles": ["No Parity, 1 Stop Bit", "Even Parity, 1 Stop Bit", "Odd Parity, 1 Stop Bit", "Even Parity, 2 Stop Bits", "Odd Parity, 2 Stop Bits"],
+				"enum": [
+					0,
+					1,
+					2,
+					3,
+					4
+				],
+				"enum_titles": [
+					"No Parity, 1 Stop Bit",
+					"Even Parity, 1 Stop Bit",
+					"Odd Parity, 1 Stop Bit",
+					"Even Parity, 2 Stop Bits",
+					"Odd Parity, 2 Stop Bits"
+				],
 				"group": "settings",
 				"order": 3
 			}
 		},
-
 		"channels": [
 			{
 				"name": "power",
@@ -56,6 +76,24 @@
 				"group": "control"
 			},
 			{
+				"name": "operating_mode",
+				"reg_type": "holding_multi",
+				"address": "0x0004",
+				"type": "value",
+				"format": "s16",
+				"enum": [
+					0,
+					1,
+					2
+				],
+				"enum_titles": [
+					"Ventilation",
+					"Heating",
+					"Cooling"
+				],
+				"group": "control"
+			},
+			{
 				"name": "temperature_setpoint",
 				"reg_type": "holding_multi",
 				"address": "0x0002",
@@ -63,7 +101,7 @@
 				"format": "s16",
 				"min": 0,
 				"max": 50,
-				"units": "°C",
+				"units": "deg C",
 				"group": "control"
 			},
 			{
@@ -72,47 +110,353 @@
 				"address": "0x0003",
 				"type": "value",
 				"format": "s8",
-				"enum": [1, 2, 3, 4],
-				"enum_titles": ["Low", "Medium", "High", "Auto"],
+				"enum": [
+					1,
+					2,
+					3,
+					4
+				],
+				"enum_titles": [
+					"Low",
+					"Medium",
+					"High",
+					"Auto"
+				],
 				"group": "control"
 			},
 			{
-				"name": "current_mode",
+				"name": "fireplace",
 				"reg_type": "holding_multi",
-				"address": "0x0004",
-				"type": "value",
+				"address": "0x000C",
+				"type": "switch",
 				"format": "s8",
-				"readonly": true,
-				"enum": [0, 1, 2],
-				"enum_titles": ["Ventilation", "Heating", "Cooling"],
-				"group": "status"
+				"group": "control"
 			},
 			{
-				"name": "indoor_temperature",
-				"reg_type": "input",
-				"address": "0x010B",
-				"type": "temperature",
+				"name": "humidifier",
+				"reg_type": "holding_multi",
+				"address": "0x000D",
+				"type": "switch",
 				"format": "s16",
-				"scale": 0.1,
-				"readonly": true,
-				"group": "status"
+				"group": "humidification"
 			},
 			{
-				"name": "indoor_humidity",
-				"reg_type": "input",
-				"address": "0x010C",
-				"type": "rel_humidity",
-				"format": "s16",
-				"scale": 0.1,
-				"readonly": true,
-				"group": "status"
+				"name": "humidity_min",
+				"reg_type": "holding_multi",
+				"address": "0x000E",
+				"type": "range",
+				"format": "u16",
+				"min": 0,
+				"max": 100,
+				"units": "%",
+				"group": "humidification"
 			},
 			{
-				"name": "heating_active",
+				"name": "humidity_max",
+				"reg_type": "holding_multi",
+				"address": "0x000F",
+				"type": "range",
+				"format": "u16",
+				"min": 0,
+				"max": 100,
+				"units": "%",
+				"group": "humidification"
+			},
+			{
+				"name": "supply_fan_setpoint",
+				"reg_type": "holding_multi",
+				"address": "0x0005",
+				"type": "range",
+				"format": "u16",
+				"min": 30,
+				"max": 100,
+				"units": "%",
+				"group": "fan_control"
+			},
+			{
+				"name": "exhaust_fan_setpoint",
+				"reg_type": "holding_multi",
+				"address": "0x0006",
+				"type": "range",
+				"format": "u16",
+				"min": 30,
+				"max": 100,
+				"units": "%",
+				"group": "fan_control"
+			},
+			{
+				"name": "supply_vav_setpoint",
+				"reg_type": "holding_multi",
+				"address": "0x0007",
+				"type": "value",
+				"format": "u16",
+				"max": 4000,
+				"units": "Pa",
+				"group": "fan_control"
+			},
+			{
+				"name": "exhaust_vav_setpoint",
+				"reg_type": "holding_multi",
+				"address": "0x0008",
+				"type": "value",
+				"format": "u16",
+				"max": 4000,
+				"units": "Pa",
+				"group": "fan_control"
+			},
+			{
+				"name": "supply_fan_power_low",
+				"reg_type": "holding_multi",
+				"address": "0x0010",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"group": "fan_control"
+			},
+			{
+				"name": "supply_fan_power_medium",
+				"reg_type": "holding_multi",
+				"address": "0x0011",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"group": "fan_control"
+			},
+			{
+				"name": "supply_fan_power_high",
+				"reg_type": "holding_multi",
+				"address": "0x0012",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"group": "fan_control"
+			},
+			{
+				"name": "exhaust_fan_power_low",
+				"reg_type": "holding_multi",
+				"address": "0x0013",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"group": "fan_control"
+			},
+			{
+				"name": "exhaust_fan_power_medium",
+				"reg_type": "holding_multi",
+				"address": "0x0014",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"group": "fan_control"
+			},
+			{
+				"name": "exhaust_fan_power_high",
+				"reg_type": "holding_multi",
+				"address": "0x0015",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"group": "fan_control"
+			},
+			{
+				"name": "supply_disbalance",
+				"reg_type": "holding_multi",
+				"address": "0x0016",
+				"type": "value",
+				"format": "u16",
+				"enum": [
+					0,
+					1,
+					2,
+					3
+				],
+				"enum_titles": [
+					"Off",
+					"Low",
+					"Medium",
+					"High"
+				],
+				"enabled": false,
+				"group": "fan_control"
+			},
+			{
+				"name": "exhaust_disbalance",
+				"reg_type": "holding_multi",
+				"address": "0x0017",
+				"type": "value",
+				"format": "u16",
+				"enum": [
+					0,
+					1,
+					2,
+					3
+				],
+				"enum_titles": [
+					"Off",
+					"Low",
+					"Medium",
+					"High"
+				],
+				"enabled": false,
+				"group": "fan_control"
+			},
+			{
+				"name": "mode_activity",
 				"reg_type": "input",
 				"address": "0x010E",
 				"type": "switch",
 				"format": "s8",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "fan_mode",
+				"reg_type": "input",
+				"address": "0x0110",
+				"type": "value",
+				"format": "u16",
+				"readonly": true,
+				"enabled": false,
+				"enum": [
+					0,
+					1,
+					2,
+					3
+				],
+				"enum_titles": [
+					"Modbus Control",
+					"Manual",
+					"Auto",
+					"Manual and Auto"
+				],
+				"group": "status"
+			},
+			{
+				"name": "recuperator_drying",
+				"reg_type": "input",
+				"address": "0x0111:0:1",
+				"type": "switch",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "dampers_opening",
+				"reg_type": "input",
+				"address": "0x0111:1:1",
+				"type": "switch",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "humidifier_drying",
+				"reg_type": "input",
+				"address": "0x0111:2:1",
+				"type": "switch",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "heater_purging",
+				"reg_type": "input",
+				"address": "0x0111:3:1",
+				"type": "switch",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "cooler_defrosting",
+				"reg_type": "input",
+				"address": "0x0111:4:1",
+				"type": "switch",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "humidifier_running",
+				"reg_type": "input",
+				"address": "0x0111:5:1",
+				"type": "switch",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "supply_fan_power",
+				"reg_type": "input",
+				"address": "0x0112",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "exhaust_fan_power",
+				"reg_type": "input",
+				"address": "0x0113",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "supply_pressure",
+				"reg_type": "input",
+				"address": "0x0114",
+				"type": "value",
+				"format": "u16",
+				"units": "Pa",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "exhaust_pressure",
+				"reg_type": "input",
+				"address": "0x0115",
+				"type": "value",
+				"format": "u16",
+				"units": "Pa",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "three_way_valve",
+				"reg_type": "input",
+				"address": "0x0116",
+				"type": "value",
+				"format": "u16",
+				"max": 100,
+				"units": "%",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "supply_fan_current",
+				"reg_type": "input",
+				"address": "0x0109",
+				"type": "value",
+				"format": "s16",
+				"scale": 0.01,
+				"units": "A",
+				"readonly": true,
+				"group": "status"
+			},
+			{
+				"name": "exhaust_fan_current",
+				"reg_type": "input",
+				"address": "0x010A",
+				"type": "value",
+				"format": "s16",
+				"scale": 0.01,
+				"units": "A",
 				"readonly": true,
 				"group": "status"
 			},
@@ -137,28 +481,6 @@
 				"group": "sensors"
 			},
 			{
-				"name": "water_heater_return_temperature",
-				"reg_type": "input",
-				"address": "0x0103",
-				"type": "temperature",
-				"format": "s16",
-				"scale": 0.1,
-				"enabled": false,
-				"readonly": true,
-				"group": "sensors"
-			},
-			{
-				"name": "water_heater_surface_temperature",
-				"reg_type": "input",
-				"address": "0x0104",
-				"type": "temperature",
-				"format": "s16",
-				"scale": 0.1,
-				"enabled": false,
-				"readonly": true,
-				"group": "sensors"
-			},
-			{
 				"name": "exhaust_temperature",
 				"reg_type": "input",
 				"address": "0x0105",
@@ -169,13 +491,44 @@
 				"group": "sensors"
 			},
 			{
-				"name": "fireplace",
-				"reg_type": "holding_multi",
-				"address": "0x0012",
-				"type": "switch",
-				"format": "s8",
-				"enabled": false,
-				"group": "control"
+				"name": "water_heater_return_temperature",
+				"reg_type": "input",
+				"address": "0x0103",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "water_heater_surface_temperature",
+				"reg_type": "input",
+				"address": "0x0104",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "d7_sensor_temperature",
+				"reg_type": "input",
+				"address": "0x010B",
+				"type": "temperature",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "sensors"
+			},
+			{
+				"name": "d7_sensor_humidity",
+				"reg_type": "input",
+				"address": "0x010C",
+				"type": "rel_humidity",
+				"format": "s16",
+				"scale": 0.1,
+				"readonly": true,
+				"group": "sensors"
 			},
 			{
 				"name": "filter_contamination",
@@ -196,13 +549,89 @@
 				"format": "s16",
 				"readonly": true,
 				"group": "info"
+			},
+			{
+				"name": "installation_type",
+				"reg_type": "input",
+				"address": "0x0108",
+				"type": "value",
+				"format": "u16",
+				"readonly": true,
+				"enum": [
+					0,
+					1,
+					2,
+					3,
+					4
+				],
+				"enum_titles": [
+					"Capsule",
+					"iVent",
+					"Block",
+					"Zenit",
+					"ecoTherm"
+				],
+				"group": "info"
+			},
+			{
+				"name": "equipment_electric_heater",
+				"reg_type": "input",
+				"address": "0x010F:0:1",
+				"type": "switch",
+				"readonly": true,
+				"enabled": false,
+				"group": "info"
+			},
+			{
+				"name": "equipment_water_heater",
+				"reg_type": "input",
+				"address": "0x010F:1:1",
+				"type": "switch",
+				"readonly": true,
+				"enabled": false,
+				"group": "info"
+			},
+			{
+				"name": "equipment_cooler",
+				"reg_type": "input",
+				"address": "0x010F:2:1",
+				"type": "switch",
+				"readonly": true,
+				"enabled": false,
+				"group": "info"
+			},
+			{
+				"name": "equipment_humidifier",
+				"reg_type": "input",
+				"address": "0x010F:3:1",
+				"type": "switch",
+				"readonly": true,
+				"enabled": false,
+				"group": "info"
+			},
+			{
+				"name": "firmware_version",
+				"reg_type": "input",
+				"address": "0x0100",
+				"type": "value",
+				"format": "u16",
+				"readonly": true,
+				"enabled": false,
+				"group": "info"
 			}
 		],
-
 		"groups": [
 			{
 				"title": "Control",
 				"id": "control"
+			},
+			{
+				"title": "Humidification",
+				"id": "humidification"
+			},
+			{
+				"title": "Fan Control",
+				"id": "fan_control"
 			},
 			{
 				"title": "Status",
@@ -221,36 +650,66 @@
 				"id": "settings"
 			}
 		],
-
 		"translations": {
 			"en": {
 				"turkov_zenit_heco_550e_template_title": "Turkov Zenit HECO 550E (air handling unit, controller v6)",
-
 				"modbus_address_desc": "Make sure that communication with device is established before changing this parameter. Select required Modbus address, save configuration and then change device address to the same value.",
 				"modbus_speed_desc": "Make sure that communication with device is established before changing this parameter. Select required baud rate, save configuration and then change port baud rate to the same value.",
-
 				"power": "Power",
+				"operating_mode": "Operating Mode",
 				"temperature_setpoint": "Temperature Setpoint",
 				"fan_speed": "Fan Speed",
-				"current_mode": "Current Mode",
-				"indoor_temperature": "Indoor Temperature (D7)",
-				"indoor_humidity": "Indoor Humidity (D7)",
-				"heating_active": "Heating Active",
+				"fireplace": "Fireplace Mode",
+				"humidifier": "Humidifier",
+				"humidity_min": "Minimum Humidity",
+				"humidity_max": "Maximum Humidity",
+				"supply_fan_setpoint": "Supply Fan Speed Setpoint",
+				"exhaust_fan_setpoint": "Exhaust Fan Speed Setpoint",
+				"supply_vav_setpoint": "Supply VAV Setpoint",
+				"exhaust_vav_setpoint": "Exhaust VAV Setpoint",
+				"supply_fan_power_low": "Supply Fan Power (Speed 1)",
+				"supply_fan_power_medium": "Supply Fan Power (Speed 2)",
+				"supply_fan_power_high": "Supply Fan Power (Speed 3)",
+				"exhaust_fan_power_low": "Exhaust Fan Power (Speed 1)",
+				"exhaust_fan_power_medium": "Exhaust Fan Power (Speed 2)",
+				"exhaust_fan_power_high": "Exhaust Fan Power (Speed 3)",
+				"supply_disbalance": "Supply Disbalance",
+				"exhaust_disbalance": "Exhaust Disbalance",
+				"mode_activity": "Mode Active",
+				"fan_mode": "Fan Control Mode",
+				"recuperator_drying": "Recuperator Drying",
+				"dampers_opening": "Dampers Opening",
+				"humidifier_drying": "Humidifier Drying",
+				"heater_purging": "Electric Heater Purging",
+				"cooler_defrosting": "Cooler Defrosting",
+				"humidifier_running": "Humidifier In Operation",
+				"supply_fan_power": "Supply Fan Power",
+				"exhaust_fan_power": "Exhaust Fan Power",
+				"supply_pressure": "Supply Channel Pressure",
+				"exhaust_pressure": "Exhaust Channel Pressure",
+				"three_way_valve": "Three-Way Valve Position",
+				"supply_fan_current": "Supply Fan Current",
+				"exhaust_fan_current": "Exhaust Fan Current",
 				"outdoor_temperature": "Outdoor Temperature (D1)",
 				"supply_temperature": "Supply Temperature (D2)",
+				"exhaust_temperature": "Exhaust Temperature (D5)",
 				"water_heater_return_temperature": "Water Heater Return Temperature (D3)",
 				"water_heater_surface_temperature": "Water Heater Surface Temperature (D4)",
-				"exhaust_temperature": "Exhaust Temperature (D5)",
-				"fireplace": "Fireplace Mode",
+				"d7_sensor_temperature": "D7 Sensor Temperature",
+				"d7_sensor_humidity": "D7 Sensor Humidity",
 				"filter_contamination": "Filter Contamination",
-				"error_code": "Error Code"
+				"error_code": "Error Code",
+				"installation_type": "Installation Type",
+				"equipment_electric_heater": "Electric Heater Installed",
+				"equipment_water_heater": "Water Heater Installed",
+				"equipment_cooler": "Air Conditioner Installed",
+				"equipment_humidifier": "Humidifier/Dehumidifier Installed",
+				"firmware_version": "Firmware Version"
 			},
 			"ru": {
 				"turkov_zenit_heco_550e_template_title": "Turkov Zenit HECO 550E (приточно-вытяжная установка, контроллер v6)",
-
 				"modbus_address_desc": "Перед изменением параметра убедитесь, что связь с устройством установлена. Выберите новый Modbus-адрес, сохраните конфигурацию, а затем укажите в настройках устройства этот же адрес.",
 				"modbus_speed_desc": "Перед изменением параметра убедитесь, что связь с устройством установлена. Выберите нужную скорость обмена, сохраните конфигурацию, а затем укажите в настройках порта эту же скорость.",
-
 				"Modbus Address": "Адрес устройства по Modbus",
 				"Modbus Speed": "Скорость связи по Modbus",
 				"Parity and Stop Bits": "Четность и стоп-биты",
@@ -259,37 +718,79 @@
 				"Odd Parity, 1 Stop Bit": "Четность Odd, 1 стоп-бит",
 				"Even Parity, 2 Stop Bits": "Четность Even, 2 стоп-бита",
 				"Odd Parity, 2 Stop Bits": "Четность Odd, 2 стоп-бита",
-
 				"Control": "Управление",
+				"Humidification": "Увлажнение",
+				"Fan Control": "Управление вентиляторами",
 				"Status": "Состояние",
 				"Sensors": "Датчики",
 				"Info": "Информация",
 				"Settings": "Параметры",
-
-				"power": "Включение",
-				"temperature_setpoint": "Целевая температура",
-				"fan_speed": "Скорость вентилятора",
-				"current_mode": "Текущий режим",
-				"indoor_temperature": "Температура в помещении (D7)",
-				"indoor_humidity": "Влажность в помещении (D7)",
-				"heating_active": "Нагрев активен",
-				"outdoor_temperature": "Температура наружного воздуха (D1)",
-				"supply_temperature": "Температура приточного воздуха (D2)",
-				"water_heater_return_temperature": "Температура обратки водяного нагревателя (D3)",
-				"water_heater_surface_temperature": "Температура поверхности водяного нагревателя (D4)",
-				"exhaust_temperature": "Температура вытяжного воздуха (D5)",
-				"fireplace": "Режим \"камин\"",
-				"filter_contamination": "Загрязненность фильтра",
-				"error_code": "Код ошибки",
-
 				"Ventilation": "Вентиляция",
 				"Heating": "Обогрев",
 				"Cooling": "Охлаждение",
-
 				"Low": "Низкая",
 				"Medium": "Средняя",
 				"High": "Высокая",
-				"Auto": "Авто"
+				"Auto": "Авто",
+				"Off": "Выкл",
+				"Modbus Control": "Управление по Modbus",
+				"Manual": "Ручной",
+				"Manual and Auto": "Ручной и автоматический",
+				"Capsule": "Capsule",
+				"iVent": "iVent",
+				"Block": "Block",
+				"Zenit": "Zenit",
+				"ecoTherm": "ecoTherm",
+				"power": "Включение",
+				"operating_mode": "Режим работы",
+				"temperature_setpoint": "Целевая температура",
+				"fan_speed": "Скорость вентилятора",
+				"fireplace": "Режим \"камин\"",
+				"humidifier": "Режим увлажнения",
+				"humidity_min": "Минимальная влажность",
+				"humidity_max": "Максимальная влажность",
+				"supply_fan_setpoint": "Уставка скорости притока",
+				"exhaust_fan_setpoint": "Уставка скорости вытяжки",
+				"supply_vav_setpoint": "Уставка VAV притока",
+				"exhaust_vav_setpoint": "Уставка VAV вытяжки",
+				"supply_fan_power_low": "Мощность притока (1 скорость)",
+				"supply_fan_power_medium": "Мощность притока (2 скорость)",
+				"supply_fan_power_high": "Мощность притока (3 скорость)",
+				"exhaust_fan_power_low": "Мощность вытяжки (1 скорость)",
+				"exhaust_fan_power_medium": "Мощность вытяжки (2 скорость)",
+				"exhaust_fan_power_high": "Мощность вытяжки (3 скорость)",
+				"supply_disbalance": "Дисбаланс притока",
+				"exhaust_disbalance": "Дисбаланс вытяжки",
+				"mode_activity": "Режим активен",
+				"fan_mode": "Режим управления вентиляторами",
+				"recuperator_drying": "Просушка рекуператора",
+				"dampers_opening": "Открытие заслонок",
+				"humidifier_drying": "Просушка увлажнителя",
+				"heater_purging": "Продувка электронагревателя",
+				"cooler_defrosting": "Оттайка охладителя",
+				"humidifier_running": "Увлажнитель в работе",
+				"supply_fan_power": "Текущая мощность притока",
+				"exhaust_fan_power": "Текущая мощность вытяжки",
+				"supply_pressure": "Давление в приточном канале",
+				"exhaust_pressure": "Давление в вытяжном канале",
+				"three_way_valve": "Положение трехходового крана",
+				"supply_fan_current": "Ток приточного вентилятора",
+				"exhaust_fan_current": "Ток вытяжного вентилятора",
+				"outdoor_temperature": "Температура наружного воздуха (D1)",
+				"supply_temperature": "Температура приточного воздуха (D2)",
+				"exhaust_temperature": "Температура вытяжного воздуха (D5)",
+				"water_heater_return_temperature": "Температура обратки водяного нагревателя (D3)",
+				"water_heater_surface_temperature": "Температура поверхности водяного нагревателя (D4)",
+				"d7_sensor_temperature": "Температура датчика D7",
+				"d7_sensor_humidity": "Влажность датчика D7",
+				"filter_contamination": "Загрязненность фильтра",
+				"error_code": "Код ошибки",
+				"installation_type": "Тип установки",
+				"equipment_electric_heater": "Установлен электронагреватель",
+				"equipment_water_heater": "Установлен водяной нагреватель",
+				"equipment_cooler": "Установлен кондиционер",
+				"equipment_humidifier": "Установлен увлажнитель/осушитель",
+				"firmware_version": "Версия ПО"
 			}
 		}
 	}
