@@ -1,0 +1,948 @@
+{
+    "title": "sdmo_apm303_template_title",
+    "device_type": "APM_303",
+    "group": "g-control-panel",
+    "device": {
+        "name": "sdmo_apm303_name",
+        "id": "APM303",
+        "groups": [
+            {
+                "title": "Remote_control",
+                "id": "RC"
+            },
+            {
+                "title": "Electrical_and_mechanical_measurements",
+                "id": "EMM"
+            },
+            {
+                "title": "Alarms",
+                "id": "BO"
+            }
+        ],
+        "parameters": [],
+        "channels": [
+            {
+                "address": "0x0027",
+                "enum": [
+                    "0",
+                    "1"
+                ],
+                "enum_titles": [
+                    "Stop",
+                    "Running"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "status",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0028",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Auto",
+                    "Manual"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "mode",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0020",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "On",
+                    "Off"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "starter",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0026",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "On",
+                    "Off"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "preheat",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0002",
+                "group": "RC",
+                "format": "s16",
+                "name": "mode_button",
+                "offset": 0,
+                "reg_type": "coil",
+                "scale": 1,
+                "type": "pushbutton"
+            },
+            {
+                "address": "0x0000",
+                "group": "RC",
+                "format": "s16",
+                "name": "start",
+                "offset": 0,
+                "reg_type": "coil",
+                "scale": 1,
+                "type": "pushbutton"
+            },
+            {
+                "address": "0x0001",
+                "group": "RC",
+                "format": "s16",
+                "name": "stop",
+                "offset": 0,
+                "reg_type": "coil",
+                "scale": 1,
+                "type": "pushbutton"
+            },
+            {
+                "address": "0x0000",
+                "group": "EMM",
+                "format": "s16",
+                "name": "voltage_l1_n",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "voltage",
+                "units": "V"
+            },
+            {
+                "address": "0x0001",
+                "group": "EMM",
+                "format": "s16",
+                "name": "voltage_l2_n",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "voltage",
+                "units": "V"
+            },
+            {
+                "address": "0x0002",
+                "group": "EMM",
+                "format": "s16",
+                "name": "voltage_l3_n",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "voltage",
+                "units": "V"
+            },
+            {
+                "address": "0x0003",
+                "group": "EMM",
+                "format": "s16",
+                "name": "voltage_l1_l2",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "voltage",
+                "units": "V"
+            },
+            {
+                "address": "0x0004",
+                "group": "EMM",
+                "format": "s16",
+                "name": "voltage_l2_l3",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "voltage",
+                "units": "V"
+            },
+            {
+                "address": "0x0005",
+                "group": "EMM",
+                "format": "s16",
+                "name": "voltage_l1_l3",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "voltage",
+                "units": "V"
+            },
+            {
+                "address": "0x0006",
+                "group": "EMM",
+                "format": "s16",
+                "name": "current_l1",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "current",
+                "units": "A"
+            },
+            {
+                "address": "0x0007",
+                "group": "EMM",
+                "format": "s16",
+                "name": "current_l2",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "current",
+                "units": "A"
+            },
+            {
+                "address": "0x0008",
+                "group": "EMM",
+                "format": "s16",
+                "name": "current_l3",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "current",
+                "units": "A"
+            },
+            {
+                "address": "0x0009",
+                "group": "EMM",
+                "format": "s16",
+                "name": "total_active_power",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "kW"
+            },
+            {
+                "address": "0x000C",
+                "group": "EMM",
+                "format": "s16",
+                "name": "active_power_l1",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "kW"
+            },
+            {
+                "address": "0x000D",
+                "group": "EMM",
+                "format": "s16",
+                "name": "active_power_l2",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "kW"
+            },
+            {
+                "address": "0x000E",
+                "group": "EMM",
+                "format": "s16",
+                "name": "active_power_l3",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "kW"
+            },
+            {
+                "address": "0x000A",
+                "group": "EMM",
+                "format": "s16",
+                "name": "total_apparent_power",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "kVA"
+            },
+            {
+                "address": "0x000F",
+                "group": "EMM",
+                "format": "s16",
+                "name": "apparent_power_l1",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "kVA"
+            },
+            {
+                "address": "0x0010",
+                "group": "EMM",
+                "format": "s16",
+                "name": "apparent_power_l2",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "kVA"
+            },
+            {
+                "address": "0x0011",
+                "group": "EMM",
+                "format": "s16",
+                "name": "apparent_power_l3",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "kVA"
+            },
+            {
+                "address": "0x000B",
+                "group": "EMM",
+                "format": "s16",
+                "name": "total_power_factor",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0012",
+                "group": "EMM",
+                "format": "s16",
+                "name": "power_factor_l1",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0013",
+                "group": "EMM",
+                "format": "s16",
+                "name": "power_factor_l2",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0014",
+                "group": "EMM",
+                "format": "s16",
+                "name": "power_factor_l3",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0016",
+                "group": "EMM",
+                "format": "s16",
+                "name": "engine_speed",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value",
+                "units": "rpm"
+            },
+            {
+                "address": "0x0017",
+                "group": "EMM",
+                "format": "s16",
+                "name": "frequency",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "value",
+                "units": "Hz"
+            },
+            {
+                "address": "0x0019",
+                "group": "EMM",
+                "format": "s16",
+                "name": "battery_voltage",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "voltage",
+                "units": "V"
+            },
+            {
+                "address": "0x0020",
+                "group": "EMM",
+                "format": "s16",
+                "name": "charging_alternator_voltage",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 0.1,
+                "type": "voltage",
+                "units": "V"
+            },
+            {
+                "address": "0x001C",
+                "group": "EMM",
+                "format": "s16",
+                "name": "oil_pressure",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value",
+                "units": "bar"
+            },
+            {
+                "address": "0x001D",
+                "group": "EMM",
+                "format": "s16",
+                "name": "coolant_temperature",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "temperature",
+                "units": "deg C"
+            },
+            {
+                "address": "0x001E",
+                "group": "EMM",
+                "format": "s16",
+                "name": "fuel_level",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value",
+                "units": "%"
+            },
+            {
+                "address": "0x0023",
+                "group": "EMM",
+                "format": "s16",
+                "name": "maintenance_timer",
+                "offset": 0,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value",
+                "units": "h"
+            },
+            {
+                "address": "0x0024",
+                "group": "EMM",
+                "format": "s16",
+                "name": "start_counter",
+                "offset": 0,
+                "reg_type": "input",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x002C",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "low_battery",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x002D",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "low_fuel_level",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0031",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "reverse_rotation",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0032",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "battery_flat",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0034",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "emergency_stop",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0035",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "overspeed",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0036",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "underspeed",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0037",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "low_oil_pressure",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0038",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "high_coolant_temperature",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x003D",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "generator_overvoltage",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x003E",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "generator_undervoltage",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x003F",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "generator_overfrequency",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0040",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "generator_underfrequency",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0041",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "start_fail",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0042",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "stop_fail",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0043",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "short_circuit",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            },
+            {
+                "address": "0x0044",
+                "enum": [
+                    "1",
+                    "0"
+                ],
+                "enum_titles": [
+                    "Warning",
+                    "Normal"
+                ],
+                "group": "BO",
+                "format": "s16",
+                "name": "overload",
+                "offset": 0,
+                "readonly": true,
+                "reg_type": "discrete",
+                "scale": 1,
+                "type": "value"
+            }
+        ],
+        "translations": {
+            "en": {
+                "sdmo_apm303_template_title": "SDMO APM303 Generator Controller",
+                "Remote_control": "Remote Control",
+                "Electrical_and_mechanical_measurements": "Electrical and Mechanical Measurements",
+                "Alarms": "Alarms",
+                "Stop": "Stop",
+                "Running": "Running",
+                "Auto": "Auto",
+                "Manual": "Manual",
+                "On": "On",
+                "Off": "Off",
+                "Normal": "Normal",
+                "Warning": "Warning",
+                "status": "Status",
+                "mode": "Mode",
+                "starter": "Starter",
+                "preheat": "Preheat",
+                "mode_button": "Mode",
+                "start": "Start",
+                "stop": "Stop",
+                "voltage_l1_n": "Voltage L1-N",
+                "voltage_l2_n": "Voltage L2-N",
+                "voltage_l3_n": "Voltage L3-N",
+                "voltage_l1_l2": "Voltage L1-L2",
+                "voltage_l2_l3": "Voltage L2-L3",
+                "voltage_l1_l3": "Voltage L1-L3",
+                "current_l1": "Current L1",
+                "current_l2": "Current L2",
+                "current_l3": "Current L3",
+                "total_active_power": "Total Active Power",
+                "active_power_l1": "Active Power L1",
+                "active_power_l2": "Active Power L2",
+                "active_power_l3": "Active Power L3",
+                "total_apparent_power": "Total Apparent Power",
+                "apparent_power_l1": "Apparent Power L1",
+                "apparent_power_l2": "Apparent Power L2",
+                "apparent_power_l3": "Apparent Power L3",
+                "total_power_factor": "Total Power Factor",
+                "power_factor_l1": "Power Factor L1",
+                "power_factor_l2": "Power Factor L2",
+                "power_factor_l3": "Power Factor L3",
+                "engine_speed": "Engine Speed",
+                "frequency": "Frequency",
+                "battery_voltage": "Battery Voltage",
+                "charging_alternator_voltage": "Charging Alternator Voltage",
+                "oil_pressure": "Oil Pressure",
+                "coolant_temperature": "Coolant Temperature",
+                "fuel_level": "Fuel Level",
+                "maintenance_timer": "Maintenance Timer",
+                "start_counter": "Start Counter",
+                "low_battery": "Low Battery",
+                "low_fuel_level": "Low Fuel Level",
+                "reverse_rotation": "Reverse Rotation",
+                "battery_flat": "Battery Flat",
+                "emergency_stop": "Emergency Stop",
+                "overspeed": "Overspeed",
+                "underspeed": "Underspeed",
+                "low_oil_pressure": "Low Oil Pressure",
+                "high_coolant_temperature": "High Coolant Temperature",
+                "generator_overvoltage": "Generator Overvoltage",
+                "generator_undervoltage": "Generator Undervoltage",
+                "generator_overfrequency": "Generator Overfrequency",
+                "generator_underfrequency": "Generator Underfrequency",
+                "start_fail": "Start Fail",
+                "stop_fail": "Stop Fail",
+                "short_circuit": "Short Circuit",
+                "overload": "Overload",
+                "sdmo_apm303_name": "SDMO APM303"
+            },
+            "ru": {
+                "sdmo_apm303_template_title": "SDMO APM303 Контроллер ДГУ",
+                "Remote_control": "Удаленное управление",
+                "Electrical_and_mechanical_measurements": "Электрические и механические параметры",
+                "Alarms": "Аварийные сообщения",
+                "Stop": "Остановлен",
+                "Running": "Запущен",
+                "Auto": "Авто",
+                "Manual": "Ручной",
+                "On": "Включен",
+                "Off": "Выключен",
+                "Normal": "В норме",
+                "Warning": "Предупреждение",
+                "status": "Статус",
+                "mode": "Режим работы",
+                "starter": "Стартер",
+                "preheat": "Предварительный подогрев",
+                "mode_button": "Режим",
+                "start": "Старт",
+                "stop": "Стоп",
+                "voltage_l1_n": "Напряжение L1-N",
+                "voltage_l2_n": "Напряжение L2-N",
+                "voltage_l3_n": "Напряжение L3-N",
+                "voltage_l1_l2": "Напряжение L1-L2",
+                "voltage_l2_l3": "Напряжение L2-L3",
+                "voltage_l1_l3": "Напряжение L1-L3",
+                "current_l1": "Ток L1",
+                "current_l2": "Ток L2",
+                "current_l3": "Ток L3",
+                "total_active_power": "Суммарная активная мощность",
+                "active_power_l1": "Активная мощность L1",
+                "active_power_l2": "Активная мощность L2",
+                "active_power_l3": "Активная мощность L3",
+                "total_apparent_power": "Суммарная полная мощность",
+                "apparent_power_l1": "Полная мощность L1",
+                "apparent_power_l2": "Полная мощность L2",
+                "apparent_power_l3": "Полная мощность L3",
+                "total_power_factor": "Суммарный коэффициент мощности",
+                "power_factor_l1": "Коэффициент мощности L1",
+                "power_factor_l2": "Коэффициент мощности L2",
+                "power_factor_l3": "Коэффициент мощности L3",
+                "engine_speed": "Обороты двигателя",
+                "frequency": "Частота",
+                "battery_voltage": "Напряжение аккумулятора",
+                "charging_alternator_voltage": "Напряжение зарядного генератора",
+                "oil_pressure": "Давление масла",
+                "coolant_temperature": "Температура охлаждающей жидкости",
+                "fuel_level": "Уровень топлива",
+                "maintenance_timer": "Таймер техобслуживания",
+                "start_counter": "Количество запусков",
+                "low_battery": "Низкий заряд аккумулятора",
+                "low_fuel_level": "Низкий уровень топлива",
+                "reverse_rotation": "Обратное вращение",
+                "battery_flat": "Аккумулятор разряжен",
+                "emergency_stop": "Аварийная остановка",
+                "overspeed": "Повышенные обороты",
+                "underspeed": "Пониженные обороты",
+                "low_oil_pressure": "Низкое давление масла",
+                "high_coolant_temperature": "Высокая температура охлаждающей жидкости",
+                "generator_overvoltage": "Повышенное напряжение генератора",
+                "generator_undervoltage": "Пониженное напряжение генератора",
+                "generator_overfrequency": "Повышенная частота генератора",
+                "generator_underfrequency": "Пониженная частота генератора",
+                "start_fail": "Ошибка запуска",
+                "stop_fail": "Ошибка остановки",
+                "short_circuit": "Короткое замыкание",
+                "overload": "Перегрузка",
+                "sdmo_apm303_name": "SDMO APM303"
+            }
+        }
+    }
+}
