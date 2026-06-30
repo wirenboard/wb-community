@@ -1,0 +1,1110 @@
+{
+    "title": "Zentec_Z031",
+    "device_type": "Zentec_Z031",
+    "group": "g-control-panel",
+    "device": {
+        "name": "Zentec Z031",
+        "id": "Zentec_Z031",
+        "groups": [
+            {
+                "title": "main",
+                "id": "main",
+                "order": 1
+            },
+            {
+                "title": "temperature",
+                "id": "temp",
+                "order": 2
+            },
+            {
+                "title": "humidity",
+                "id": "humidity",
+                "order": 3
+            },
+            {
+                "title": "air_quality",
+                "id": "voc",
+                "order": 4
+            },
+            {
+                "title": "terminal",
+                "id": "terminal",
+                "order": 5
+            },
+            {
+                "title": "errors",
+                "id": "errors",
+                "order": 6
+            }
+        ],
+        
+        "parameters": [
+            {
+                "id": "runtime_mode",
+                "title": "runtime_mode",
+                "address": 50001,
+                "reg_type": "holding",
+                "enum": [0,1,2,3],
+                "enum_titles": [
+                    "runtime_mode_0",
+                    "runtime_mode_1",
+                    "runtime_mode_2",
+                    "runtime_mode_3"
+                ],
+                "default": 0,
+                "group": "main"
+            },
+            {
+                "id": "runtime_mode_extra",
+                "title": "runtime_mode_extra",
+                "address": 50002,
+                "reg_type": "holding",
+                "type": "value",
+                "format": "u16",
+                "default": 0,
+                "group": "main"
+            },
+            {
+                "id": "max_fan_speed",
+                "title": "max_fan_speed",
+                "reg_type": "holding",
+                "address": 50004,
+                "enum": [0,1,2,3,4,5,6,7],
+                "enum_titles": ["0","1","2","3","4","5","6","7"],
+                "default": 3,
+                "group": "main"
+            },
+            {
+                "id": "allow_fan_auto_mode",
+                "title": "allow_fan_auto_mode",
+                "reg_type": "holding",
+                "address": "50005:0:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 0,
+                "group": "main"
+            },
+            {
+                "id": "allow_mode_humidity",
+                "title": "allow_mode_humidity",
+                "reg_type": "holding",
+                "address": "50007:0:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 0,
+                "group": "main"
+            },
+            {
+                "id": "allow_mode_voc",
+                "title": "allow_mode_voc",
+                "reg_type": "holding",
+                "address": "50007:1:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 0,
+                "group": "main"
+            },
+            {
+                "id": "allow_mode_vent",
+                "title": "allow_mode_vent",
+                "reg_type": "holding",
+                "address": "50006:0:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 1,
+                "group": "main"
+            },
+            {
+                "id": "allow_mode_warm",
+                "title": "allow_mode_warm",
+                "reg_type": "holding",
+                "address": "50006:1:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 1,
+                "group": "main"
+            },
+            {
+                "id": "allow_mode_cool",
+                "title": "allow_mode_cool",
+                "reg_type": "holding",
+                "address": "50006:2:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 0,
+                "group": "main"
+            },
+
+            
+            {
+                "id": "min_target_temperature",
+                "title": "min_target_temperature",
+                "reg_type": "holding",
+                "address": 50008,
+                "type": "range",
+                "min": 15,
+                "max": 30,
+                "default": 15,
+                "group": "temp"
+            },
+            {
+                "id": "max_target_temperature",
+                "title": "max_target_temperature",
+                "reg_type": "holding",
+                "address": 50009,
+                "type": "range",
+                "min": 30,
+                "max": 255,
+                "default": 35,
+                "group": "temp"
+            },
+            {
+                "id": "internal_temperature_correction",
+                "title": "internal_temperature_correction",
+                "reg_type": "holding",
+                "address": 50049,
+                "format": "u16",
+                "default": 10,
+                "group": "temp"
+            },
+
+            {
+                "id": "min_target_humidity",
+                "title": "min_target_humidity",
+                "reg_type": "holding",
+                "address": 50010,
+                "type": "range",
+                "min": 0,
+                "max": 50,
+                "default": 40,
+                "group": "humidity"
+            },
+            {
+                "id": "max_target_humidity",
+                "title": "max_target_humidity",
+                "reg_type": "holding",
+                "address": 50011,
+                "type": "range",
+                "min": 50,
+                "max": 100,
+                "default": 90,
+                "group": "humidity"
+            },
+
+
+            {
+                "id": "min_target_voc",
+                "title": "min_target_voc",
+                "reg_type": "holding",
+                "address": 50012,
+                "type": "range",
+                "min": 0,
+                "max": 50,
+                "default": 0,
+                "group": "voc"
+            },
+            {
+                "id": "max_target_voc",
+                "title": "max_target_voc",
+                "reg_type": "holding",
+                "address": 50013,
+                "type": "range",
+                "min": 50,
+                "max": 100,
+                "default": 99,
+                "group": "voc"
+            },
+
+
+            
+            {
+                "id": "keyboard_lock",
+                "title": "keyboard_lock",
+                "reg_type": "holding",
+                "address": 50000,
+                "enum": [0,1,2],
+                "enum_titles": ["no", "power_only", "lock_all"],
+                "default": 0,
+                "group": "terminal"
+            },
+            {
+                "id": "display_fan_icon",
+                "title": "display_fan_icon",
+                "reg_type": "holding",
+                "address": "50005:1:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 1,
+                "group": "terminal"
+            } ,           
+            {
+                "id": "display_air_flow_icon",
+                "title": "display_air_flow_icon",
+                "reg_type": "holding",
+                "address": "50005:2:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 1,
+                "group": "terminal"
+            },
+            {
+                "id": "display_temperature_source",
+                "title": "display_temperature_source",
+                "reg_type": "holding",
+                "address": 50014,
+                "enum": [0,1,2],
+                "enum_titles": ["internal_sensor", "channel_sensor", "out_sensor"],
+                "default": 1,
+                "group": "terminal"
+            },
+            {
+                "id": "display_extra_internal_temp",
+                "title": "display_extra_internal_temp",
+                "reg_type": "holding",
+                "address": "50015:0:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 0,
+                "group": "terminal"
+            },
+            {
+                "id": "display_extra_channel_temp",
+                "title": "display_extra_channel_temp",
+                "reg_type": "holding",
+                "address": "50015:1:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 1,
+                "group": "terminal"
+            },
+            {
+                "id": "display_extra_out_temp",
+                "title": "display_extra_out_temp",
+                "reg_type": "holding",
+                "address": "50015:2:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 0,
+                "group": "terminal"
+            },
+            {
+                "id": "display_extra_outside_temp",
+                "title": "display_extra_outside_temp",
+                "reg_type": "holding",
+                "address": "50015:3:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 1,
+                "group": "terminal"
+            },
+            {
+                "id": "display_extra_coolant_temp",
+                "title": "display_extra_coolant_temp",
+                "reg_type": "holding",
+                "address": "50015:4:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 0,
+                "group": "terminal"
+            },
+            {
+                "id": "display_extra_heater_power",
+                "title": "display_extra_heater_power",
+                "reg_type": "holding",
+                "address": "50015:5:1",
+                "enum": [0,1],
+                "enum_titles": ["no", "yes"],
+                "default": 0,
+                "group": "terminal"
+            },
+            {
+                "id": "auto_exit_time_from_auxiliary_menus",
+                "title": "auto_exit_time_from_auxiliary_menus",
+                "reg_type": "holding",
+                "address": 50050,
+                "type": "range",
+                "min": 5,
+                "max": 30,
+                "default": 15,
+                "group": "terminal"
+            },
+            {
+                "id": "min_daytime_backlight",
+                "title": "min_daytime_backlight",
+                "reg_type": "holding",
+                "address": 50051,
+                "type": "range",
+                "min": 0,
+                "max": 100,
+                "default": 20,
+                "group": "terminal"
+            },
+            {
+                "id": "max_daytime_backlight",
+                "title": "max_daytime_backlight",
+                "reg_type": "holding",
+                "address": 50052,
+                "type": "range",
+                "min": 0,
+                "max": 100,
+                "default": 100,
+                "group": "terminal"
+            },
+            {
+                "id": "min_nighttime_backlight",
+                "title": "min_nighttime_backlight",
+                "reg_type": "holding",
+                "address": 50053,
+                "type": "range",
+                "min": 0,
+                "max": 100,
+                "default": 0,
+                "group": "terminal"
+            },
+            {
+                "id": "max_nighttime_backlight",
+                "title": "max_nighttime_backlight",
+                "reg_type": "holding",
+                "address": 50054,
+                "type": "range",
+                "min": 0,
+                "max": 100,
+                "default": 20,
+                "group": "terminal"
+            }          
+        ],
+        
+        "channels": [
+            {
+                "name": "state",
+                "reg_type": "holding",
+                "address": 40003,
+                "type": "switch",
+                "group": "main"
+            },
+            {
+                "name": "mode",
+                "reg_type": "holding",
+                "address": 40001,
+                "type": "value",
+                "enum": [1,2,4,8],
+                "enum_titles": ["fan", "heat", "cool", "auto"],
+                "group": "main"
+            },
+            {
+                "name": "rotation_speed",
+                "reg_type": "holding",
+                "address": 40000,
+                "type": "range",
+                "min": 1,
+                "max": 7,
+                "group": "main"
+            },
+            
+            
+            {
+                "name": "target_temperature",
+                "reg_type": "holding",
+                "address": 40002,
+                "type": "range",
+                "min": 15,
+                "max": 50,
+                "group": "temp"
+            },
+            {
+                "name": "indoor_temperature",
+                "reg_type": "holding",
+                "address": 30000,
+                "type": "value",
+                "units": "deg C",
+                "scale": 0.1,
+                "format": "s16",
+                "readonly": true,
+                "group": "temp"
+            },
+            {
+                "name": "channel_temperature",
+                "reg_type": "holding",
+                "address": 40009,
+                "type": "value",
+                "units": "deg C",
+                "scale": 0.1,
+                "format": "s16",
+                "readonly": true,
+                "group": "temp"
+            },
+            {
+                "name": "out_temperature",
+                "reg_type": "holding",
+                "address": 40011,
+                "type": "value",
+                "units": "deg C",
+                "scale": 0.1,
+                "format": "s16",
+                "readonly": true,
+                "group": "temp"
+            },
+            {
+                "name": "outdoor_temperature",
+                "reg_type": "holding",
+                "address": 40010,
+                "type": "value",
+                "units": "deg C",
+                "scale": 0.1,
+                "format": "s16",
+                "readonly": true,
+                "group": "temp"
+            },
+            {
+                "name": "coolant_temperature",
+                "reg_type": "holding",
+                "address": 40012,
+                "type": "value",
+                "units": "deg C",
+                "scale": 0.1,
+                "format": "s16",
+                "readonly": true,
+                "group": "temp"
+            },
+            {
+                "name": "heating_power",
+                "reg_type": "holding",
+                "address": 40014,
+                "type": "value",
+                "units": "%",
+                "min": 0,
+                "max": 99,
+                "readonly": true,
+                "group": "temp"                
+            },
+            
+            
+            {
+                "name": "target_humidity",
+                "reg_type": "holding",
+                "address": 40007,
+                "type": "range",
+                "min": 0,
+                "max": 99,
+                "group": "humidity"
+            },
+            {
+                "name": "indoor_humidity",
+                "reg_type": "holding",
+                "address": 30001,
+                "type": "value",
+                "units": "%",
+                "readonly": true,
+                "group": "humidity"
+            },
+            {
+                "name": "channel_humidity",
+                "reg_type": "holding",
+                "address": 40013,
+                "type": "value",
+                "units": "%",
+                "min": 0,
+                "max": 99,
+                "readonly": true,
+                "group": "humidity"
+            },
+            
+            
+            {
+                "name": "target_voc",
+                "reg_type": "holding",
+                "address": 40008,
+                "type": "range",
+                "min": 0,
+                "max": 99,
+                "group": "voc"
+            },
+            {
+                "name": "indoor_voc",
+                "reg_type": "holding",
+                "address": 30002,
+                "type": "value",
+                "readonly": true,
+                "units": "%",
+                "group": "voc"
+            },
+            
+            
+            {
+                "group": "errors",
+                "name": "E01",
+                "reg_type": "holding",
+                "address": "40004:0:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E02",
+                "reg_type": "holding",
+                "address": "40004:1:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E03",
+                "reg_type": "holding",
+                "address": "40004:2:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E04",
+                "reg_type": "holding",
+                "address": "40004:3:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E05",
+                "reg_type": "holding",
+                "address": "40004:4:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E06",
+                "reg_type": "holding",
+                "address": "40004:5:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E07",
+                "reg_type": "holding",
+                "address": "40004:6:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E08",
+                "reg_type": "holding",
+                "address": "40004:7:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E09",
+                "reg_type": "holding",
+                "address": "40004:8:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E10",
+                "reg_type": "holding",
+                "address": "40004:9:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E11",
+                "reg_type": "holding",
+                "address": "40004:10:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E12",
+                "reg_type": "holding",
+                "address": "40004:11:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E13",
+                "reg_type": "holding",
+                "address": "40004:12:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E14",
+                "reg_type": "holding",
+                "address": "40004:13:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E15",
+                "reg_type": "holding",
+                "address": "40004:14:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E16",
+                "reg_type": "holding",
+                "address": "40004:15:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E17",
+                "reg_type": "holding",
+                "address": "40005:0:1",
+                "readonly": true,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E18",
+                "reg_type": "holding",
+                "address": "40005:1:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E19",
+                "reg_type": "holding",
+                "address": "40005:2:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E20",
+                "reg_type": "holding",
+                "address": "40005:3:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E21",
+                "reg_type": "holding",
+                "address": "40005:4:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E22",
+                "reg_type": "holding",
+                "address": "40005:5:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E23",
+                "reg_type": "holding",
+                "address": "40005:6:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E24",
+                "reg_type": "holding",
+                "address": "40005:7:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E25",
+                "reg_type": "holding",
+                "address": "40005:8:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E26",
+                "reg_type": "holding",
+                "address": "40005:9:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E27",
+                "reg_type": "holding",
+                "address": "40005:10:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E28",
+                "reg_type": "holding",
+                "address": "40005:11:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E29",
+                "reg_type": "holding",
+                "address": "40005:12:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E30",
+                "reg_type": "holding",
+                "address": "40005:13:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E31",
+                "reg_type": "holding",
+                "address": "40005:14:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E32",
+                "reg_type": "holding",
+                "address": "40005:15:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E33",
+                "reg_type": "holding",
+                "address": "40006:0:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E34",
+                "reg_type": "holding",
+                "address": "40006:1:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E35",
+                "reg_type": "holding",
+                "address": "40006:2:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E36",
+                "reg_type": "holding",
+                "address": "40006:3:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E37",
+                "reg_type": "holding",
+                "address": "40006:4:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E38",
+                "reg_type": "holding",
+                "address": "40006:5:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E39",
+                "reg_type": "holding",
+                "address": "40006:6:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E40",
+                "reg_type": "holding",
+                "address": "40006:7:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E41",
+                "reg_type": "holding",
+                "address": "40006:8:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E42",
+                "reg_type": "holding",
+                "address": "40006:9:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E43",
+                "reg_type": "holding",
+                "address": "40006:10:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E44",
+                "reg_type": "holding",
+                "address": "40006:11:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E45",
+                "reg_type": "holding",
+                "address": "40006:12:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E46",
+                "reg_type": "holding",
+                "address": "40006:13:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E47",
+                "reg_type": "holding",
+                "address": "40006:14:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            },
+            {
+                "group": "errors",
+                "name": "E48",
+                "reg_type": "holding",
+                "address": "40006:15:1",
+                "readonly": true,
+                "enabled": false,
+                "type": "switch"
+            }
+        ],
+        "translations": {
+            "en": {
+                "Zentec_Z031": "Zentec Z031 Programmable operating terminal",
+                "main": "Main",
+                "temperature": "Temperature",
+                "humidity": "Humidity",
+                "air_quality": "Air Quality",
+                "terminal": "Terminal",
+                "runtime_mode": "Runtime mode",
+                "runtime_mode_extra": "Runtime mode program number",
+                "runtime_mode_0": "Z033 compatibility",
+                "runtime_mode_1": "Standard ventilation software. Z033 emulation. Master",
+                "runtime_mode_2": "Generic ventilation software. Master",
+                "runtime_mode_3": "Standard in-floor convector software",
+                "max_fan_speed": "Max fan speed",
+                "allow_fan_auto_mode": "Allow Fan Auto Mode",
+                "display_fan_icon": "Display fan icon",
+                "display_air_flow_icon": "Display air flow icon",
+                "allow_mode_humidity": "Enable humidity mode",
+                "allow_mode_voc": "Enable air quality mode",
+                "allow_mode_vent": "Enable ventilation mode",
+                "allow_mode_warm": "Enable warming mode",
+                "allow_mode_cool": "Enable cooling mode",
+                "min_target_temperature": "Min target temperature",
+                "max_target_temperature": "Max target temperature",
+                "min_target_humidity": "Min target humidity",
+                "max_target_humidity": "Max target humidity",
+                "min_target_voc": "Min target air quality",
+                "max_target_voc": "Max target air quality",
+                "display_temperature_source": "Display temperature source",
+                "internal_sensor": "Internal sensor",
+                "channel_sensor": "Channel sensor",
+                "out_sensor": "Out sensor",
+                "keyboard_lock": "Keyboard lock",
+                "power_only": "Power only",
+                "lock_all": "Lock all",
+                "display_extra_internal_temp": "Display extra: internal temperature",
+                "display_extra_channel_temp": "Display extra: channel temperature",
+                "display_extra_out_temp": "Display extra: exhaust air temperature",
+                "display_extra_outside_temp": "Display extra: outside air temperature",
+                "display_extra_coolant_temp": "Display extra: exhaust coolant temperature",
+                "display_extra_heater_power": "Display extra: heater power in %",
+                "internal_temperature_correction": "Internal temperature correction, C",
+                "state": "State",
+                "mode": "Mode",
+                "off": "off",
+                "fan": "fan",
+                "heat": "heat",
+                "cool": "cool",
+                "auto": "auto",
+                "rotation_speed": "Fan speed",
+                "target_temperature": "Target temperature",
+                "indoor_temperature": "Indoor temperature",
+                "channel_temperature": "Channel temperature",
+                "target_humidity": "Target humidity",
+                "target_voc": "Target air quality",
+                "auto_exit_time_from_auxiliary_menus": "Auto Exit Time From Auxiliary Menus",
+                "min_daytime_backlight": "Min daytime backlight",
+                "max_daytime_backlight": "Max daytime backlight",
+                "min_nighttime_backlight": "Min nighttime backlight",
+                "max_nighttime_backlight": "Max nighttime backlight",
+                "errors": "Errors",
+                "out_temperature": "Exhaust air temperature",
+                "outdoor_temperature": "Outdoor temperature",
+                "coolant_temperature": "Coolant temperature",
+                "heating_power": "Heating power",
+                "indoor_humidity": "Indoor humidity",
+                "channel_humidity": "Channel humidity",
+                "indoor_voc": "Indoor air quality"
+            },
+            "ru": {
+                "Zentec_Z031": "Zentec Z031 Программируемый пользовательский терминал",
+                "main": "Главное",
+                "temperature": "Температура",
+                "humidity": "Влажность",
+                "air_quality": "Качество воздуха",
+                "terminal": "Терминал",
+                "runtime_mode": "Режим исполнения программы",
+                "runtime_mode_extra": "Дополнительный номер исполняющейся программы",
+                "runtime_mode_0": "режим совместимости с Z033",
+                "runtime_mode_1" : "стандартное ПО для вентиляции. Эмуляция Z033. Мастер",
+                "runtime_mode_2" : "Универсальное ПО для вентиляции. Мастер",
+                "runtime_mode_3" : "стандартное ПО для конвекторов, встраиваемых в пол",
+                "max_fan_speed": "Максимальное кол-во скоростей вентилятора",
+                "allow_fan_auto_mode": "Разрешить авторежим вентилятора",
+                "no": "Нет",
+                "yes": "Да",
+                "display_fan_icon": "Вывод значка вентилятора",
+                "display_air_flow_icon": "Вывод значка обдува",
+                "allow_mode_humidity": "Режим контроля влажности",
+                "allow_mode_voc": "Режим контроля качества воздуха",
+                "allow_mode_vent": "Режим вентиляции",
+                "allow_mode_warm": "Режим нагрева",
+                "allow_mode_cool": "Режим охлаждения",
+                "min_target_temperature": "Минимальная уставка температуры",
+                "max_target_temperature": "Максимальная уставка температуры",
+                "min_target_humidity": "Минимальная уставка влажности",
+                "max_target_humidity": "Максимальная уставка влажности",
+                "min_target_voc": "Минимальная уставка качества воздуха",
+                "max_target_voc": "Максимальная уставка качества воздуха",
+                "display_temperature_source": "Точка измерения температуры",
+                "internal_sensor": "встроенный датчик температуры",
+                "channel_sensor": "канальный датчик температуры",
+                "out_sensor": "температура по датчику вытяжного воздуха",
+                "keyboard_lock": "Блокировка клавиатуры",
+                "power_only": "Блокируется вся клавиатура кроме кнопки «питание»",
+                "lock_all": "Блокируется вся клавиатура",
+                "display_extra_internal_temp": "Вспом. вывод: встроенный датчик температуры",
+                "display_extra_channel_temp": "Вспом. вывод: канальный датчик температуры",
+                "display_extra_out_temp": "Вспом. вывод: температура по датчику вытяжного воздуха",
+                "display_extra_outside_temp": "Вспом. вывод: температура наружного воздуха",
+                "display_extra_coolant_temp": "Вспом. вывод: температура отработанного теплоносителя",
+                "display_extra_heater_power": "Вспом. вывод: общая мощность нагревателя в %",
+                "internal_temperature_correction": "Корректировка температуры встроенного датчика, С",
+                "state": "Состояние",
+                "mode": "Режим",
+                "off": "Выкл",
+                "fan": "Вентиляция",
+                "heat": "Нагрев",
+                "cool": "Охлаждение",
+                "auto": "Авто",
+                "rotation_speed": "Скорость вентилятора",
+                "target_temperature": "Целевая температура",
+                "indoor_temperature": "Температура в помещении",
+                "channel_temperature": "Температура в канале",
+                "target_humidity": "Целевая влажность",
+                "target_voc": "Целевое качество воздуха",
+                "auto_exit_time_from_auxiliary_menus": "Время автовыхода из вспомогательных меню, сек:",
+                "min_daytime_backlight": "Минимальная дневная подсветка",
+                "max_daytime_backlight": "Максимальная дневная подсветка",
+                "min_nighttime_backlight": "Минимальная ночная подсветка",
+                "max_nighttime_backlight": "Максимальная ночная подсветка",
+                "errors": "Ошибки",
+                "out_temperature": "Температура вытяжного воздуха",
+                "outdoor_temperature": "Температура наружного воздуха",
+                "coolant_temperature": "Температура отработанного теплоносителя",
+                "heating_power": "Мощность нагревателя",
+                "indoor_humidity": "Влажность в помещении",
+                "channel_humidity": "Влажность в канале",
+                "indoor_voc": "Качество воздуха в помещении",
+
+                "E01": "E01 - Включена пожарная сигнализация",
+                "E02": "E02 - Отказ датчика t° приточного воздуха",
+                "E03": "E03 - Отказ датчика t° отработанного теплоносителя",
+                "E04": "E04 - Отказ датчика t° наружного воздуха",
+                "E05": "E05 - Отказ датчика t° воздуха в помещении",
+                "E06": "E06 - Отказ двигателя",
+                "E07": "E07 - Сработал защитный термостат теплообменника",
+                "E08": "E08 - Слишком низкая t° приточного воздуха",
+                "E09": "E09 - Несоответствие параметров теплоносителя",
+                "E12": "E12 - Проект пульта поврежден",
+                "E17": "E17 - Встроенный датчик t° не отвечает"
+            }
+        }
+    }
+}
