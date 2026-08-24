@@ -47,7 +47,7 @@
 
 createVakioOpenAir({
   id: 1,
-  topic: "VAKIO",
+  topic: "vakio",
   endpoint: "openair",
   polling_interval: 10, // интервал heartbeat (сек)
   deep_poll_interval: 300, // интервал глубокого опроса (сек), по умолчанию 5 минут
@@ -129,14 +129,18 @@ function createVakioOpenAir(params) {
         title: "Вкл / Выкл",
         type: "switch",
         value: false,
-        order: 1,
+        order: 1
       },
       Workmode: {
         title: "Режим (manual / super_auto)",
         type: "text",
         value: "manual",
         readonly: false,
-        order: 2,
+        enum: {
+          "manual": {en: 'manual', ru: 'Ручной'},
+          "super_auto": {en: 'super auto', ru: 'Авто'}
+        },
+        order: 2
       },
       Speed: {
         title: "Скорость (0=стоп, 1-5)",
@@ -144,7 +148,7 @@ function createVakioOpenAir(params) {
         value: 0,
         min: 0,
         max: 5,
-        order: 3,
+        order: 3
       },
       Gate: {
         title: "Заслонка (1=мин, 4=макс)",
@@ -152,19 +156,19 @@ function createVakioOpenAir(params) {
         value: 2,
         min: 1,
         max: 4,
-        order: 4,
+        order: 4
       },
       CloseGate: {
         title: "Стоп + закрыть",
         type: "pushbutton",
         value: false,
-        order: 5,
+        order: 5
       },
       ForceRefresh: {
         title: "Обновить данные с устройства",
         type: "pushbutton",
         value: false,
-        order: 6,
+        order: 6
       },
 
       // --- Статус ---
@@ -173,28 +177,28 @@ function createVakioOpenAir(params) {
         type: "switch",
         value: false,
         readonly: true,
-        order: 10,
+        order: 10
       },
       Temperature: {
         title: "Температура (°C)",
         type: "temperature",
         value: 0,
         readonly: true,
-        order: 11,
+        order: 11
       },
       Humidity: {
         title: "Влажность (%)",
         type: "rel_humidity",
         value: 0,
         readonly: true,
-        order: 12,
+        order: 12
       },
       Err_Shutdown: {
         title: "Ошибка: переохлаждение",
         type: "switch",
         value: false,
         readonly: true,
-        order: 13,
+        order: 13
       },
 
       // --- Настройки смарт-режима (ЗАПИСЫВАЕМЫЕ) ---
@@ -208,7 +212,7 @@ function createVakioOpenAir(params) {
         value: 4,
         min: 1,
         max: 4,
-        order: 20,
+        order: 20
       },
       Smart_Speed: {
         title: "Смарт: скорость (1-5)",
@@ -216,7 +220,7 @@ function createVakioOpenAir(params) {
         value: 3,
         min: 1,
         max: 5,
-        order: 21,
+        order: 21
       },
       Smart_Temp: {
         title: "Смарт: порог температуры (°C)",
@@ -224,7 +228,7 @@ function createVakioOpenAir(params) {
         value: 20,
         min: -20,
         max: 40,
-        order: 22,
+        order: 22
       },
       Emerg_Shunt: {
         title: "Смарт: темп. откл. клапана (°C)",
@@ -232,7 +236,7 @@ function createVakioOpenAir(params) {
         value: 10,
         min: -20,
         max: 25,
-        order: 23,
+        order: 23
       },
       Shutdown_Limit: {
         title: "Порог переохлаждения (°C)",
@@ -240,7 +244,7 @@ function createVakioOpenAir(params) {
         value: 0,
         min: -30,
         max: 25,
-        order: 24,
+        order: 24
       },
 
       // --- Авто-режим (readonly, feedback из settings) ---
@@ -249,14 +253,14 @@ function createVakioOpenAir(params) {
         type: "value",
         value: 0,
         readonly: true,
-        order: 30,
+        order: 30
       },
       Auto_Speed: {
         title: "Авто: скорость [feedback]",
         type: "value",
         value: 0,
         readonly: true,
-        order: 31,
+        order: 31
       },
 
       // --- Информация об устройстве (readonly) ---
@@ -265,35 +269,35 @@ function createVakioOpenAir(params) {
         type: "text",
         value: "—",
         readonly: true,
-        order: 40,
+        order: 40
       },
       Device_MAC: {
         title: "MAC адрес",
         type: "text",
         value: "—",
         readonly: true,
-        order: 41,
+        order: 41
       },
       HW_Series: {
         title: "Серия железа",
         type: "text",
         value: "—",
         readonly: true,
-        order: 42,
+        order: 42
       },
       HW_Subtype: {
         title: "Подтип железа",
         type: "text",
         value: "—",
         readonly: true,
-        order: 43,
+        order: 43
       },
       Exchange: {
         title: "Протокол обмена",
         type: "text",
         value: "—",
         readonly: true,
-        order: 44,
+        order: 44
       },
 
       // --- Rel (readonly, feedback) ---
@@ -302,21 +306,21 @@ function createVakioOpenAir(params) {
         type: "value",
         value: 0,
         readonly: true,
-        order: 50,
+        order: 50
       },
       Rel_SmartSpeed: {
         title: "Rel: скорость смарт [feedback]",
         type: "value",
         value: 0,
         readonly: true,
-        order: 51,
+        order: 51
       },
       Rel_EmergShunt: {
         title: "Rel: emerg_shunt [feedback]",
         type: "value",
         value: 0,
         readonly: true,
-        order: 52,
+        order: 52
       },
 
       // --- Отладка ---
@@ -324,9 +328,9 @@ function createVakioOpenAir(params) {
         title: "Детальный лог (Debug)",
         type: "switch",
         value: false,
-        order: 60,
-      },
-    },
+        order: 60
+      }
+    }
   });
 
   // ============================================================
@@ -426,7 +430,7 @@ function createVakioOpenAir(params) {
       var isOn =
         msg.value === true || msg.value === "true" || msg.value === "1";
       sendCapabilities({ on_off: isOn ? "on" : "off" });
-    },
+    }
   );
 
   // --- Режим ---
@@ -436,7 +440,7 @@ function createVakioOpenAir(params) {
       var mode = String(msg.value).trim();
       log.info("[" + vd + "] режим → " + mode);
       sendCapabilities({ mode: mode });
-    },
+    }
   );
 
   // --- Скорость с интерлоком ---
@@ -459,7 +463,7 @@ function createVakioOpenAir(params) {
           _selfChange = false;
         }, 1500);
       }
-    },
+    }
   );
 
   // --- Заслонка с интерлоком ---
@@ -488,7 +492,7 @@ function createVakioOpenAir(params) {
       setTimeout(function () {
         sendCapabilities({ on_off: "off" });
       }, 1500);
-    },
+    }
   });
 
   // --- ForceRefresh ---
@@ -500,7 +504,7 @@ function createVakioOpenAir(params) {
       }
       log.info("[" + vd + "] принудительное обновление данных...");
       deepPoll();
-    },
+    }
   });
 
   // --- Настройки смарт: gate + smart_speed + emerg_shunt ---
@@ -508,13 +512,13 @@ function createVakioOpenAir(params) {
     whenChanged: [
       vd + "/" + ctrlSmartGate,
       vd + "/" + ctrlSmartSpeed,
-      vd + "/" + ctrlEmergShunt,
+      vd + "/" + ctrlEmergShunt
     ],
     then: function () {
       var s = {
         gate: dev[vd][ctrlSmartGate],
         smart_speed: dev[vd][ctrlSmartSpeed],
-        emerg_shunt: dev[vd][ctrlEmergShunt],
+        emerg_shunt: dev[vd][ctrlEmergShunt]
       };
       sendSettings(s);
       log.info(
@@ -525,9 +529,9 @@ function createVakioOpenAir(params) {
           " speed=" +
           s.smart_speed +
           " emerg=" +
-          s.emerg_shunt,
+          s.emerg_shunt
       );
-    },
+    }
   });
 
   // --- Настройки смарт: temperature_speed (порог + скорость) ---
@@ -538,13 +542,13 @@ function createVakioOpenAir(params) {
       var threshold = parseFloat(dev[vd][ctrlSmartTempThreshold]);
       var speed = parseInt(dev[vd][ctrlSmartSpeed], 10);
       var s = {
-        temperature_speed: [threshold, speed],
+        temperature_speed: [threshold, speed]
       };
       sendSettings(s);
       log.info(
-        "[" + vd + "] temperature_speed → " + threshold + "°C / speed=" + speed,
+        "[" + vd + "] temperature_speed → " + threshold + "°C / speed=" + speed
       );
-    },
+    }
   });
 
   // --- Порог переохлаждения ---
@@ -552,7 +556,7 @@ function createVakioOpenAir(params) {
     whenChanged: vd + "/" + ctrlShutdownLimit,
     then: function () {
       sendSystem({ shutdown: { limit: dev[vd][ctrlShutdownLimit] } });
-    },
+    }
   });
 
   // ============================================================
@@ -577,7 +581,7 @@ function createVakioOpenAir(params) {
       }
       dbg(
         "RX/system",
-        "auth: mac=" + dev[vd][ctrlMac] + " ver=" + dev[vd][ctrlFwVer],
+        "auth: mac=" + dev[vd][ctrlMac] + " ver=" + dev[vd][ctrlFwVer]
       );
     }
 
@@ -603,7 +607,7 @@ function createVakioOpenAir(params) {
           " series=" +
           ds.series +
           " subtype=" +
-          ds.subtype,
+          ds.subtype
       );
     }
 
@@ -628,7 +632,7 @@ function createVakioOpenAir(params) {
           " MAC=" +
           dev[vd][ctrlMac] +
           " series=" +
-          dev[vd][ctrlSeries],
+          dev[vd][ctrlSeries]
       );
     }
   });
@@ -668,7 +672,7 @@ function createVakioOpenAir(params) {
           " speed=" +
           cap.speed +
           " gate=" +
-          cap.gate,
+          cap.gate
       );
     }
 
@@ -784,7 +788,7 @@ function createVakioOpenAir(params) {
   var _pollCount = 0;
   var _deepInterval = Math.max(
     1,
-    Math.round(deep_poll_interval / polling_interval),
+    Math.round(deep_poll_interval / polling_interval)
   );
 
   // Первый запрос сразу при старте
@@ -802,7 +806,7 @@ function createVakioOpenAir(params) {
         "[" +
           vd +
           "] плановый глубокий опрос #" +
-          Math.floor(_pollCount / _deepInterval),
+          Math.floor(_pollCount / _deepInterval)
       );
     }
 
@@ -825,7 +829,7 @@ function createVakioOpenAir(params) {
       vd +
       "]   Легаси      : " +
       legacyBase +
-      "/{system,temp,hud,state,speed,gate,workmode}",
+      "/{system,temp,hud,state,speed,gate,workmode}"
   );
   log.info("[" + vd + "]   Heartbeat   : каждые " + polling_interval + "с");
   log.info("[" + vd + "]   Глубокий опрос: каждые " + deep_poll_interval + "с");
@@ -835,6 +839,6 @@ function createVakioOpenAir(params) {
       vd +
       "]   Debug       : включить '" +
       ctrlDebugLog +
-      "' в веб-интерфейсе WB",
+      "' в веб-интерфейсе WB"
   );
 }
