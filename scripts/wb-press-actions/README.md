@@ -27,7 +27,7 @@ Other Options:
 - `setDecInterval(value_in_ms)` — interval of decreasing the value by one unit. Default 75 ms.
 
 Notes:
-- A `btnControl` change to 0 is treated as a counter reset (press counters reset when the device is power-cycled or reflashed) and is ignored, so power blinks on the bus do not trigger actions. Side effect: when a counter wraps around 65535 → 0, that one press is lost.
+- An action runs only when `btnControl` **increments**. Press counters live in the device, not in the controller: they reset to 0 when it is power-cycled or reflashed, and can come back with a lower non-zero value when the module is replaced or its firmware is rolled back. Neither is a press, so any decrease is ignored and logged. The previous value is read when the command is registered, so the first real press after a rules engine restart still works; if the counter has no value yet at that point (for example an empty broker right after a controller reboot), the first value that arrives is not treated as a press. Side effect: when a counter wraps around 65535 → 0, that one press is lost.
 - Invalid or duplicate commands are skipped with an error in the wb-rules log; the remaining commands keep working.
 
 See example in file `demo/wb-mcm8-press-actions.js`.

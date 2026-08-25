@@ -13,11 +13,40 @@ function isNonEmptyString(value) {
   return typeof value === 'string' && value.length > 0;
 }
 
-// Press counters on WB devices are stored in the device itself and reset
-// to 0 when it is power-cycled or reflashed. Such a change is not a button
-// press: without this check every power blink on the bus triggers the action.
-function isCounterReset(newValue) {
-  return !newValue;
+function toCounterValue(value) {
+  var number = Number(value);
+  return isFinite(number) ? number : null;
+}
+
+// Press counters live in the WB device, not in the controller. They reset to 0
+// when the module is power-cycled or reflashed, and can come back with a lower
+// non-zero value when the module is replaced or its firmware is rolled back.
+// Neither is a button press, so an action may only run when the counter grew.
+//
+// Returns a guard closure for one command. The previous value is seeded at
+// registration time, so the first real press after a rules engine restart is
+// not swallowed. Every command gets its own closure on purpose: several
+// commands may be bound to the same counter, and with shared state the first
+// rule would consume the change and hide the press from the others.
+function createPressGuard(btnControl) {
+  var lastValue = toCounterValue(dev[btnControl]);
+
+  return function (newValue) {
+    var previous = lastValue;
+    var current = toCounterValue(newValue);
+    lastValue = current;
+
+    if (current === null) return false;   // not a number - nothing to act on
+    if (previous === null) return false;  // first value seen - nothing to compare with
+
+    if (current < previous) {
+      log('wb-press-actions: counter {} went back {} -> {}, not a press',
+        btnControl, previous, current);
+      return false;
+    }
+
+    return current > previous;
+  };
 }
 
 function normalizeInterval(value, fallback) {
@@ -89,30 +118,36 @@ function addAction(item, index) {
 }
 
 function addActionOn(btnControl, actionControl) {
+  var isPress = createPressGuard(btnControl);
+
   defineRule({
     whenChanged: btnControl,
     then: function (newValue) {
-      if (isCounterReset(newValue)) return;
+      if (!isPress(newValue)) return;
       dev[actionControl] = true;
     },
   });
 }
 
 function addActionOff(btnControl, actionControl) {
+  var isPress = createPressGuard(btnControl);
+
   defineRule({
     whenChanged: btnControl,
     then: function (newValue) {
-      if (isCounterReset(newValue)) return;
+      if (!isPress(newValue)) return;
       dev[actionControl] = false;
     },
   });
 }
 
 function addActionToggle(btnControl, actionControl) {
+  var isPress = createPressGuard(btnControl);
+
   defineRule({
     whenChanged: btnControl,
     then: function (newValue) {
-      if (isCounterReset(newValue)) return;
+      if (!isPress(newValue)) return;
       var current = dev[actionControl];
       if (current === null || current === undefined) {
         log.error('wb-press-actions: cannot toggle {}: its value is not available', actionControl);
@@ -126,10 +161,12 @@ function addActionToggle(btnControl, actionControl) {
 function addActionInc(btnControl, stateControl, actionControl, maxValue) {
   var timerName = '{}_{}_inc'.format(btnControl, actionControl);
 
+  var isPress = createPressGuard(btnControl);
+
   defineRule({
     whenChanged: btnControl,
     then: function (newValue) {
-      if (isCounterReset(newValue)) return;
+      if (!isPress(newValue)) return;
       startTicker(timerName, incInterval);
     },
   });
@@ -140,10 +177,12 @@ function addActionInc(btnControl, stateControl, actionControl, maxValue) {
 function addActionDec(btnControl, stateControl, actionControl, minValue) {
   var timerName = '{}_{}_dec'.format(btnControl, actionControl);
 
+  var isPress = createPressGuard(btnControl);
+
   defineRule({
     whenChanged: btnControl,
     then: function (newValue) {
-      if (isCounterReset(newValue)) return;
+      if (!isPress(newValue)) return;
       startTicker(timerName, decInterval);
     },
   });
