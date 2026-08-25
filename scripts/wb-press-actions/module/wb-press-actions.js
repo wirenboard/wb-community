@@ -3,14 +3,73 @@
 var incInterval = 75; //ms
 var decInterval = 75; //ms
 
+// Commands already registered by this module instance, keyed by
+// actionType|btnControl|actionControl. The same command registered twice
+// silently breaks it (two 'toggle' rules cancel each other out, inc/dec
+// tickers run at double speed), so duplicates are rejected.
+var registeredCommands = {};
+
+function isNonEmptyString(value) {
+  return typeof value === 'string' && value.length > 0;
+}
+
+// Press counters on WB devices are stored in the device itself and reset
+// to 0 when it is power-cycled or reflashed. Such a change is not a button
+// press: without this check every power blink on the bus triggers the action.
+function isCounterReset(newValue) {
+  return !newValue;
+}
+
+function normalizeInterval(value, fallback) {
+  var ms = Number(value);
+  if (!isFinite(ms) || ms <= 0) {
+    log.error('wb-press-actions: invalid interval: {}', value);
+    return fallback;
+  }
+  return ms;
+}
+
 function init(commands) {
-  commands.forEach(function (item, i, arr) {
-    addAction(item);
+  if (!Array.isArray(commands)) {
+    log.error('wb-press-actions: init() expects an array of commands');
+    return;
+  }
+  commands.forEach(function (item, i) {
+    try {
+      addAction(item, i);
+    } catch (e) {
+      log.error('wb-press-actions: command #{}: {}', i, e);
+    }
   });
 }
 
-function addAction(item) {
-  switch (item.actionType) {
+function addAction(item, index) {
+  if (!item || !isNonEmptyString(item.btnControl) || !isNonEmptyString(item.actionControl)) {
+    log.error('wb-press-actions: command #{}: btnControl and actionControl are required', index);
+    return;
+  }
+
+  var actionType = item.actionType;
+  if (actionType !== 'on' && actionType !== 'off' && actionType !== 'toggle' &&
+      actionType !== 'inc' && actionType !== 'dec') {
+    log.error('wb-press-actions: command #{}: unknown actionType: {}', index, actionType);
+    return;
+  }
+
+  if ((actionType === 'inc' || actionType === 'dec') && !isNonEmptyString(item.stateControl)) {
+    log.error('wb-press-actions: command #{}: stateControl is required for actionType "{}"', index, actionType);
+    return;
+  }
+
+  var commandKey = '{}|{}|{}'.format(actionType, item.btnControl, item.actionControl);
+  if (registeredCommands[commandKey]) {
+    log.error('wb-press-actions: command #{}: duplicate command "{}" {} -> {}, skipping',
+      index, actionType, item.btnControl, item.actionControl);
+    return;
+  }
+  registeredCommands[commandKey] = true;
+
+  switch (actionType) {
     case 'on':
       addActionOn(item.btnControl, item.actionControl);
       break;
@@ -26,16 +85,14 @@ function addAction(item) {
     case 'dec':
       addActionDec(item.btnControl, item.stateControl, item.actionControl, item.minValue);
       break;
-    default:
-      log('Unknown actionType: {}', item.actionType);
-      break;
   }
 }
 
 function addActionOn(btnControl, actionControl) {
   defineRule({
     whenChanged: btnControl,
-    then: function (newValue, devName, cellName) {
+    then: function (newValue) {
+      if (isCounterReset(newValue)) return;
       dev[actionControl] = true;
     },
   });
@@ -44,7 +101,8 @@ function addActionOn(btnControl, actionControl) {
 function addActionOff(btnControl, actionControl) {
   defineRule({
     whenChanged: btnControl,
-    then: function (newValue, devName, cellName) {
+    then: function (newValue) {
+      if (isCounterReset(newValue)) return;
       dev[actionControl] = false;
     },
   });
@@ -53,36 +111,48 @@ function addActionOff(btnControl, actionControl) {
 function addActionToggle(btnControl, actionControl) {
   defineRule({
     whenChanged: btnControl,
-    then: function (newValue, devName, cellName) {
-      dev[actionControl] = !dev[actionControl];
+    then: function (newValue) {
+      if (isCounterReset(newValue)) return;
+      var current = dev[actionControl];
+      if (current === null || current === undefined) {
+        log.error('wb-press-actions: cannot toggle {}: its value is not available', actionControl);
+        return;
+      }
+      dev[actionControl] = !current;
     },
   });
 }
 
 function addActionInc(btnControl, stateControl, actionControl, maxValue) {
+  var timerName = '{}_{}_inc'.format(btnControl, actionControl);
+
   defineRule({
     whenChanged: btnControl,
-    then: function (newValue, devName, cellName) {
-      startTicker('{}_{}_inc'.format(btnControl, actionControl), incInterval);
+    then: function (newValue) {
+      if (isCounterReset(newValue)) return;
+      startTicker(timerName, incInterval);
     },
   });
 
-  initActionInc(btnControl, stateControl, actionControl, maxValue);
+  initActionInc(timerName, stateControl, actionControl, maxValue);
 }
 
 function addActionDec(btnControl, stateControl, actionControl, minValue) {
+  var timerName = '{}_{}_dec'.format(btnControl, actionControl);
+
   defineRule({
     whenChanged: btnControl,
-    then: function (newValue, devName, cellName) {
-      startTicker('{}_{}_dec'.format(btnControl, actionControl), decInterval);
+    then: function (newValue) {
+      if (isCounterReset(newValue)) return;
+      startTicker(timerName, decInterval);
     },
   });
 
-  initActionDec(btnControl, stateControl, actionControl, minValue);
+  initActionDec(timerName, stateControl, actionControl, minValue);
 }
 
-function initActionInc(btnControl, stateControl, actionControl, maxValue) {
-  var timerName = '{}_{}_inc'.format(btnControl, actionControl);
+function initActionInc(timerName, stateControl, actionControl, maxValue) {
+  if (maxValue == undefined) maxValue = 100;
 
   defineRule({
     when: function () {
@@ -90,27 +160,20 @@ function initActionInc(btnControl, stateControl, actionControl, maxValue) {
     },
     then: function () {
       var i = dev[actionControl];
-      if(i === null || i === undefined) {
-          log.error("Cannot make initActionInc: current actionControl ({}) value of btnControl ({}) is empty".format(actionControl, btnControl))
-          timers[timerName].stop()
-          return
+      if (i === null || i === undefined) {
+        log.error('wb-press-actions: cannot inc {}: its value is not available', actionControl);
+        timers[timerName].stop();
+        return;
       }
-      if(stateControl === null || stateControl === undefined) {
-          log.error("Cannot make initActionInc: stateControl name ({}) of btnControl {} is empty".format(stateControl, btnControl))
-          timers[timerName].stop()
-          return
+      var currentStateControlVal = dev[stateControl];
+      if (currentStateControlVal === null || currentStateControlVal === undefined) {
+        log.error('wb-press-actions: cannot inc {}: {} value is not available', actionControl, stateControl);
+        timers[timerName].stop();
+        return;
       }
-      var currentStateControlVal = dev[stateControl]
-      if(currentStateControlVal === null || currentStateControlVal === undefined) {
-	  log.error("Cannot make initActionInc: current stateControl ({}) value of btnControl {} is empty".format(stateControl, btnControl))
-          timers[timerName].stop()
-	  return
-      }
-      if (maxValue == undefined) maxValue = 100;
 
       if (i < maxValue && currentStateControlVal) {
-        i++;
-        dev[actionControl] = i;
+        dev[actionControl] = Math.min(i + 1, maxValue);
       } else {
         timers[timerName].stop();
       }
@@ -118,8 +181,8 @@ function initActionInc(btnControl, stateControl, actionControl, maxValue) {
   });
 }
 
-function initActionDec(btnControl, stateControl, actionControl, minValue) {
-  var timerName = '{}_{}_dec'.format(btnControl, actionControl);
+function initActionDec(timerName, stateControl, actionControl, minValue) {
+  if (minValue == undefined) minValue = 0;
 
   defineRule({
     when: function () {
@@ -127,27 +190,20 @@ function initActionDec(btnControl, stateControl, actionControl, minValue) {
     },
     then: function () {
       var i = dev[actionControl];
-      if(i === null || i === undefined) {
-          log.error("Cannot make initActionDec: current actionControl ({}) value of btnControl ({}) is empty".format(actionControl, btnControl))
-          timers[timerName].stop()
-          return
+      if (i === null || i === undefined) {
+        log.error('wb-press-actions: cannot dec {}: its value is not available', actionControl);
+        timers[timerName].stop();
+        return;
       }
-      if(stateControl === null || stateControl === undefined) {
-          log.error("Cannot make initActionDec: stateControl name ({}) of btnControl {} is empty".format(stateControl, btnControl))
-          timers[timerName].stop()
-          return
+      var currentStateControlVal = dev[stateControl];
+      if (currentStateControlVal === null || currentStateControlVal === undefined) {
+        log.error('wb-press-actions: cannot dec {}: {} value is not available', actionControl, stateControl);
+        timers[timerName].stop();
+        return;
       }
-      var currentStateControlVal = dev[stateControl]
-      if(currentStateControlVal === null || currentStateControlVal === undefined) {
-	  log.error("Cannot make initActionDec: current stateControl ({}) value of btnControl {} is empty".format(stateControl, btnControl))
-          timers[timerName].stop()
-	  return
-      }
-      if (minValue == undefined) minValue = 0;
 
       if (i > minValue && currentStateControlVal) {
-        i--;
-        dev[actionControl] = i;
+        dev[actionControl] = Math.max(i - 1, minValue);
       } else {
         timers[timerName].stop();
       }
@@ -156,11 +212,9 @@ function initActionDec(btnControl, stateControl, actionControl, minValue) {
 }
 
 exports.setIncInterval = function (value) {
-  incInterval = value;
+  incInterval = normalizeInterval(value, incInterval);
 };
 exports.setDecInterval = function (value) {
-  decInterval = value;
+  decInterval = normalizeInterval(value, decInterval);
 };
-exports.init = function (commands) {
-  init(commands);
-};
+exports.init = init;
