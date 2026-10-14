@@ -1,5 +1,6 @@
 {
     "device_type": "shojzj-ty-bac009",
+    "title": "SHOJZJ TY-BAC009",
     "group": "g-thermostat",
 
     "device": {
@@ -8,10 +9,12 @@
 
         "groups": [
             {
-                "id": "g_control"
+                "id": "g_control",
+                "title": "Control"
             },
             {
-                "id": "g_status"
+                "id": "g_status",
+                "title": "Status"
             }
         ],
 
@@ -86,11 +89,6 @@
 
         "translations": {
             "en": {
-                "shojzj-ty-bac009": "SHOJZJ TY-BAC009",
-
-                "g_control": "Control",
-                "g_status": "Status",
-
                 "power": "Power",
                 "mode": "Mode",
                 "setpoint": "Temperature Setpoint",
@@ -115,10 +113,8 @@
                 "fan_speed_status_enum_3": "High"
             },
             "ru": {
-                "shojzj-ty-bac009": "SHOJZJ TY-BAC009",
-
-                "g_control": "Управление",
-                "g_status": "Состояние",
+                "Control": "Управление",
+                "Status": "Состояние",
 
                 "power": "Включение",
                 "mode": "Режим работы",
