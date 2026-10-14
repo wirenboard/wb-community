@@ -1,0 +1,144 @@
+{
+    "device_type": "shojzj-ty-bac009",
+    "title": "SHOJZJ TY-BAC009",
+    "group": "g-thermostat",
+
+    "device": {
+        "name": "SHOJZJ TY-BAC009",
+        "id": "shojzj_ty_bac009",
+
+        "groups": [
+            {
+                "id": "g_control",
+                "title": "Control"
+            },
+            {
+                "id": "g_status",
+                "title": "Status"
+            }
+        ],
+
+        "channels": [
+            {
+                "name": "power",
+                "reg_type": "holding",
+                "address": 0,
+                "type": "switch",
+                "group": "g_control"
+            },
+            {
+                "name": "mode",
+                "reg_type": "holding",
+                "address": 2,
+                "enum": [0, 1, 2],
+                "enum_titles": ["mode_enum_0", "mode_enum_1", "mode_enum_2"],
+                "group": "g_control"
+            },
+            {
+                "name": "setpoint",
+                "reg_type": "holding",
+                "address": 3,
+                "scale": 0.1,
+                "units": "deg C",
+                "min": 5,
+                "max": 35,
+                "group": "g_control"
+            },
+            {
+                "name": "fan_speed",
+                "reg_type": "holding",
+                "address": 1,
+                "enum": [0, 1, 2, 3],
+                "enum_titles": ["fan_speed_enum_0", "fan_speed_enum_1", "fan_speed_enum_2", "fan_speed_enum_3"],
+                "group": "g_control"
+            },
+            {
+                "name": "keylock",
+                "reg_type": "holding",
+                "address": 4,
+                "type": "switch",
+                "group": "g_control"
+            },
+            {
+                "name": "temperature",
+                "reg_type": "holding",
+                "address": 8,
+                "scale": 0.1,
+                "units": "deg C",
+                "readonly": true,
+                "group": "g_status"
+            },
+            {
+                "name": "valve",
+                "reg_type": "holding",
+                "address": 9,
+                "type": "switch",
+                "readonly": true,
+                "group": "g_status"
+            },
+            {
+                "name": "fan_speed_status",
+                "reg_type": "holding",
+                "address": 10,
+                "enum": [0, 1, 2, 3],
+                "enum_titles": ["fan_speed_status_enum_0", "fan_speed_status_enum_1", "fan_speed_status_enum_2", "fan_speed_status_enum_3"],
+                "readonly": true,
+                "group": "g_status"
+            }
+        ],
+
+        "translations": {
+            "en": {
+                "power": "Power",
+                "mode": "Mode",
+                "setpoint": "Temperature Setpoint",
+                "fan_speed": "Fan Speed",
+                "keylock": "Keypad Lock",
+                "temperature": "Room Temperature",
+                "valve": "Valve",
+                "fan_speed_status": "Current Fan Speed",
+
+                "mode_enum_0": "Auto",
+                "mode_enum_1": "Manual",
+                "mode_enum_2": "Ventilation",
+
+                "fan_speed_enum_0": "Auto",
+                "fan_speed_enum_1": "Low",
+                "fan_speed_enum_2": "Medium",
+                "fan_speed_enum_3": "High",
+
+                "fan_speed_status_enum_0": "Auto",
+                "fan_speed_status_enum_1": "Low",
+                "fan_speed_status_enum_2": "Medium",
+                "fan_speed_status_enum_3": "High"
+            },
+            "ru": {
+                "Control": "Управление",
+                "Status": "Состояние",
+
+                "power": "Включение",
+                "mode": "Режим работы",
+                "setpoint": "Уставка температуры",
+                "fan_speed": "Скорость вентилятора",
+                "keylock": "Блокировка кнопок",
+                "temperature": "Температура в помещении",
+                "valve": "Клапан",
+                "fan_speed_status": "Текущая скорость вентилятора",
+
+                "mode_enum_0": "Авто",
+                "mode_enum_1": "Ручной",
+                "mode_enum_2": "Вентиляция",
+
+                "fan_speed_enum_0": "Авто",
+                "fan_speed_enum_1": "Низкая",
+                "fan_speed_enum_2": "Средняя",
+                "fan_speed_enum_3": "Высокая",
+
+                "fan_speed_status_enum_0": "Авто",
+                "fan_speed_status_enum_1": "Низкая",
+                "fan_speed_status_enum_2": "Средняя",
+                "fan_speed_status_enum_3": "Высокая"
+            }
+        }
+    }
+}
