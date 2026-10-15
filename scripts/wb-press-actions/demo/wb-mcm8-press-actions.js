@@ -1,4 +1,4 @@
-// Demo for https://github.com/wirenboard/wb-community/tree/main/wb-press-actions
+// Demo for https://github.com/wirenboard/wb-community/tree/main/scripts/wb-press-actions
 
 var pa = require('wb-press-actions');
 
